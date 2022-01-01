@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: 'gatsby-starter-rk',
-    titleTemplate: '%s | gatsby-starter-rk',
-    siteUrl: 'https://gatsby-starter-rk.io',
+    title: 'reesekimm.io',
+    titleTemplate: '%s | reesekimm.io',
+    siteUrl: 'https://reesekimm.io',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -33,8 +33,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-rk`,
-        short_name: `gatsby-starter-rk`,
+        name: `reesekimm.io`,
+        short_name: `reesekimm`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#15db95`,
@@ -89,7 +89,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: "gatsby-starter-rk's RSS Feed",
+            title: "reesekimm.io's RSS Feed",
           },
         ],
       },
