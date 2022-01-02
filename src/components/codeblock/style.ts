@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Pre = styled.pre`
+  font-family: ${({ theme }) => theme.fontFamily.monospace};
   text-align: left;
   font-size: 1.4rem;
   line-height: 2rem;

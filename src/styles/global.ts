@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body {
+    font-family: ${({ theme }) => theme.fontFamily.default};
     font-size: 1.6rem;
     line-height: 2.2rem;
     color: ${({ theme }) => theme.colors.text};
@@ -76,6 +77,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   code {
+    font-family: ${({ theme }) => theme.fontFamily.monospace};
+    font-size: ${({ theme }) => theme.fontSize.xs};
     color: ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.primary};
     padding: 0.3rem 0.5rem;
