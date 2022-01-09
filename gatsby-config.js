@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: 'blog.reesekimm.com',
-    titleTemplate: '%s | blog.reesekimm.com',
+    title: 'reesekimm',
+    titleTemplate: '%s | reesekimm',
     siteUrl: 'https://blog.reesekimm.com',
   },
   plugins: [
