@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledBody = styled.main`
-  max-width: 104rem;
+  width: 100%;
   flex: 1;
 
   box-sizing: border-box;

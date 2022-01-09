@@ -14,4 +14,5 @@ export const Date = styled.span`
 export const Title = styled.h2`
   color: ${({ theme }) => theme.colors.text};
   margin: 0;
+  padding: 0.8rem 0;
 `

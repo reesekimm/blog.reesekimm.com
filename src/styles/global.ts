@@ -19,7 +19,9 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
 
     #___gatsby, #gatsby-focus-wrapper {
-      height: 100%
+      max-width: 104rem;
+      height: 100%;
+      margin: 0 auto;
     }
 
     #gatsby-focus-wrapper {
