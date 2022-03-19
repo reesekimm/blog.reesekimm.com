@@ -20,7 +20,7 @@ const commonStyles = {
   },
   fontSize: {
     xs: '1.4rem',
-    sm: '1.6rme',
+    sm: '1.8rem',
     md: '2.4rem',
     lg: '3.6rem',
     xl: '4.8rem',

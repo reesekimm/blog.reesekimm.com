@@ -7,7 +7,7 @@ export const StyledFooter = styled.footer`
 export const Container = styled.div`
   max-width: 104rem;
 
-  padding: 4rem;
+  padding: 10rem;
   margin: 0 auto;
 
   text-align: center;

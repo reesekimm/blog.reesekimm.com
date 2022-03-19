@@ -24,6 +24,7 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   margin: 0;
+  padding: 0;
 
   font-size: 2rem;
   font-weight: 900;

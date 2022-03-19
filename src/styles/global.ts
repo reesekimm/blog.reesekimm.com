@@ -8,11 +8,12 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     font-size: 10px;
   }
-  
+
   body {
     font-family: ${({ theme }) => theme.fontFamily.default};
-    font-size: 1.6rem;
-    line-height: 2.2rem;
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    line-height: 3rem;
+
     color: ${({ theme }) => theme.colors.text};
     background: ${({ theme }) => theme.colors.background};
 
@@ -36,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   li {
-    padding: 0.5rem;
+    padding: 1rem;
   }
 
   h1, h2, h3, h4, h5 {
@@ -44,33 +45,33 @@ const GlobalStyle = createGlobalStyle`
     word-break: keep-all;
   }
 
-  h1{
+  h1 {
     font-size: ${({ theme }) => theme.fontSize.xl};
-    padding: 2rem 0;
     line-height: 5.2rem;
+    padding: 4rem 0;
   }
 
-  h2{
+  h2 {
     font-size: ${({ theme }) => theme.fontSize.lg};
-    padding: 1.6rem 0;
     line-height: 4rem;
+    padding: 2rem 0;
   }
 
   h3 {
     font-size: ${({ theme }) => theme.fontSize.md};
-    padding: 1.2rem 0;
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
     line-height: 3rem;
+    padding: 1rem 0;
   }
 
   h4 {
-    padding: 1.2rem 0;
-    line-height: 2rem;
+    padding: 1rem 0;
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
   }
   
   p {
-    font-size: ${({ theme }) => theme.fontSize.sm};
     margin: 0;
-    line-height: 2.8rem;
+    line-height: 3rem;
   }
 
   a {
@@ -83,8 +84,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: ${({ theme }) => theme.fontSize.xs};
     color: ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.primary};
-    padding: 0.3rem 0.5rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 5px;
+    margin: 0 0.3rem;
   }
 
   blockquote {
@@ -95,7 +97,7 @@ const GlobalStyle = createGlobalStyle`
 
   table {
     width: 100%;
-    margin: 2rem 0;
+    margin: 5rem 0;
     border-collapse: separate; 
     border-spacing: 0;
   }
@@ -112,6 +114,7 @@ const GlobalStyle = createGlobalStyle`
     height: 0.1rem;
     border: none;
     background: ${({ theme }) => theme.colors.gray1};
+    margin: 7rem 0;
   }
 
   img {
