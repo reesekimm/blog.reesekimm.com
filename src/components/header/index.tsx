@@ -1,5 +1,7 @@
 import React from 'react'
 import { graphql, Link, useStaticQuery } from 'gatsby'
+import { LightMode } from '@styled-icons/material-rounded/LightMode'
+import { Nightlight } from '@styled-icons/material-rounded/Nightlight'
 import { Button, Container, StyledHeader, Title } from './style'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { selectAppState, switchMode } from '../../state/appSlice'
@@ -28,7 +30,7 @@ const Header = () => {
         <Title>
           <Link to="/">{data.site.siteMetadata.title}</Link>
         </Title>
-        <Button onClick={toggleMode}>{mode === 'dark' ? 'Light' : 'Dark'}</Button>
+        <Button onClick={toggleMode}>{mode === 'dark' ? <LightMode size="2rem" /> : <Nightlight size="2rem" />}</Button>
       </Container>
     </StyledHeader>
   )

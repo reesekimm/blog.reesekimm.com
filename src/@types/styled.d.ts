@@ -26,11 +26,15 @@ declare module 'styled-components' {
       bold: number
     }
     fontSize: {
-      xs: string
       sm: string
       md: string
       lg: string
       xl: string
+    }
+    device: {
+      mobile: string
+      tablet: string
+      desktop: string
     }
   }
 }

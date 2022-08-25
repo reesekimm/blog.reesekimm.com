@@ -11,15 +11,12 @@ export const StyledHeader = styled.header`
 `
 
 export const Container = styled.div`
-  max-width: 104rem;
-
   box-sizing: border-box;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2.4rem;
-  margin: 0 auto;
 `
 
 export const Title = styled.h1`
@@ -36,8 +33,7 @@ export const Title = styled.h1`
 
 export const Button = styled.button`
   color: ${({ theme }) => theme.colors.text};
-  background: transparent;
+  font-size: ${({ theme }) => theme.fontSize.md};
   padding: 1rem;
-  border: none;
-  cursor: pointer;
+  padding-right: 0;
 `

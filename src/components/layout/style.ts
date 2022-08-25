@@ -6,5 +6,9 @@ export const StyledBody = styled.main`
 
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 11.6rem 2.4rem 4rem;
+  padding: 10rem 2.4rem 4rem;
+`
+export const PageTitle = styled.h2`
+  font-size: 5rem;
+  margin-top: 0;
 `

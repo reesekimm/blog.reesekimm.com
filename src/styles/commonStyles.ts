@@ -10,20 +10,24 @@ const commonStyles = {
     black: '#212121',
   },
   fontFamily: {
-    default: '"Noto Sans KR", sans-serif',
+    default: '"IBM Plex Sans KR", sans-serif',
     monospace: '"Roboto Mono", monospace',
   },
   fontWeight: {
-    regular: 400,
-    medium: 600,
-    bold: 900,
+    regular: 300,
+    medium: 500,
+    bold: 700,
   },
   fontSize: {
-    xs: '1.4rem',
-    sm: '1.8rem',
-    md: '2.4rem',
-    lg: '3.6rem',
-    xl: '4.8rem',
+    sm: '1rem',
+    md: '1.6rem',
+    lg: '2.125rem',
+    xl: '2.8rem',
+  },
+  device: {
+    mobile: 'only screen and (max-width: 480px)',
+    tablet: 'only screen and (min-width: 768px)',
+    desktop: 'only screen and (min-width: 1024px)',
   },
 }
 

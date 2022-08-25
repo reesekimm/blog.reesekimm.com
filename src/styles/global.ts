@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: ${({ theme }) => theme.fontFamily.default};
-    font-size: ${({ theme }) => theme.fontSize.sm};
+    font-size: ${({ theme }) => theme.fontSize.md};
     line-height: 3rem;
 
     color: ${({ theme }) => theme.colors.text};
@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
 
     #___gatsby, #gatsby-focus-wrapper {
-      max-width: 104rem;
+      max-width: 102.4rem;
       height: 100%;
       margin: 0 auto;
     }
@@ -46,42 +46,40 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: ${({ theme }) => theme.fontSize.xl};
-    line-height: 5.2rem;
+    font-size: 6rem;
     padding: 4rem 0;
   }
 
   h2 {
-    font-size: ${({ theme }) => theme.fontSize.lg};
-    line-height: 4rem;
+    font-size: 3.75rem;
     padding: 2rem 0;
   }
 
   h3 {
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: 3rem;
     font-weight: ${({ theme }) => theme.fontWeight.medium};
-    line-height: 3rem;
     padding: 1rem 0;
   }
 
   h4 {
-    padding: 1rem 0;
+    font-size: 2.125rem;
     font-weight: ${({ theme }) => theme.fontWeight.medium};
+    padding: 1rem 0;
   }
-  
+
   p {
     margin: 0;
     line-height: 3rem;
   }
 
-  a {
+  a, a:visited {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
   }
 
   code {
     font-family: ${({ theme }) => theme.fontFamily.monospace};
-    font-size: ${({ theme }) => theme.fontSize.xs};
+    font-size: ${({ theme }) => theme.fontSize.md};
     color: ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.primary};
     padding: 0.2rem 0.5rem;
@@ -98,7 +96,7 @@ const GlobalStyle = createGlobalStyle`
   table {
     width: 100%;
     margin: 5rem 0;
-    border-collapse: separate; 
+    border-collapse: separate;
     border-spacing: 0;
   }
 
@@ -119,6 +117,13 @@ const GlobalStyle = createGlobalStyle`
 
   img {
     max-width: 100%;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
   }
 `
 export default GlobalStyle
