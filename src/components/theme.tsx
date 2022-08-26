@@ -8,6 +8,7 @@ import { useAppSelector } from '../state/hooks'
 import { selectAppState } from '../state/appSlice'
 import CodeBlock from './codeblock'
 import Link from './link'
+import LinkedHeading from './linkedHeading'
 
 const themeMap = {
   light: lightTheme,
@@ -17,6 +18,10 @@ const themeMap = {
 const components = {
   pre: CodeBlock,
   a: Link,
+  h2: LinkedHeading.h2,
+  h3: LinkedHeading.h3,
+  h4: LinkedHeading.h4,
+  h5: LinkedHeading.h5,
 }
 
 interface ThemeProps {
