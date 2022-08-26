@@ -7,8 +7,8 @@ const darkTheme: DefaultTheme = {
     ...commonStyles.colors,
     text: '#fff',
     background: '#212121',
-    primary: '#89d6b6',
-    secondary: '#a5b4ff',
+    primary: '#66ccad',
+    secondary: '#9fadf4',
   },
 }
 

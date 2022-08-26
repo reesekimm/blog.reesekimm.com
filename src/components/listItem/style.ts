@@ -14,6 +14,7 @@ export const Container = styled.li`
 
 export const Date = styled.time`
   font-size: 1.6rem;
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   color: ${({ theme }) => theme.colors.gray4};
   display: block;
   @media ${({ theme }) => theme.device.mobile} {

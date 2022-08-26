@@ -19,7 +19,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
         <Theme>
           <Header />
           <StyledBody>
-            <PageTitle>{pageTitle}</PageTitle>
+            {pageTitle && <PageTitle>{pageTitle}</PageTitle>}
             {children}
           </StyledBody>
           <Footer />
