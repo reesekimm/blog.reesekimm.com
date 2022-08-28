@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const PageHeader = styled.div`
   color: ${({ theme }) => theme.colors.text};
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
   text-align: center;
 `
 
@@ -11,12 +11,12 @@ export const Date = styled.time`
   color: ${({ theme }) => theme.colors.gray3};
   display: block;
   width: 100%;
+  margin-bottom: 2rem;
 `
 
 export const Title = styled.h1`
   color: ${({ theme }) => theme.colors.text};
   margin: 0;
-  margin-top: 1rem;
   padding: 0.8rem 0;
 `
 
