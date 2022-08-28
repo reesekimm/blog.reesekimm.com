@@ -2,19 +2,9 @@ import * as React from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import Layout from '../components/layout'
-import { PageHeader, Date, Subtitle, Title, PageBody, TocWrapper, MarkdownWrapper } from '../components/post/style'
+import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from '../components/post/style'
 import SEO from '../components/seo'
-
-function generateToc(toc) {
-  return toc.items.map(({ title, url }) => {
-    const href = `#${title}`
-    return (
-      <li key={url}>
-        <a href={href}>{title}</a>
-      </li>
-    )
-  })
-}
+import TableOfContents from '../components/TableOfContents'
 
 const BlogPost = ({ data }) => {
   const {
@@ -33,9 +23,7 @@ const BlogPost = ({ data }) => {
         <Subtitle>{subtitle}</Subtitle>
       </PageHeader>
       <PageBody>
-        <TocWrapper>
-          <ul>{generateToc(tableOfContents)}</ul>
-        </TocWrapper>
+        <TableOfContents tocItems={tableOfContents.items} />
         <MarkdownWrapper>
           <MDXRenderer>{data.mdx.body}</MDXRenderer>
         </MarkdownWrapper>

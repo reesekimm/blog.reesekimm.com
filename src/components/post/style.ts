@@ -37,22 +37,6 @@ export const PageBody = styled.div`
   }
 `
 
-export const TocWrapper = styled.aside`
-  width: 20rem;
-  height: fit-content;
-  position: sticky;
-  top: 7rem;
-  padding: 1.6rem;
-  margin-right: 2.4rem;
-  box-sizing: border-box;
-  background-color: blueviolet;
-  display: none;
-
-  @media ${({ theme }) => theme.device.tablet} {
-    display: block;
-  }
-`
-
 export const MarkdownWrapper = styled.article`
   flex: 1;
 `
