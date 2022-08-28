@@ -27,7 +27,7 @@ const commonStyles = {
   device: {
     mobile: 'only screen and (max-width: 480px)',
     tablet: 'only screen and (min-width: 768px)',
-    desktop: 'only screen and (min-width: 1400px)',
+    desktop: 'only screen and (min-width: 1200px)',
   },
 }
 
