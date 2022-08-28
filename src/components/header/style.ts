@@ -1,13 +1,16 @@
 import styled from 'styled-components'
 
-export const StyledHeader = styled.header`
+export const StyledHeader = styled.header<{ showing: boolean }>`
   width: 100%;
 
   position: fixed;
-  top: 0;
+  top: ${({ showing }) => (showing ? '0' : '-10rem')};
   left: 0;
 
+  transition: top 0.3s;
+
   background: ${({ theme }) => theme.colors.background};
+  box-shadow: 0 4px 9px 0 rgb(0 0 0 / 5%);
   z-index: 10;
 `
 

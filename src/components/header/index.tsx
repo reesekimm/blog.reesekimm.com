@@ -6,7 +6,11 @@ import { Button, Container, StyledHeader, Title } from './style'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { selectAppState, switchMode } from '../../state/appSlice'
 
-const Header = () => {
+interface HeaderProps {
+  showing: boolean
+}
+
+const Header = ({ showing }: HeaderProps) => {
   const data = useStaticQuery(graphql`
     query getSiteMetadata {
       site {
@@ -25,7 +29,7 @@ const Header = () => {
   }
 
   return (
-    <StyledHeader>
+    <StyledHeader showing={showing}>
       <Container>
         <Title>
           <Link to="/">{data.site.siteMetadata.title}</Link>

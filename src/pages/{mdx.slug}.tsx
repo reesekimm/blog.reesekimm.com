@@ -12,8 +12,6 @@ const BlogPost = ({ data }) => {
     tableOfContents,
   } = data.mdx
 
-  console.log('[tableOfContents]', tableOfContents)
-
   return (
     <Layout>
       <SEO title={title} article={true} />
@@ -23,10 +21,10 @@ const BlogPost = ({ data }) => {
         <Subtitle>{subtitle}</Subtitle>
       </PageHeader>
       <PageBody>
+        <TableOfContents tocItems={tableOfContents.items} />
         <MarkdownWrapper>
           <MDXRenderer>{data.mdx.body}</MDXRenderer>
         </MarkdownWrapper>
-        <TableOfContents tocItems={tableOfContents.items} />
       </PageBody>
     </Layout>
   )

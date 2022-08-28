@@ -14,21 +14,7 @@ export const Container = styled.aside`
   font-size: 1.4rem;
   display: none;
 
-  a,
-  a:visited {
-    color: ${({ theme }) => theme.colors.gray3};
-  }
-
-  ol {
-    margin: 0;
-  }
-
-  li {
-    padding: 0 0 0 1.5rem;
-    line-height: 1.4;
-  }
-
-  @media ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.device.desktop} {
     display: block;
   }
 `
@@ -52,5 +38,21 @@ export const TocHeader = styled.summary<TocHeaderProps>`
     cursor: pointer;
     transform: ${({ showItems }) => `rotate(${showItems ? '0deg' : '180deg'})`};
     transition: 0.2s;
+  }
+`
+
+export const TocItem = styled.ol`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    padding: 0 0 0 1.5rem;
+    line-height: 1.4;
+  }
+
+  a,
+  a:visited {
+    color: ${({ theme }) => theme.colors.gray3};
   }
 `

@@ -10,14 +10,13 @@ const Home = ({ data }) => {
     <Layout pageTitle="All Posts">
       <SEO title="All Posts" article={false} />
       <List style={{ listStyle: 'none', padding: 0 }}>
-        {data.allMdx.nodes.map(({ id, slug, frontmatter, excerpt }) => (
+        {data.allMdx.nodes.map(({ id, slug, frontmatter }) => (
           <ListItem
             key={id}
             path={slug}
             title={frontmatter.title}
             subtitle={frontmatter.subtitle}
             date={frontmatter.date}
-            preview={excerpt}
           />
         ))}
       </List>

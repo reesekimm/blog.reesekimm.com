@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { ChevronUp } from '@styled-icons/ionicons-outline/ChevronUp'
-import { Container, TocHeader } from './style'
+import { Container, TocHeader, TocItem } from './style'
+import { useAppDispatch } from '../../state/hooks'
+import { toggleHeaderTransition } from '../../state/appSlice'
 
 interface Item {
   title: string
@@ -12,19 +14,27 @@ interface TableOfContentsProps {
   tocItems: Item[] | undefined
 }
 
-function generateItems(items: Item[]) {
+function generateTocItems(items: Item[]) {
+  const dispatch = useAppDispatch()
+
+  const disableHeaderTransition = () => {
+    dispatch(toggleHeaderTransition(false))
+  }
+
   return (
-    <ol style={{ listStyle: 'none', padding: 0 }}>
+    <TocItem>
       {items.map((item) => {
         const href = `#${item.title}`
         return (
           <li key={item.url}>
-            <a href={href}>{item.title}</a>
-            {item.items && generateItems(item.items)}
+            <a href={href} onClick={disableHeaderTransition}>
+              {item.title}
+            </a>
+            {item.items && generateTocItems(item.items)}
           </li>
         )
       })}
-    </ol>
+    </TocItem>
   )
 }
 
@@ -41,7 +51,7 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
         Table of Contents
         <ChevronUp size="2.4rem" onClick={toggleItems} />
       </TocHeader>
-      {showing && tocItems ? generateItems(tocItems) : null}
+      {showing && tocItems ? generateTocItems(tocItems) : null}
     </Container>
   )
 }
