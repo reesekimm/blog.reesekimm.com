@@ -26,18 +26,19 @@ export const TocHeader = styled.summary<TocHeaderProps>`
   }
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+
+  cursor: pointer;
 
   color: ${({ theme }) => theme.colors.gray3};
   font-size: ${({ theme }) => theme.fontSize.md};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
 
   svg {
-    cursor: pointer;
     transform: ${({ showItems }) => `rotate(${showItems ? '0deg' : '180deg'})`};
-    transition: 0.2s;
+    transition: transform 0.2s;
+    margin-left: 0.5rem;
   }
 `
 

@@ -47,9 +47,9 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
 
   return (
     <Container>
-      <TocHeader showItems={showing}>
+      <TocHeader showItems={showing} onClick={toggleItems}>
         Table of Contents
-        <ChevronUp size="2.4rem" onClick={toggleItems} />
+        <ChevronUp size="2.4rem" />
       </TocHeader>
       {showing && tocItems ? generateTocItems(tocItems) : null}
     </Container>
