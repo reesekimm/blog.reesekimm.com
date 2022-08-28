@@ -36,5 +36,6 @@ declare module 'styled-components' {
       tablet: string
       desktop: string
     }
+    boxShadow: string
   }
 }

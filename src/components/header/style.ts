@@ -10,7 +10,7 @@ export const StyledHeader = styled.header<{ showing: boolean }>`
   transition: top 0.3s;
 
   background: ${({ theme }) => theme.colors.background};
-  box-shadow: 0 4px 9px 0 rgb(0 0 0 / 5%);
+  box-shadow: ${({ theme }) => theme.boxShadow};
   z-index: 10;
 `
 

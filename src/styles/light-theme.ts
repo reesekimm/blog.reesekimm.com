@@ -10,6 +10,7 @@ const lightTheme: DefaultTheme = {
     primary: '#15db95',
     secondary: '#304FFE',
   },
+  boxShadow: '0 4px 12px 0 rgb(0 0 0 / 3%)',
 }
 
 export default lightTheme
