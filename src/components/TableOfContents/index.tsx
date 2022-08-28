@@ -1,5 +1,6 @@
-import React from 'react'
-import { Container } from './style'
+import React, { useState } from 'react'
+import { ChevronUp } from '@styled-icons/ionicons-outline/ChevronUp'
+import { Container, TocHeader } from './style'
 
 interface Item {
   title: string
@@ -28,5 +29,19 @@ function generateItems(items: Item[]) {
 }
 
 export default function TableOfContents({ tocItems }: TableOfContentsProps) {
-  return <Container>{tocItems ? generateItems(tocItems) : null}</Container>
+  const [showing, setShowing] = useState(true)
+
+  const toggleItems = () => {
+    setShowing(!showing)
+  }
+
+  return (
+    <Container>
+      <TocHeader showItems={showing}>
+        Table of Contents
+        <ChevronUp size="2.4rem" onClick={toggleItems} />
+      </TocHeader>
+      {showing && tocItems ? generateItems(tocItems) : null}
+    </Container>
+  )
 }
