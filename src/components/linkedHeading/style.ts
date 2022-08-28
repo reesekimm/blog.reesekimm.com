@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  a {
+  a,
+  a:visited {
     color: ${({ theme }) => theme.colors.text};
 
     svg {

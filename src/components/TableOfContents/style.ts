@@ -9,7 +9,8 @@ export const Container = styled.aside`
   box-sizing: border-box;
   display: none;
 
-  a {
+  a,
+  a:visited {
     color: ${({ theme }) => theme.colors.gray3};
   }
 
