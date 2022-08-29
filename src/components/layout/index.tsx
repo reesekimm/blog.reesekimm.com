@@ -35,7 +35,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
       } else {
         setTimeout(() => {
           store.dispatch(toggleHeaderTransition(true))
-        }, 1500)
+        }, 1000)
       }
     }
   }, [prevPositionY])

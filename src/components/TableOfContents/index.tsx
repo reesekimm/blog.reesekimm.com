@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { ChevronUp } from '@styled-icons/ionicons-outline/ChevronUp'
-import { Container, TocHeader, TocItem } from './style'
+import { Container, TocHeader, TocItemList, TocItemLink } from './style'
 import { useAppDispatch } from '../../state/hooks'
 import { toggleHeaderTransition } from '../../state/appSlice'
+import useActiveId from '../../hooks/useActiveId'
 
 interface Item {
   title: string
@@ -14,7 +15,21 @@ interface TableOfContentsProps {
   tocItems: Item[] | undefined
 }
 
-function generateTocItems(items: Item[]) {
+function getIds(items: Item[]) {
+  let init: string[] = []
+
+  return items.reduce((ids, item) => {
+    ids.push(item.title)
+
+    if (item.items) {
+      ids.push(...getIds(item.items))
+    }
+
+    return ids
+  }, init)
+}
+
+function generateTocItems(items: Item[], activeItemId: string) {
   const dispatch = useAppDispatch()
 
   const disableHeaderTransition = () => {
@@ -22,36 +37,38 @@ function generateTocItems(items: Item[]) {
   }
 
   return (
-    <TocItem>
+    <TocItemList>
       {items.map((item) => {
         const href = `#${item.title}`
+
         return (
           <li key={item.url}>
-            <a href={href} onClick={disableHeaderTransition}>
+            <TocItemLink href={href} onClick={disableHeaderTransition} isActive={activeItemId === item.title}>
               {item.title}
-            </a>
-            {item.items && generateTocItems(item.items)}
+            </TocItemLink>
+            {item.items && generateTocItems(item.items, activeItemId)}
           </li>
         )
       })}
-    </TocItem>
+    </TocItemList>
   )
 }
 
 export default function TableOfContents({ tocItems }: TableOfContentsProps) {
   const [showing, setShowing] = useState(true)
+  const activeItemId = useActiveId(getIds(tocItems ?? []))
 
   const toggleItems = () => {
     setShowing(!showing)
   }
 
-  return (
+  return tocItems ? (
     <Container>
       <TocHeader showItems={showing} onClick={toggleItems}>
         Table of Contents
         <ChevronUp size="2.4rem" />
       </TocHeader>
-      {showing && tocItems ? generateTocItems(tocItems) : null}
+      {showing ? generateTocItems(tocItems, activeItemId ?? '') : null}
     </Container>
-  )
+  ) : null
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 interface TocHeaderProps {
   showItems: boolean
@@ -25,6 +25,8 @@ export const TocHeader = styled.summary<TocHeaderProps>`
     display: none;
   }
 
+  width: fit-content;
+
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
@@ -42,7 +44,7 @@ export const TocHeader = styled.summary<TocHeaderProps>`
   }
 `
 
-export const TocItem = styled.ol`
+export const TocItemList = styled.ol`
   list-style: none;
   margin: 0;
   padding: 0;
@@ -51,9 +53,22 @@ export const TocItem = styled.ol`
     padding: 0 0 0 1.5rem;
     line-height: 1.4;
   }
+`
 
-  a,
-  a:visited {
-    color: ${({ theme }) => theme.colors.gray3};
+const ActiveItemStyle = css<{ isActive: boolean }>`
+  color: ${({ theme, isActive }) => (isActive ? theme.colors.primary : theme.colors.gray3)};
+  font-weight: ${({ theme, isActive }) => (isActive ? theme.fontWeight.medium : theme.fontWeight.regular)};
+`
+
+export const TocItemLink = styled.a`
+  ${ActiveItemStyle}
+
+  &:visited {
+    ${ActiveItemStyle}
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
   }
 `
