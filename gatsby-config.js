@@ -98,10 +98,10 @@ module.exports = {
                     node {
                       frontmatter {
                         title
+                        subtitle
                         date
                       }
                       slug
-                      excerpt
                       html
                     }
                   }
