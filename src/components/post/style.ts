@@ -29,7 +29,6 @@ export const Subtitle = styled.h2`
 `
 
 export const PageBody = styled.div`
-  padding: 0 2.4rem;
   display: flex;
   flex-direction: column;
 

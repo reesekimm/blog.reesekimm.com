@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.li`
   color: ${({ theme }) => theme.colors.text};
   padding: 4.8rem 0;
-  border-top: 1px solid ${({ theme }) => theme.colors.gray1};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray1};
   display: grid;
   grid-template-columns: 1fr 3fr;
   @media ${({ theme }) => theme.device.mobile} {
