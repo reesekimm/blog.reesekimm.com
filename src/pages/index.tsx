@@ -1,9 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/layout'
-import ListItem from '../components/listItem'
-import { List } from '../components/postList/style'
-import SEO from '../components/seo'
+import Layout from '../components/Layout'
+import ListItem from '../components/ListItem'
+import { List } from '../components/PostList/style'
+import SEO from '../components/SEO'
 
 const Home = ({ data }) => {
   return (

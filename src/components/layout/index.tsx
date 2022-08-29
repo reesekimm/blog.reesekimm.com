@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
-import Theme from '../theme'
+import Theme from '../Theme'
 import { StyledBody, PageTitle } from './style'
-import Header from '../header'
-import Footer from '../footer'
+import Header from '../Header'
+import Footer from '../Footer'
 import { persistor, store } from '../../state/store'
 import { toggleHeaderTransition } from '../../state/appSlice'
 

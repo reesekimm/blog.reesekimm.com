@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
-import Layout from '../components/layout'
-import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from '../components/post/style'
-import SEO from '../components/seo'
+import Layout from '../components/Layout'
+import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from '../components/Post/style'
+import SEO from '../components/SEO'
 import TableOfContents from '../components/TableOfContents'
 
 const BlogPost = ({ data }) => {

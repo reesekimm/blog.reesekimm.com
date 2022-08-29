@@ -6,7 +6,7 @@ import { ComponentType } from 'react'
 
 // TODO: line highlighting
 
-const CodeBlock: ComponentType<any> = (props) => {
+const Codeblock: ComponentType<any> = (props) => {
   const {
     children: {
       props: { children, className },
@@ -35,4 +35,4 @@ const CodeBlock: ComponentType<any> = (props) => {
   )
 }
 
-export default CodeBlock
+export default Codeblock
