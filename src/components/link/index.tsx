@@ -2,7 +2,7 @@ import React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 
 interface LinkProps {
-  children: React.ReactNode | string
+  children?: React.ReactNode | string
   href: string
 }
 

@@ -1,16 +1,15 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
-import Layout from '../components/Layout'
-import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from '../components/Post/style'
-import SEO from '../components/SEO'
-import TableOfContents from '../components/TableOfContents'
+import Layout from '../../components/layout'
+import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from './style'
+import SEO from '../../components/SEO'
+import TableOfContents from '../../components/tableOfContents'
 
-const BlogPost = ({ data }) => {
+const Post = ({ data: { mdx }, children }) => {
   const {
     frontmatter: { title, subtitle, date },
     tableOfContents,
-  } = data.mdx
+  } = mdx
 
   return (
     <Layout>
@@ -22,26 +21,23 @@ const BlogPost = ({ data }) => {
       </PageHeader>
       <PageBody>
         <TableOfContents tocItems={tableOfContents.items} />
-        <MarkdownWrapper>
-          <MDXRenderer>{data.mdx.body}</MDXRenderer>
-        </MarkdownWrapper>
+        <MarkdownWrapper>{children}</MarkdownWrapper>
       </PageBody>
     </Layout>
   )
 }
 
 export const query = graphql`
-  query GetPost($id: String) {
+  query ($id: String) {
     mdx(id: { eq: $id }) {
       frontmatter {
         date(formatString: "MMMM D, YYYY")
         title
         subtitle
       }
-      body
       tableOfContents
     }
   }
 `
 
-export default BlogPost
+export default Post

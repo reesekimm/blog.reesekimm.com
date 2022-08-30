@@ -1,41 +1,33 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import ListItem from '../components/ListItem'
-import { List } from '../components/PostList/style'
+import Layout from '../components/layout'
+import ListItem from '../components/listItem'
 import SEO from '../components/SEO'
 
 const Home = ({ data }) => {
   return (
     <Layout pageTitle="All Posts">
       <SEO title="All Posts" article={false} />
-      <List style={{ listStyle: 'none', padding: 0 }}>
-        {data.allMdx.nodes.map(({ id, slug, frontmatter }) => (
-          <ListItem
-            key={id}
-            path={slug}
-            title={frontmatter.title}
-            subtitle={frontmatter.subtitle}
-            date={frontmatter.date}
-          />
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+        {data.allMdx.nodes.map(({ id, frontmatter: { date, title, subtitle, slug } }) => (
+          <ListItem key={id} path={`/posts/${slug}`} title={title} subtitle={subtitle} date={date} />
         ))}
-      </List>
+      </ul>
     </Layout>
   )
 }
 
 export const query = graphql`
-  query getPosts {
+  query {
     allMdx(sort: { fields: frontmatter___date, order: DESC }) {
       nodes {
         frontmatter {
           date(formatString: "MMMM D, YYYY")
           title
           subtitle
+          slug
         }
         id
-        slug
-        excerpt
       }
     }
   }

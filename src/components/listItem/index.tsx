@@ -16,11 +16,11 @@ const ListItem = ({ path, title, date, subtitle }: ListItemProps) => {
       <Date>{date}</Date>
       <div>
         <Title>
-          <Link to={`/${path}`}>{title}</Link>
+          <Link to={path}>{title}</Link>
         </Title>
         <Subtitle>{subtitle}</Subtitle>
         <ReadMore>
-          <Link to={`/${path}`}>
+          <Link to={path}>
             Read more <ArrowRight size="1.6rem" />
           </Link>
         </ReadMore>
