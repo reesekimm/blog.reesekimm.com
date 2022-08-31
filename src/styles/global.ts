@@ -39,7 +39,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   li {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   h1, h2, h3, h4, h5 {
