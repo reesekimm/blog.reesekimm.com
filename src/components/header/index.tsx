@@ -6,21 +6,14 @@ import { Button, Container, StyledHeader, Title } from './style'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { selectAppState, switchMode } from '../../state/appSlice'
 
+interface PureHeaderProps extends HeaderProps {
+  data: any
+}
 interface HeaderProps {
   showing: boolean
 }
 
-const Header = ({ showing }: HeaderProps) => {
-  const data = useStaticQuery(graphql`
-    query getSiteMetadata {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
+export const PureHeader = ({ data, showing }: PureHeaderProps) => {
   const dispatch = useAppDispatch()
   const { mode } = useAppSelector(selectAppState)
 
@@ -34,10 +27,30 @@ const Header = ({ showing }: HeaderProps) => {
         <Title>
           <Link to="/">{data.site.siteMetadata.title}</Link>
         </Title>
-        <Button onClick={toggleMode}>{mode === 'dark' ? <LightMode size="2rem" /> : <Nightlight size="2rem" />}</Button>
+        <Button aria-label="mode" onClick={toggleMode}>
+          {mode === 'dark' ? (
+            <LightMode size="2rem" aria-label="light-mode" />
+          ) : (
+            <Nightlight size="2rem" aria-label="dark-mode" />
+          )}
+        </Button>
       </Container>
     </StyledHeader>
   )
+}
+
+const Header = ({ showing }: HeaderProps) => {
+  const data = useStaticQuery(graphql`
+    query getSiteMetadata {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
+  return <PureHeader data={data} showing={showing} />
 }
 
 export default Header

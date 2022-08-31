@@ -1,17 +1,25 @@
 import React from 'react'
-import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
+import { render, RenderOptions, RenderResult } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup'
 import Theme from '../components/theme'
 import { store } from '../state/store'
 
-const renderWithWrapper = (ui: React.ReactElement<any>, options?: RenderOptions) => {
-  const Wrapper = ({ children }: { children: React.ReactElement<any> }) => (
+interface CustomRenderResult extends RenderResult {
+  user: UserEvent
+}
+
+const renderWithWrapper = (ui: React.ReactElement, options?: Omit<RenderOptions, 'wrapper'>): CustomRenderResult => {
+  const user = userEvent.setup()
+
+  const Wrapper = ({ children }: { children: React.ReactElement }) => (
     <Provider store={store}>
       <Theme>{children}</Theme>
     </Provider>
   )
 
-  return render(ui, { wrapper: Wrapper, ...options })
+  return { ...render(ui, { wrapper: Wrapper, ...options }), user }
 }
 
 export * from '@testing-library/react'
