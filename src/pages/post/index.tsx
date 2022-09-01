@@ -2,7 +2,6 @@ import * as React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from './style'
-import SEO from '../../components/SEO'
 import TableOfContents from '../../components/tableOfContents'
 
 const Post = ({ data: { mdx }, children }) => {
@@ -13,7 +12,6 @@ const Post = ({ data: { mdx }, children }) => {
 
   return (
     <Layout>
-      <SEO title={title} article={true} />
       <PageHeader>
         <Date>{date}</Date>
         <Title>{title}</Title>
