@@ -10,7 +10,7 @@ interface AppState {
 
 export const initialState: AppState = {
   mode: 'light',
-  headerTransition: false,
+  headerTransition: true,
 }
 
 export const appSlice = createSlice({

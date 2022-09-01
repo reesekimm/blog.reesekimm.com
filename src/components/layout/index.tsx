@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
@@ -21,12 +22,15 @@ const components = {
   h5: LinkedHeading.h5,
 }
 
+interface PureLayoutProps extends LayoutProps {
+  siteTitle: string
+}
 interface LayoutProps {
   pageTitle?: string
   children: React.ReactNode
 }
 
-const Layout = ({ pageTitle, children }: LayoutProps) => {
+export const PureLayout = ({ siteTitle, pageTitle, children }: PureLayoutProps) => {
   const [prevPositionY, setPrevPositionY] = useState(window.scrollY)
   const [showHeader, setShowHeader] = useState(true)
 
@@ -65,7 +69,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Theme>
-          <Header showing={headerTransition && showHeader} />
+          <Header siteTitle={siteTitle} showing={headerTransition && showHeader} />
           <StyledBody>
             {pageTitle && <PageTitle>{pageTitle}</PageTitle>}
             <MDXProvider components={components}>{children}</MDXProvider>
@@ -74,6 +78,24 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
         </Theme>
       </PersistGate>
     </Provider>
+  )
+}
+
+const Layout = ({ pageTitle, children }: LayoutProps) => {
+  const data = useStaticQuery(graphql`
+    query getSiteMetadata {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
+  return (
+    <PureLayout siteTitle={data.site.siteMetadata.title} pageTitle={pageTitle}>
+      {children}
+    </PureLayout>
   )
 }
 
