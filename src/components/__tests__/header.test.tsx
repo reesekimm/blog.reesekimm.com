@@ -9,17 +9,17 @@ describe('Header', () => {
     expect(screen.getByRole('heading', { name: 'dev.reese' })).toBeInTheDocument()
   })
 
-  it('should change mode when user clicks the toggle button', async () => {
+  it('should display different theme button icon when user clicks the theme button', async () => {
     const { user } = render(<Header siteTitle="dev.reese" showing={true} />)
 
-    const toggleButton = screen.getByRole('button', { name: 'mode' })
-    const darktModeIcon = within(toggleButton).getByLabelText('dark-mode')
+    const themeButton = screen.getByRole('button', { name: 'theme' })
+    const darktModeIcon = within(themeButton).getByLabelText('dark-mode')
 
     expect(darktModeIcon).toBeInTheDocument()
 
-    await user.click(toggleButton)
+    await user.click(themeButton)
 
-    const lighttModeIcon = within(toggleButton).getByLabelText('light-mode')
+    const lighttModeIcon = within(themeButton).getByLabelText('light-mode')
     expect(lighttModeIcon).toBeInTheDocument()
   })
 })

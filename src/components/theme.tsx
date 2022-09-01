@@ -16,10 +16,10 @@ interface ThemeProps {
 }
 
 const Theme = ({ children }: ThemeProps) => {
-  const { mode } = useAppSelector(selectAppState)
+  const { theme } = useAppSelector(selectAppState)
 
   return (
-    <ThemeProvider theme={themeMap[mode]}>
+    <ThemeProvider theme={themeMap[theme]}>
       <GlobalStyle />
       {children}
     </ThemeProvider>

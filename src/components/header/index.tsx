@@ -4,7 +4,7 @@ import { LightMode } from '@styled-icons/material-rounded/LightMode'
 import { Nightlight } from '@styled-icons/material-rounded/Nightlight'
 import { Button, Container, StyledHeader, Title } from './style'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
-import { selectAppState, switchMode } from '../../state/appSlice'
+import { selectAppState, toggleTheme } from '../../state/appSlice'
 interface HeaderProps {
   siteTitle: string
   showing: boolean
@@ -12,10 +12,10 @@ interface HeaderProps {
 
 export const Header = ({ siteTitle, showing }: HeaderProps) => {
   const dispatch = useAppDispatch()
-  const { mode } = useAppSelector(selectAppState)
+  const { theme } = useAppSelector(selectAppState)
 
-  const toggleMode = () => {
-    dispatch(switchMode(mode === 'dark' ? 'light' : 'dark'))
+  const changeTheme = () => {
+    dispatch(toggleTheme(theme === 'dark' ? 'light' : 'dark'))
   }
 
   return (
@@ -24,8 +24,8 @@ export const Header = ({ siteTitle, showing }: HeaderProps) => {
         <Title>
           <Link to="/">{siteTitle}</Link>
         </Title>
-        <Button aria-label="mode" onClick={toggleMode}>
-          {mode === 'dark' ? (
+        <Button aria-label="theme" onClick={changeTheme}>
+          {theme === 'dark' ? (
             <LightMode size="2rem" aria-label="light-mode" />
           ) : (
             <Nightlight size="2rem" aria-label="dark-mode" />

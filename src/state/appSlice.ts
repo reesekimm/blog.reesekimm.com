@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 
-export type mode = 'light' | 'dark'
+export type Theme = 'light' | 'dark'
 
 interface AppState {
-  mode: mode
+  theme: Theme
   headerTransition: boolean
 }
 
 export const initialState: AppState = {
-  mode: 'light',
+  theme: 'light',
   headerTransition: true,
 }
 
@@ -17,8 +17,8 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    switchMode: (state, action) => {
-      state.mode = action.payload
+    toggleTheme: (state, action) => {
+      state.theme = action.payload
     },
     toggleHeaderTransition: (state, action) => {
       state.headerTransition = action.payload
@@ -26,7 +26,7 @@ export const appSlice = createSlice({
   },
 })
 
-export const { switchMode, toggleHeaderTransition } = appSlice.actions
+export const { toggleTheme, toggleHeaderTransition } = appSlice.actions
 
 export const selectAppState = (state: RootState) => state.app
 
