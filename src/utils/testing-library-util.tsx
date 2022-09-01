@@ -1,5 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import { MDXProvider } from '@mdx-js/react'
 import { render, RenderOptions, RenderResult } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup'
@@ -15,7 +16,9 @@ const renderWithWrapper = (ui: React.ReactElement, options?: Omit<RenderOptions,
 
   const Wrapper = ({ children }: { children: React.ReactElement }) => (
     <Provider store={store}>
-      <Theme>{children}</Theme>
+      <Theme>
+        <MDXProvider>{children}</MDXProvider>
+      </Theme>
     </Provider>
   )
 
