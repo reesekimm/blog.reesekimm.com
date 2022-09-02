@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const NotFound = styled.section`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -4,11 +4,11 @@ import Layout from '../../components/layout'
 import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from './style'
 import TableOfContents from '../../components/tableOfContents'
 
-const Post = ({ data: { mdx }, children }) => {
+const PostPage = ({ data, children }) => {
   const {
     frontmatter: { title, subtitle, date },
     tableOfContents,
-  } = mdx
+  } = data.mdx
 
   return (
     <Layout>
@@ -38,4 +38,4 @@ export const query = graphql`
   }
 `
 
-export default Post
+export default PostPage

@@ -1,25 +1,23 @@
-import React from 'react'
 import { useStaticQuery } from 'gatsby'
-import Home from '..'
+import React from 'react'
 import { render, screen } from '../../utils/testing-library-util'
-import allMdx from '../../__fixtures__/allMdx'
 import siteMetadata from '../../__fixtures__/siteMetadata'
+import NotFound from '../404'
 
 jest.mock('gatsby')
 
 const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<typeof useStaticQuery>
 
-describe('Home', () => {
+describe('404', () => {
   beforeEach(() => {
     mockedUseStaticQuery.mockClear()
-    mockedUseStaticQuery.mockReturnValue({ ...siteMetadata, ...allMdx })
+    mockedUseStaticQuery.mockReturnValue({ ...siteMetadata })
   })
 
-  it('should display post list', () => {
-    render(<Home />)
+  it('should display contents correctly', () => {
+    render(<NotFound />)
 
-    const listItems = screen.getAllByRole('listitem')
-
-    expect(listItems).toHaveLength(3)
+    expect(screen.getByRole('heading', { name: /page not found/i }))
+    expect(screen.getByRole('link', { name: /back to home/i }))
   })
 })

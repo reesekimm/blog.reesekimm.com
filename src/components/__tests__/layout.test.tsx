@@ -1,11 +1,32 @@
 import React from 'react'
+import { useStaticQuery } from 'gatsby'
 import { render, screen, fireEvent } from '../../utils/testing-library-util'
-import { PureLayout as Layout } from '../layout'
+import Layout from '../layout'
+import siteMetadata from '../../__fixtures__/siteMetadata'
+
+jest.mock('gatsby')
+
+const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<typeof useStaticQuery>
 
 describe.only('Layout', () => {
+  beforeEach(() => {
+    mockedUseStaticQuery.mockClear()
+    mockedUseStaticQuery.mockReturnValue({ ...siteMetadata })
+  })
+
+  it('should display pageTitle', () => {
+    render(
+      <Layout pageTitle="Test">
+        <section style={{ width: '100%', height: '2000px' }}>Empty page</section>
+      </Layout>
+    )
+
+    expect(screen.getByRole('heading', { name: 'Test' })).toBeInTheDocument()
+  })
+
   it('should toggle header visibility when user scrolls', async () => {
     render(
-      <Layout siteTitle="dev.reese" pageTitle="">
+      <Layout pageTitle="">
         <section style={{ width: '100%', height: '2000px' }}>Empty page</section>
       </Layout>
     )

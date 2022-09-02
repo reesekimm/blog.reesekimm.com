@@ -3,16 +3,6 @@ import { graphql, useStaticQuery } from 'gatsby'
 import Layout from '../components/layout'
 import ListItem from '../components/listItem'
 
-export const PureHome = ({ data }) => {
-  return (
-    <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-      {data.allMdx.nodes.map(({ id, frontmatter: { date, title, subtitle, slug } }) => (
-        <ListItem key={id} path={`/posts/${slug}`} title={title} subtitle={subtitle} date={date} />
-      ))}
-    </ul>
-  )
-}
-
 const Home = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -32,7 +22,11 @@ const Home = () => {
 
   return (
     <Layout pageTitle="All Posts">
-      <PureHome data={data} />
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+        {data.allMdx.nodes.map(({ id, frontmatter: { date, title, subtitle, slug } }) => (
+          <ListItem key={id} path={`/posts/${slug}`} title={title} subtitle={subtitle} date={date} />
+        ))}
+      </ul>
     </Layout>
   )
 }

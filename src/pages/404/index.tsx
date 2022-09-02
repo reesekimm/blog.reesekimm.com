@@ -1,17 +1,17 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Layout from '../../components/layout'
-import { NotFound } from './style'
+import { Container } from './style'
 
-const NotFoundPage = () => {
+const NotFound = () => {
   return (
     <Layout>
-      <NotFound>
+      <Container>
         <h2>Page not found</h2>
         <Link to="/">Back to home</Link>
-      </NotFound>
+      </Container>
     </Layout>
   )
 }
 
-export default NotFoundPage
+export default NotFound

@@ -22,15 +22,12 @@ const components = {
   h5: LinkedHeading.h5,
 }
 
-interface PureLayoutProps extends LayoutProps {
-  siteTitle: string
-}
 interface LayoutProps {
   pageTitle?: string
   children: React.ReactNode
 }
 
-export const PureLayout = ({ siteTitle, pageTitle, children }: PureLayoutProps) => {
+export const Layout = ({ pageTitle, children }: LayoutProps) => {
   const [prevPositionY, setPrevPositionY] = useState(window.scrollY)
   const [showHeader, setShowHeader] = useState(true)
 
@@ -69,7 +66,7 @@ export const PureLayout = ({ siteTitle, pageTitle, children }: PureLayoutProps) 
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Theme>
-          <Header siteTitle={siteTitle} showing={headerTransition && showHeader} />
+          <Header showing={headerTransition && showHeader} />
           <StyledBody>
             {pageTitle && <PageTitle>{pageTitle}</PageTitle>}
             <MDXProvider components={components}>{children}</MDXProvider>
@@ -78,24 +75,6 @@ export const PureLayout = ({ siteTitle, pageTitle, children }: PureLayoutProps) 
         </Theme>
       </PersistGate>
     </Provider>
-  )
-}
-
-const Layout = ({ pageTitle, children }: LayoutProps) => {
-  const data = useStaticQuery(graphql`
-    query getSiteMetadata {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
-  return (
-    <PureLayout siteTitle={data.site.siteMetadata.title} pageTitle={pageTitle}>
-      {children}
-    </PureLayout>
   )
 }
 
