@@ -12,11 +12,11 @@ const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<typeof useSta
 describe('Home', () => {
   beforeEach(() => {
     mockedUseStaticQuery.mockClear()
-    mockedUseStaticQuery.mockReturnValue({ ...siteMetadata, ...allMdx })
+    mockedUseStaticQuery.mockReturnValue({ ...siteMetadata })
   })
 
   it('should display post list', () => {
-    render(<Home />)
+    render(<Home data={allMdx} />)
 
     const listItems = screen.getAllByRole('listitem')
 
