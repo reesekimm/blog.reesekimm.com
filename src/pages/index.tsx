@@ -1,9 +1,10 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, PageProps } from 'gatsby'
 import Layout from '../components/layout'
 import ListItem from '../components/listItem'
+import { HomeQueryResult } from '../queries/home'
 
-const Home = ({ data }) => {
+const Home = ({ data }: PageProps<HomeQueryResult>) => {
   return (
     <Layout pageTitle="All Posts">
       <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>

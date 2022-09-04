@@ -1,10 +1,11 @@
 import * as React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, PageProps } from 'gatsby'
 import Layout from '../../components/layout'
 import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from './style'
 import TableOfContents from '../../components/tableOfContents'
+import { PostQueryResult } from '../../queries/post'
 
-const PostPage = ({ data, children }) => {
+const Post = ({ data, children }: PageProps<PostQueryResult>) => {
   const {
     frontmatter: { title, subtitle, date },
     tableOfContents,
@@ -38,4 +39,4 @@ export const query = graphql`
   }
 `
 
-export default PostPage
+export default Post
