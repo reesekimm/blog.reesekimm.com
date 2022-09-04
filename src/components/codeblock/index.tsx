@@ -16,7 +16,12 @@ const Codeblock: ComponentType<any> = (props) => {
   const language = (className.replace(/language-/, '') as Language) || ''
 
   return (
-    <Highlight {...defaultProps} theme={theme} code={children} language={language}>
+    <Highlight
+      {...defaultProps}
+      theme={theme}
+      code={children}
+      language={language}
+    >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Pre className={className} style={style}>
           {tokens.map((line, i) => (

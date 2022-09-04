@@ -1,7 +1,14 @@
 import * as React from 'react'
 import { graphql, PageProps } from 'gatsby'
 import Layout from '../../components/layout'
-import { PageHeader, Date, Subtitle, Title, PageBody, MarkdownWrapper } from './style'
+import {
+  PageHeader,
+  Date,
+  Subtitle,
+  Title,
+  PageBody,
+  MarkdownWrapper,
+} from './style'
 import TableOfContents from '../../components/tableOfContents'
 import { PostQueryResult } from '../../queries/post'
 

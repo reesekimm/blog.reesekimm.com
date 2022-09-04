@@ -11,7 +11,10 @@ interface CustomRenderResult extends RenderResult {
   user: UserEvent
 }
 
-const renderWithWrapper = (ui: React.ReactElement, options?: Omit<RenderOptions, 'wrapper'>): CustomRenderResult => {
+const renderWithWrapper = (
+  ui: React.ReactElement,
+  options?: Omit<RenderOptions, 'wrapper'>
+): CustomRenderResult => {
   const user = userEvent.setup()
 
   const Wrapper = ({ children }: { children: React.ReactElement }) => (

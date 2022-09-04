@@ -7,7 +7,17 @@ module.exports = {
   Link: jest
     .fn()
     .mockImplementation(
-      ({ activeClassName, activeStyle, getProps, innerRef, partiallyActive, ref, replace, to, ...rest }) =>
+      ({
+        activeClassName,
+        activeStyle,
+        getProps,
+        innerRef,
+        partiallyActive,
+        ref,
+        replace,
+        to,
+        ...rest
+      }) =>
         React.createElement('a', {
           ...rest,
           href: to,

@@ -43,7 +43,11 @@ function generateTocItems(items: Item[], activeItemId: string) {
 
         return (
           <li key={item.url}>
-            <TocItemLink href={href} onClick={disableHeaderTransition} isActive={activeItemId === item.title}>
+            <TocItemLink
+              href={href}
+              onClick={disableHeaderTransition}
+              isActive={activeItemId === item.title}
+            >
               {item.title}
             </TocItemLink>
             {item.items && generateTocItems(item.items, activeItemId)}

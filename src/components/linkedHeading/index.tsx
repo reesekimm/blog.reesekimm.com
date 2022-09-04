@@ -21,8 +21,16 @@ function LinkedHeading({ children, tag }: LinkedHeadingProps) {
 }
 
 export default {
-  h2: (props: { children: string }) => <LinkedHeading tag="h2">{props.children}</LinkedHeading>,
-  h3: (props: { children: string }) => <LinkedHeading tag="h3">{props.children}</LinkedHeading>,
-  h4: (props: { children: string }) => <LinkedHeading tag="h4">{props.children}</LinkedHeading>,
-  h5: (props: { children: string }) => <LinkedHeading tag="h5">{props.children}</LinkedHeading>,
+  h2: (props: { children: string }) => (
+    <LinkedHeading tag="h2">{props.children}</LinkedHeading>
+  ),
+  h3: (props: { children: string }) => (
+    <LinkedHeading tag="h3">{props.children}</LinkedHeading>
+  ),
+  h4: (props: { children: string }) => (
+    <LinkedHeading tag="h4">{props.children}</LinkedHeading>
+  ),
+  h5: (props: { children: string }) => (
+    <LinkedHeading tag="h5">{props.children}</LinkedHeading>
+  ),
 }
