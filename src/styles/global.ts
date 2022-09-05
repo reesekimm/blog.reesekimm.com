@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 3rem;
 
     color: ${({ theme }) => theme.colors.text};
-    background: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.background};
 
     height: 100%;
 

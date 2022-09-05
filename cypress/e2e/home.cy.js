@@ -1,9 +1,9 @@
-describe('HOME', () => {
+describe('Home page', () => {
   beforeEach(() => {
     cy.visit('/')
   })
 
-  it('navigates to post page when clicking list item title', () => {
+  it('should navigate to post page when clicking list item title', () => {
     cy.findByRole('link', { name: '실용주의 프로그래머 08' }).click()
     cy.location('pathname', { timeout: 5000 }).should(
       'include',
