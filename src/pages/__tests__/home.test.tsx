@@ -7,7 +7,9 @@ import siteMetadata from '../../__fixtures__/siteMetadata'
 
 jest.mock('gatsby')
 
-const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<typeof useStaticQuery>
+const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<
+  typeof useStaticQuery
+>
 
 describe('Home', () => {
   beforeEach(() => {

@@ -6,7 +6,9 @@ import NotFound from '../404'
 
 jest.mock('gatsby')
 
-const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<typeof useStaticQuery>
+const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<
+  typeof useStaticQuery
+>
 
 describe('404', () => {
   beforeEach(() => {

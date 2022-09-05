@@ -8,7 +8,9 @@ import '../../../__mocks__/intersection-observer'
 
 jest.mock('gatsby')
 
-const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<typeof useStaticQuery>
+const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<
+  typeof useStaticQuery
+>
 
 describe('Post', () => {
   beforeEach(() => {
