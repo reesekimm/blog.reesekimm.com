@@ -3,7 +3,7 @@ import { useStaticQuery } from 'gatsby'
 import { render, screen } from '../../utils/testing-library-util'
 import mdx from '../../__fixtures__/mdx'
 import siteMetadata from '../../__fixtures__/siteMetadata'
-import Post from '../post'
+import Post from '.'
 import '../../../__mocks__/intersection-observer'
 
 jest.mock('gatsby')

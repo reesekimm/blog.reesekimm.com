@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '../../utils/testing-library-util'
-import Footer from '../footer'
+import Footer from '.'
 
 describe('Footer', () => {
   it('renders correnctly', () => {

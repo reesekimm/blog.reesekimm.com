@@ -6,7 +6,7 @@ const allMdx = {
           frontmatter: {
             date: 'April 5, 2022',
             title: '실용주의 프로그래머 09',
-            subtitle: null,
+            subtitle: '',
             slug: 'pragmatic-programmer-09',
           },
           id: '0dcbeb7d-de6f-57ec-b302-9ab52fb9877b',
@@ -29,7 +29,7 @@ const allMdx = {
           frontmatter: {
             date: 'April 2, 2022',
             title: '실용주의 프로그래머 07',
-            subtitle: null,
+            subtitle: '',
             slug: 'pragmatic-programmer-07',
           },
           id: 'df1deb2c-43c2-5cf1-8cb2-c730b6a74715',

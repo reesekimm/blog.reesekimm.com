@@ -1,5 +1,5 @@
 const path = require('path')
-const postTemplate = path.resolve(`./src/templates/post.tsx`)
+const postTemplate = path.resolve(`./src/templates/post/index.tsx`)
 
 const POSTS_PER_PAGE = 5
 
@@ -34,7 +34,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   Array.from({ length: numOfPages }).forEach((_, i) => {
     actions.createPage({
       path: i === 0 ? '/' : `${i + 1}`,
-      component: path.resolve('./src/templates/postList.tsx'),
+      component: path.resolve('./src/templates/postList/index.tsx'),
       context: {
         limit: POSTS_PER_PAGE,
         numOfPages,

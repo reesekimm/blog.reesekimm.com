@@ -1,6 +1,6 @@
 import React from 'react'
 import { useStaticQuery } from 'gatsby'
-import PostList from '../postList'
+import PostList from '.'
 import { render, screen } from '../../utils/testing-library-util'
 import allMdx from '../../__fixtures__/allMdx'
 import siteMetadata from '../../__fixtures__/siteMetadata'
@@ -18,7 +18,7 @@ describe('PostList', () => {
   })
 
   it('should display post list', () => {
-    render(<PostList data={allMdx} />)
+    render(<PostList data={allMdx} pageContext={{}} />)
 
     const listItems = screen.getAllByRole('listitem')
 

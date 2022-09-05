@@ -2,7 +2,7 @@ import { useStaticQuery } from 'gatsby'
 import React from 'react'
 import { render, screen } from '../../utils/testing-library-util'
 import siteMetadata from '../../__fixtures__/siteMetadata'
-import NotFound from '../404'
+import NotFound from '.'
 
 jest.mock('gatsby')
 

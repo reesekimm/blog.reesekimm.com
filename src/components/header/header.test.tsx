@@ -2,11 +2,13 @@ import React from 'react'
 import { useStaticQuery } from 'gatsby'
 import { render, screen, within } from '../../utils/testing-library-util'
 import siteMetadata from '../../__fixtures__/siteMetadata'
-import Header from '../header'
+import Header from '.'
 
 jest.mock('gatsby')
 
-const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<typeof useStaticQuery>
+const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<
+  typeof useStaticQuery
+>
 
 describe('Header', () => {
   beforeEach(() => {
@@ -17,7 +19,9 @@ describe('Header', () => {
   it('should render title correctly', () => {
     render(<Header showing={true} />)
 
-    expect(screen.getByRole('heading', { name: '<DevReese />' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: '<DevReese />' })
+    ).toBeInTheDocument()
   })
 
   it('should display different theme button icon when user clicks the theme button', async () => {
