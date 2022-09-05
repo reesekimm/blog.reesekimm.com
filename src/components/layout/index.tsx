@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
@@ -22,13 +21,15 @@ const components = {
   h5: LinkedHeading.h5,
 }
 
+const isBrowser = typeof window !== 'undefined'
+
 interface LayoutProps {
   pageTitle?: string
   children: React.ReactNode
 }
 
 export const Layout = ({ pageTitle, children }: LayoutProps) => {
-  const [prevPositionY, setPrevPositionY] = useState(window.scrollY)
+  const [prevPositionY, setPrevPositionY] = useState(0)
   const [showHeader, setShowHeader] = useState(true)
 
   const {
@@ -36,29 +37,32 @@ export const Layout = ({ pageTitle, children }: LayoutProps) => {
   } = store.getState()
 
   const handleHeaderVisibility = useCallback(() => {
-    setPrevPositionY(window.scrollY)
+    if (isBrowser) {
+      setPrevPositionY(window.scrollY)
 
-    let currentPositionY = window.scrollY
+      let currentPositionY = window.scrollY
 
-    if (prevPositionY < currentPositionY) {
-      setShowHeader(false)
-      store.dispatch(toggleHeaderTransition(true))
-    } else {
-      if (headerTransition) {
-        setShowHeader(true)
+      if (prevPositionY < currentPositionY) {
+        setShowHeader(false)
+        store.dispatch(toggleHeaderTransition(true))
       } else {
-        setTimeout(() => {
-          store.dispatch(toggleHeaderTransition(true))
-        }, 1000)
+        if (headerTransition) {
+          setShowHeader(true)
+        } else {
+          setTimeout(() => {
+            store.dispatch(toggleHeaderTransition(true))
+          }, 1000)
+        }
       }
     }
   }, [prevPositionY])
 
   useEffect(() => {
-    window.addEventListener('scroll', handleHeaderVisibility)
+    if (isBrowser) window.addEventListener('scroll', handleHeaderVisibility)
 
     return () => {
-      window.removeEventListener('scroll', handleHeaderVisibility)
+      if (isBrowser)
+        window.removeEventListener('scroll', handleHeaderVisibility)
     }
   }, [handleHeaderVisibility])
 
