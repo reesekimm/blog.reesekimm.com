@@ -28,7 +28,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-export const Layout = ({ pageTitle, children }: LayoutProps) => {
+const Layout = ({ pageTitle, children }: LayoutProps) => {
   const [prevPositionY, setPrevPositionY] = useState(0)
   const [showHeader, setShowHeader] = useState(true)
 

@@ -5,12 +5,11 @@ export interface ListItemFrontMatter extends PostFrontmatter {
 }
 
 export interface ListItem {
-  frontmatter: ListItemFrontMatter
-  id: string
+  node: { frontmatter: ListItemFrontMatter; id: string }
 }
 
-export interface HomeQueryResult {
+export interface PostListQueryResult {
   allMdx: {
-    nodes: ListItem[]
+    edges: ListItem[]
   }
 }
