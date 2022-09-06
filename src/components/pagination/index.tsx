@@ -1,6 +1,9 @@
-import { Link } from 'gatsby'
 import React from 'react'
+import { Link } from 'gatsby'
+import { ChevronLeft } from '@styled-icons/bootstrap/ChevronLeft'
+import { ChevronRight } from '@styled-icons/bootstrap/ChevronRight'
 import { PostListPageContext } from '../../queries/post-list'
+import { Container, StyledPage } from './style'
 
 interface PageProps {
   index: number
@@ -11,9 +14,9 @@ const Page = ({ index, isActive }: PageProps) => {
   const path = index === 0 ? '/' : `/${index + 1}`
 
   return (
-    <li>
+    <StyledPage>
       {isActive ? <span>{index + 1}</span> : <Link to={path}>{index + 1}</Link>}
-    </li>
+    </StyledPage>
   )
 }
 
@@ -24,8 +27,12 @@ const Pagination = ({ numOfPages, currentPage }: PostListPageContext) => {
   const nextPage = currentPage + 1
 
   return (
-    <div>
-      {currentPage > 1 && <Link to={`/${prevPage}`}>Prev</Link>}
+    <Container>
+      {currentPage > 1 && (
+        <Link to={`/${prevPage}`}>
+          <ChevronLeft size="3.2rem" />
+        </Link>
+      )}
       <ol>
         {Array.from({ length: numOfPages }).map((_, index) => (
           <Page
@@ -35,8 +42,12 @@ const Pagination = ({ numOfPages, currentPage }: PostListPageContext) => {
           />
         ))}
       </ol>
-      {currentPage < numOfPages && <Link to={`/${nextPage}`}>Next</Link>}
-    </div>
+      {currentPage < numOfPages && (
+        <Link to={`/${nextPage}`}>
+          <ChevronRight size="3.2rem" />
+        </Link>
+      )}
+    </Container>
   )
 }
 
