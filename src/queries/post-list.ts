@@ -13,3 +13,8 @@ export interface PostListQueryResult {
     edges: ListItem[]
   }
 }
+
+export interface PostListPageContext {
+  numOfPages: number
+  currentPage: number
+}

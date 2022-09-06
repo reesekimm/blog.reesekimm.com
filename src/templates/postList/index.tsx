@@ -2,9 +2,16 @@ import React from 'react'
 import { graphql, PageProps } from 'gatsby'
 import Layout from '../../components/layout'
 import ListItem from '../../components/listItem'
-import { PostListQueryResult } from '../../queries/post-list'
+import {
+  PostListQueryResult,
+  PostListPageContext,
+} from '../../queries/post-list'
+import Pagination from '../../components/pagination'
 
-const PostList = ({ data, pageContext }: PageProps<PostListQueryResult>) => {
+const PostList = ({
+  data,
+  pageContext,
+}: PageProps<PostListQueryResult, PostListPageContext>) => {
   return (
     <Layout pageTitle="All Posts">
       <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
@@ -25,13 +32,21 @@ const PostList = ({ data, pageContext }: PageProps<PostListQueryResult>) => {
           )
         )}
       </ul>
+      <Pagination
+        numOfPages={pageContext.numOfPages}
+        currentPage={pageContext.currentPage}
+      />
     </Layout>
   )
 }
 
 export const query = graphql`
-  query ($limit: Int!) {
-    allMdx(limit: $limit, sort: { fields: frontmatter___date, order: DESC }) {
+  query ($limit: Int!, $skip: Int!) {
+    allMdx(
+      limit: $limit
+      skip: $skip
+      sort: { fields: frontmatter___date, order: DESC }
+    ) {
       edges {
         node {
           frontmatter {
