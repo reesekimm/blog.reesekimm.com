@@ -20,7 +20,7 @@ const PostList = ({ data, pageContext }: PostList) => {
         {data.allMdx.edges.map(
           ({
             node: {
-              frontmatter: { date, title, subtitle, slug },
+              frontmatter: { date, title, subtitle, slug, tags },
               id,
             },
           }) => (
@@ -30,6 +30,7 @@ const PostList = ({ data, pageContext }: PostList) => {
               title={title}
               subtitle={subtitle}
               date={date}
+              tags={tags}
             />
           )
         )}
@@ -56,6 +57,7 @@ export const query = graphql`
             title
             subtitle
             slug
+            tags
           }
           id
         }

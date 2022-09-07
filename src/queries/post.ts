@@ -2,6 +2,7 @@ export interface PostFrontmatter {
   date: string
   title: string
   subtitle: string
+  tags: string[]
 }
 
 export interface TableOfContents {
