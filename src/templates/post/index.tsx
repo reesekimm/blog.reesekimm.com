@@ -12,7 +12,9 @@ import {
   Title,
 } from './style'
 
-const Post = ({ data, children }: PageProps<PostQueryResult>) => {
+type PostProps = Pick<PageProps<PostQueryResult>, 'data' | 'children'>
+
+const Post = ({ data, children }: PostProps) => {
   const {
     frontmatter: { title, subtitle, date },
     tableOfContents,

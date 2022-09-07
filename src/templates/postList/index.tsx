@@ -8,10 +8,12 @@ import {
 } from '../../queries/post-list'
 import Pagination from '../../components/pagination'
 
-const PostList = ({
-  data,
-  pageContext,
-}: PageProps<PostListQueryResult, PostListPageContext>) => {
+type PostList = Pick<
+  PageProps<PostListQueryResult, PostListPageContext>,
+  'data' | 'pageContext'
+>
+
+const PostList = ({ data, pageContext }: PostList) => {
   return (
     <Layout pageTitle="All Posts">
       <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>

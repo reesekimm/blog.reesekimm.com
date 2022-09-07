@@ -5,9 +5,13 @@ export interface PostFrontmatter {
 }
 
 export interface TableOfContents {
+  items: Item[]
+}
+
+export interface Item extends TableOfContents {
   title: string
   url: string
-  items?: TableOfContents[]
+  items?: Item[]
 }
 
 export interface PostQueryResult {

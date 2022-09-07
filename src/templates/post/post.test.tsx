@@ -24,11 +24,7 @@ describe('Post', () => {
       tableOfContents: { items },
     } = mdx.mdx
 
-    render(
-      <Post data={mdx}>
-        <div></div>
-      </Post>
-    )
+    render(<Post data={mdx}>{undefined}</Post>)
 
     expect(screen.getByText(date))
     expect(screen.getByRole('heading', { level: 1, name: title }))
