@@ -29,7 +29,7 @@ const Pagination = ({ numOfPages, currentPage }: PostListPageContext) => {
   return (
     <Container>
       {currentPage > 1 && (
-        <Link to={`/${prevPage}`}>
+        <Link to={`/${prevPage}`} aria-label="go to previous page">
           <ChevronLeft size="3.2rem" />
         </Link>
       )}
@@ -43,7 +43,7 @@ const Pagination = ({ numOfPages, currentPage }: PostListPageContext) => {
         ))}
       </ol>
       {currentPage < numOfPages && (
-        <Link to={`/${nextPage}`}>
+        <Link to={`/${nextPage}`} aria-label="go to next page">
           <ChevronRight size="3.2rem" />
         </Link>
       )}

@@ -1,6 +1,6 @@
 describe('Post page', () => {
   beforeEach(() => {
-    cy.visit('/posts/pragmatic-programmer-08')
+    cy.visit('/posts/pragmatic-programmer-18')
   })
 
   it('should display toc only on desktop view', () => {
