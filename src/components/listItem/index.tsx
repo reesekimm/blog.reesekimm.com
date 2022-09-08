@@ -1,9 +1,16 @@
 import React from 'react'
-import { Link } from 'gatsby'
-import { Tag } from '@chakra-ui/react'
+import { Link, navigate } from 'gatsby'
+
 import { ArrowRight } from '@styled-icons/heroicons-solid/ArrowRight'
-import { Hashtag } from '@styled-icons/heroicons-solid/Hashtag'
-import { Container, Date, Subtitle, Title, ReadMore, Tags } from './style'
+import {
+  Container,
+  Date,
+  Subtitle,
+  Title,
+  ReadMore,
+  TagContainer,
+} from './style'
+import Tag from '../tag'
 
 interface ListItemProps {
   path: string
@@ -11,22 +18,38 @@ interface ListItemProps {
   date: string
   subtitle: string
   tags?: string[]
+  clickableTags?: boolean
 }
 
-const ListItem = ({ path, title, date, subtitle, tags }: ListItemProps) => {
+const ListItem = ({
+  path,
+  title,
+  date,
+  subtitle,
+  tags,
+  clickableTags,
+}: ListItemProps) => {
+  const onClickTag = (tag: string) => {
+    if (clickableTags) navigate('/tags', { state: { tag } })
+  }
+
   return (
     <Container>
       <Date>{date}</Date>
       <div>
-        <span>
-          {tags &&
-            tags.map((tag) => (
-              <Tag size="lg" borderRadius="full">
-                <Hashtag size="1.5rem" />
-                {tag}
-              </Tag>
+        {tags && (
+          <TagContainer>
+            {tags.map((tag) => (
+              <Tag
+                key={tag}
+                label={tag}
+                selected={false}
+                disabled={!clickableTags}
+                onClick={() => onClickTag(tag)}
+              />
             ))}
-        </span>
+          </TagContainer>
+        )}
         <Title>
           <Link to={path}>{title}</Link>
         </Title>

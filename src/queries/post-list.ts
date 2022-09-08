@@ -1,11 +1,11 @@
 import { PostFrontmatter } from './post'
 
-export interface ListItemFrontMatter extends PostFrontmatter {
+export interface ListItemFrontmatter extends PostFrontmatter {
   slug: string
 }
 
 export interface ListItem {
-  node: { frontmatter: ListItemFrontMatter; id: string }
+  node: { frontmatter: ListItemFrontmatter; id: string }
 }
 
 export interface PostListQueryResult {

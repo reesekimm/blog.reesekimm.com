@@ -7,16 +7,17 @@ import {
   PostListPageContext,
 } from '../../queries/post-list'
 import Pagination from '../../components/pagination'
+import { PostContainer } from './style'
 
-type PostList = Pick<
+type PostListProps = Pick<
   PageProps<PostListQueryResult, PostListPageContext>,
   'data' | 'pageContext'
 >
 
-const PostList = ({ data, pageContext }: PostList) => {
+const PostList = ({ data, pageContext }: PostListProps) => {
   return (
     <Layout pageTitle="All Posts">
-      <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+      <PostContainer>
         {data.allMdx.edges.map(
           ({
             node: {
@@ -31,10 +32,11 @@ const PostList = ({ data, pageContext }: PostList) => {
               subtitle={subtitle}
               date={date}
               tags={tags}
+              clickableTags={true}
             />
           )
         )}
-      </ul>
+      </PostContainer>
       <Pagination
         numOfPages={pageContext.numOfPages}
         currentPage={pageContext.currentPage}

@@ -1,6 +1,9 @@
 const path = require('path')
-const postListTemplate = path.resolve('./src/templates/postList/index.tsx')
-const postTemplate = path.resolve(`./src/templates/post/index.tsx`)
+const _ = require('lodash')
+
+const postListTemplate = path.resolve('src/templates/postList/index.tsx')
+const postTemplate = path.resolve('src/templates/post/index.tsx')
+const tagTemplate = path.resolve('src/templates/tags/index.tsx')
 
 const POSTS_PER_PAGE = 5
 
@@ -21,6 +24,22 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+        group(field: frontmatter___tags) {
+          fieldValue
+          totalCount
+          edges {
+            node {
+              id
+              frontmatter {
+                date(formatString: "MMMM D, YYYY")
+                title
+                subtitle
+                slug
+                tags
+              }
+            }
+          }
+        }
       }
     }
   `)
@@ -29,6 +48,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     reporter.panicOnBuild('Error loading MDX result', result.errors)
   }
 
+  // Create post pagination
   const posts = result.data.allMdx.edges
   const numOfPages = Math.ceil(posts.length / POSTS_PER_PAGE)
 
@@ -45,6 +65,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     })
   })
 
+  // Create post detail pages
   posts.forEach(({ node }) => {
     createPage({
       path: `/posts/${node.frontmatter.slug}`,
@@ -53,5 +74,10 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         id: node.id,
       },
     })
+  })
+
+  createPage({
+    path: `/tags`,
+    component: tagTemplate,
   })
 }

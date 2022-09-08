@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.li`
   color: ${({ theme }) => theme.colors.text};
-  padding: 4.8rem 0;
+  padding: 4rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray1};
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -11,11 +11,14 @@ export const Container = styled.li`
     flex-direction: column;
   }
 `
+export const TagContainer = styled.div`
+  margin-bottom: 0.2rem;
+`
 
 export const Date = styled.time`
   font-size: 1.6rem;
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  color: ${({ theme }) => theme.colors.gray4};
+  color: ${({ theme }) => theme.colors.gray3};
   display: block;
   @media ${({ theme }) => theme.device.mobile} {
     margin-bottom: 1rem;
