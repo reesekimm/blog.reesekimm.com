@@ -1,67 +1,93 @@
-import React from 'react'
-import { graphql, navigate, PageProps } from 'gatsby'
+import React, { useState } from 'react'
+import { graphql, PageProps } from 'gatsby'
 import Layout from '../../components/layout'
 import ListItem from '../../components/listItem'
-import {
-  PostListQueryResult,
-  PostListPageContext,
-} from '../../queries/post-list'
-import Pagination from '../../components/pagination'
-import { PostContainer } from './style'
+import { PostListQueryResult } from '../../queries/post-list'
+import { PostContainer, TagContainer } from './style'
 import Tag from '../../components/tag'
 
-type PostListProps = Pick<
-  PageProps<PostListQueryResult, PostListPageContext>,
-  'data' | 'pageContext'
->
+type PostListProps = Pick<PageProps<PostListQueryResult>, 'data'>
 
-const PostList = ({ data, pageContext }: PostListProps) => {
+const PostList = ({ data }: PostListProps) => {
+  const [selectedTag, setSelectedTag] = useState('All')
+
+  const selectedTagPosts = data.allMdx.group.find(
+    ({ fieldValue }) => fieldValue === selectedTag
+  )
+
   const onClickTag = (tag: string) => {
-    navigate('/tags', { state: { tag } })
+    setSelectedTag(tag)
   }
 
   return (
     <Layout pageTitle="All Posts">
+      <TagContainer>
+        <Tag
+          label="All"
+          selected={selectedTag === 'All'}
+          onClick={() => onClickTag('All')}
+        />
+        {data.allMdx.group.map(({ fieldValue, totalCount }) => (
+          <Tag
+            key={fieldValue}
+            label={`${fieldValue} ${totalCount}`}
+            selected={fieldValue === selectedTag}
+            onClick={() => onClickTag(fieldValue)}
+          />
+        ))}
+      </TagContainer>
       <PostContainer>
-        {data.allMdx.edges.map(
-          ({
-            node: {
-              frontmatter: { date, title, subtitle, slug, tags },
-              id,
-            },
-          }) => (
-            <ListItem
-              key={id}
-              path={`/posts/${slug}`}
-              title={title}
-              subtitle={subtitle}
-              date={date}
-            >
-              {tags &&
-                tags.map((tag) => (
-                  <Tag key={tag} label={tag} onClick={() => onClickTag(tag)} />
-                ))}
-            </ListItem>
-          )
-        )}
+        {selectedTagPosts
+          ? selectedTagPosts.edges.map(
+              (
+                {
+                  node: {
+                    id,
+                    frontmatter: { date, title, subtitle, slug, tags },
+                  },
+                },
+                index
+              ) => (
+                <ListItem
+                  key={id + index.toString()}
+                  path={slug}
+                  title={title}
+                  subtitle={subtitle}
+                  date={date}
+                >
+                  {tags && tags.map((tag) => <Tag key={tag} label={tag} />)}
+                </ListItem>
+              )
+            )
+          : data.allMdx.edges.map(
+              ({
+                node: {
+                  frontmatter: { date, title, subtitle, slug, tags },
+                  id,
+                },
+              }) => (
+                <ListItem
+                  key={id}
+                  path={slug}
+                  title={title}
+                  subtitle={subtitle}
+                  date={date}
+                >
+                  {tags && tags.map((tag) => <Tag key={tag} label={tag} />)}
+                </ListItem>
+              )
+            )}
       </PostContainer>
-      <Pagination
-        numOfPages={pageContext.numOfPages}
-        currentPage={pageContext.currentPage}
-      />
     </Layout>
   )
 }
 
 export const query = graphql`
-  query ($limit: Int!, $skip: Int!) {
-    allMdx(
-      limit: $limit
-      skip: $skip
-      sort: { fields: frontmatter___date, order: DESC }
-    ) {
+  query {
+    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
       edges {
         node {
+          id
           frontmatter {
             date(formatString: "MMMM D, YYYY")
             title
@@ -69,7 +95,22 @@ export const query = graphql`
             slug
             tags
           }
-          id
+        }
+      }
+      group(field: frontmatter___tags) {
+        fieldValue
+        totalCount
+        edges {
+          node {
+            id
+            frontmatter {
+              date(formatString: "MMMM D, YYYY")
+              title
+              subtitle
+              slug
+              tags
+            }
+          }
         }
       }
     }

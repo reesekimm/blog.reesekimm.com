@@ -8,9 +8,23 @@ export interface ListItem {
   node: { frontmatter: ListItemFrontmatter; id: string }
 }
 
+export interface Edge {
+  node: {
+    id: string
+    frontmatter: ListItemFrontmatter
+  }
+}
+
+export interface TagData {
+  fieldValue: string
+  totalCount: number
+  edges: Edge[]
+}
+
 export interface PostListQueryResult {
   allMdx: {
     edges: ListItem[]
+    group: TagData[]
   }
 }
 

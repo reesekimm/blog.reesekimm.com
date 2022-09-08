@@ -25,17 +25,11 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
         }
         group(field: frontmatter___tags) {
-          fieldValue
-          totalCount
           edges {
             node {
               id
               frontmatter {
-                date(formatString: "MMMM D, YYYY")
-                title
-                subtitle
                 slug
-                tags
               }
             }
           }
@@ -54,30 +48,19 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
   Array.from({ length: numOfPages }).forEach((_, i) => {
     actions.createPage({
-      path: i === 0 ? '/' : `/${i + 1}`,
+      path: '/',
       component: postListTemplate,
-      context: {
-        limit: POSTS_PER_PAGE,
-        skip: i * POSTS_PER_PAGE,
-        numOfPages,
-        currentPage: i + 1,
-      },
     })
   })
 
   // Create post detail pages
   posts.forEach(({ node }) => {
     createPage({
-      path: `/posts/${node.frontmatter.slug}`,
+      path: node.frontmatter.slug,
       component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         id: node.id,
       },
     })
-  })
-
-  createPage({
-    path: `/tags`,
-    component: tagTemplate,
   })
 }

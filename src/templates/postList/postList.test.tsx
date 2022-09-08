@@ -4,7 +4,6 @@ import PostList from '.'
 import { render, screen } from '../../utils/testing-library-util'
 import allMdx from '../../__fixtures__/allMdx'
 import siteMetadata from '../../__fixtures__/siteMetadata'
-import { postListPageCtx } from '../../__fixtures__/pageContext'
 
 jest.mock('gatsby')
 
@@ -19,7 +18,7 @@ describe('PostList', () => {
   })
 
   it('should display post list', () => {
-    render(<PostList data={allMdx} pageContext={postListPageCtx} />)
+    render(<PostList data={allMdx} />)
 
     const listItems = screen.getAllByRole('button', { name: /read more/i })
 
