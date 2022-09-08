@@ -3,14 +3,13 @@ import { Container } from './style'
 
 interface TagProps {
   label: string
-  selected: boolean
-  disabled?: boolean
+  selected?: boolean
   onClick?: () => void
 }
 
-const Tag = ({ label, selected, disabled = true, onClick }: TagProps) => {
+const Tag = ({ label, selected = false, onClick }: TagProps) => {
   return (
-    <Container selected={selected} disabled={disabled} onClick={onClick}>
+    <Container selected={selected} disabled={!onClick} onClick={onClick}>
       {label}
     </Container>
   )

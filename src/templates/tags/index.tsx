@@ -18,7 +18,6 @@ type TagsProps = Pick<
 >
 
 const Tags = ({ data, location }: TagsProps) => {
-  console.log('[data]', data)
   const [selectedTag, setSelectedTag] = useState(location.state.tag)
 
   const tagData = data.allMdx.group
@@ -35,7 +34,6 @@ const Tags = ({ data, location }: TagsProps) => {
             key={fieldValue}
             label={`${fieldValue} ${totalCount}`}
             selected={fieldValue === selectedTag}
-            disabled={false}
             onClick={() => onClickTag(fieldValue)}
           />
         ))}
@@ -59,9 +57,16 @@ const Tags = ({ data, location }: TagsProps) => {
                 title={title}
                 subtitle={subtitle}
                 date={date}
-                tags={tags}
-                clickableTags={false}
-              />
+              >
+                {tags &&
+                  tags.map((tag) => (
+                    <Tag
+                      key={tag}
+                      label={tag}
+                      onClick={() => onClickTag(tag)}
+                    />
+                  ))}
+              </ListItem>
             )
           )}
       </PostContainer>

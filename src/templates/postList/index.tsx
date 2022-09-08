@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, PageProps } from 'gatsby'
+import { graphql, navigate, PageProps } from 'gatsby'
 import Layout from '../../components/layout'
 import ListItem from '../../components/listItem'
 import {
@@ -8,6 +8,7 @@ import {
 } from '../../queries/post-list'
 import Pagination from '../../components/pagination'
 import { PostContainer } from './style'
+import Tag from '../../components/tag'
 
 type PostListProps = Pick<
   PageProps<PostListQueryResult, PostListPageContext>,
@@ -15,6 +16,10 @@ type PostListProps = Pick<
 >
 
 const PostList = ({ data, pageContext }: PostListProps) => {
+  const onClickTag = (tag: string) => {
+    navigate('/tags', { state: { tag } })
+  }
+
   return (
     <Layout pageTitle="All Posts">
       <PostContainer>
@@ -31,9 +36,12 @@ const PostList = ({ data, pageContext }: PostListProps) => {
               title={title}
               subtitle={subtitle}
               date={date}
-              tags={tags}
-              clickableTags={true}
-            />
+            >
+              {tags &&
+                tags.map((tag) => (
+                  <Tag key={tag} label={tag} onClick={() => onClickTag(tag)} />
+                ))}
+            </ListItem>
           )
         )}
       </PostContainer>

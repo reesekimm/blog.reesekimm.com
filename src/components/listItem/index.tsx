@@ -1,6 +1,5 @@
-import React from 'react'
-import { Link, navigate } from 'gatsby'
-
+import React, { Children, isValidElement } from 'react'
+import { Link } from 'gatsby'
 import { ArrowRight } from '@styled-icons/heroicons-solid/ArrowRight'
 import {
   Container,
@@ -12,44 +11,29 @@ import {
 } from './style'
 import Tag from '../tag'
 
+function getTags(children: React.ReactNode) {
+  const TagType = (<Tag label="" />).type
+  return Children.toArray(children).filter(
+    (child) => isValidElement(child) && child.type === TagType
+  )
+}
+
 interface ListItemProps {
   path: string
   title: string
   date: string
   subtitle: string
-  tags?: string[]
-  clickableTags?: boolean
+  children?: React.ReactNode
 }
 
-const ListItem = ({
-  path,
-  title,
-  date,
-  subtitle,
-  tags,
-  clickableTags,
-}: ListItemProps) => {
-  const onClickTag = (tag: string) => {
-    if (clickableTags) navigate('/tags', { state: { tag } })
-  }
+const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
+  const tags = getTags(children)
 
   return (
     <Container>
       <Date>{date}</Date>
       <div>
-        {tags && (
-          <TagContainer>
-            {tags.map((tag) => (
-              <Tag
-                key={tag}
-                label={tag}
-                selected={false}
-                disabled={!clickableTags}
-                onClick={() => onClickTag(tag)}
-              />
-            ))}
-          </TagContainer>
-        )}
+        <TagContainer>{tags}</TagContainer>
         <Title>
           <Link to={path}>{title}</Link>
         </Title>
