@@ -1,0 +1,128 @@
+---
+date: 2020-08-20
+title: Git 브랜치 분리하고 커밋 옮기기
+tags: ['문제해결']
+slug: /posts/seperate-branch
+---
+
+feature A 개발이 완료된 이후 dev 브랜치에 merge를 하지 않은 상태에서 feature B를 개발해서
+**feature A 브랜치에 feature B의 commit이력이 섞이게 됐다.**
+
+> - feature A : feature/redux
+> - feature B : feature/ui-postcard
+
+![before](https://i.postimg.cc/T337Sb7q/2020-08-20-10-59-30.png)
+
+원하는 브랜치의 모습은 아래 이미지처럼 feature별로 브랜치와 commit 이력이 분리되고
+각 feature 브랜치가 순차적으로 dev 브랜치에 merge된 모습이다.
+
+![after](https://i.postimg.cc/CLqL8ZH7/image.png)
+
+<br />
+
+## 해결방안탐색
+
+일단 feature B를 위한 새로운 브랜치를 생성하고 `git cherry-pick`으로 feature B에 해당하는 commit들을 옮겨와야했다.
+
+### 1. feature A 기능이 완료된 시점의 커밋에서 feature B 브랜치를 생성한다.
+
+```
+git checkout e089b937
+git checkout -b feature/ui-postcard
+```
+
+![step 1](https://i.postimg.cc/XJg3LFDS/2020-08-20-11-26-17-1.png)
+
+### 2. cherry-pick으로 feature B에 해당하는 commit이력을 가져온다.
+
+commit 갯수가 많으므로 각각의 commit hash가 아닌 '범위'를 지정해주었다.
+
+- 범위를 지정해줄때는 커밋한 시간 순으로 명시해준다.
+- `^..`을 사용해서 두 커밋 모두 포함되도록 한다.
+
+```
+git cherry-pick 08d7a6e4^..cb052a29
+```
+
+![step 2-1](https://i.postimg.cc/3xWRwLfy/2020-08-20-11-26-17.png)
+
+commit을 복사해왔다.
+
+> 새로운 커밋 해시값들이 만들어진다.
+
+![step 2-2](https://i.postimg.cc/2STpLmJT/2020-08-20-11-28-24.png)
+
+### 3. feature A 브랜치에서 feature B에 해당하는 커밋을 지운다.
+
+feature A 브랜치에서 feature B commit들을 지워준다.
+
+```
+git checkout feature/redux
+git reset --hard e089b937
+```
+
+브랜치별로 commit이 분리되었다!
+
+![step 3](https://i.postimg.cc/QMM2pwZD/2020-08-20-11-33-43.png)
+
+### 4. feature별 브랜치를 dev 브랜치에 merge한다.
+
+이제 각 feature별 브랜치를 dev에 merge하는 일만 남았다.
+
+먼저 feature A 브랜치를 merge 해준다.
+
+> `--no-ff` flag를 사용하여 새로운 커밋 이력을 남겨준다.
+
+```
+git checkout dev
+git merge --no-ff feature/redux
+```
+
+![step 4-1](https://i.postimg.cc/63kFxQ26/2020-08-20-11-34-32.png)
+
+feature B 브랜치를 feature A의 마지막 commit에서 생성했기 때문에 featue B 브랜치의 시작점을 dev로 옮겨줘야 한다.
+feature B 브랜치로 이동해서 `git rebase` 해준다.
+
+```
+git checkout feature/ui-postcard
+git rebase dev
+```
+
+![step 4-2](https://i.postimg.cc/PqFBKydw/2020-08-20-11-36-15.png)
+
+마지막으로 feature B 브랜치를 dev에 merge 해준다.
+
+```
+git checkout dev
+git marge --no-ff feature/ui-postcard
+```
+
+![step 4-3](https://i.postimg.cc/qRhWFK7Z/2020-08-20-11-37-28.png)
+
+브랜치 정리 성공!🎉
+
+<br />
+
+## 정리
+
+요즘 git 커맨드를 쓰던 것만 쓰다보니 그 외의 것들은 가물가물해지던 차였다.
+이번에 브랜치를 정리하면서 필요한 기능을 다시 찾아보고 정리할 수 있어서 좋았다.
+
+---
+
+터미널에 `git checkout -b <branch_name>`을 입력하니 `git switch` 사용을 제안하는 안내문구가 출력됐다.
+
+잠깐 찾아보니 `git switch`는 git `2.23.0` 부터 추가된 커맨드라고 한다.
+기존에 `checkout` 이 담당하던 두 기능을 `switch`와 `restore`로 분리하면서 생긴 것이라고.
+
+- 브랜치를 생성/이동할때는 `git switch`을
+- 브랜치를 복원할때는 `git restore`를 쓰면 된다.
+
+물론 기존대로 checkout을 계속 사용할 수도 있다.
+
+시험 삼아 하나 해보니 `git switch -c <branch name>`이 `git checkout -b <branch name>`과 동일한 기능을 한다.
+
+---
+
+- [git-switch Documentation - Git](https://git-scm.com/docs/git-switch)
+- [git switch, restore 훑어보기](https://ujuc.github.io/2020/07/04/git-switch-n-restore-hurt-eo-bo-gi/)

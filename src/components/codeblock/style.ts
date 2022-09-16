@@ -6,13 +6,11 @@ export const Pre = styled.pre`
   font-size: 1.4rem;
   line-height: 2rem;
 
-  margin: 1em 0;
-  padding: 0.5em;
+  margin: 3rem 0;
+  padding: 1em;
   border-radius: 10px;
 
-  background: #111 !important;
-
-  overflow: scroll;
+  white-space: pre-wrap;
 `
 
 export const Line = styled.div`

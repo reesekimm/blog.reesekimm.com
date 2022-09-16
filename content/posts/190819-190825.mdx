@@ -1,0 +1,74 @@
+---
+date: 2019-08-25
+title: 190819-100825
+subtitle: 주간회고
+tags: ['회고']
+slug: /posts/retrospective-190819-100825
+---
+
+## REFLECT
+
+---
+
+- [x] 바닐라 자바스크립트로 [Amazon Prime](https://www.amazon.com/amazonprime/136-1021406-1450520?_encoding=UTF8&%2AVersion%2A=1&%2Aentries%2A=0) 클론 코딩 하기<br />
+      └ [문서](https://docs.google.com/presentation/d/1E0HUKbGFaGpGIyZFbQ5iyX-egynVwXqfGqwl42VE1g4/edit#slide=id.g27cc25ec5b_0_4)([출처](https://github.com/code-squad/test-item-pool/blob/master/webfrontend/level4.md)) 참조하여 구현<br />
+      └ 이번주 구현 범위 : 1. 메인페이지 HTML, CSS / 2. 상단 Plans 레이어 / (3. 메가드롭다운메뉴)
+
+- [x] [초보를 위한 React JS](https://academy.nomadcoders.co/p/react-for-beginners) 전체 1회차 학습 (Challenge 시작 전 예습)
+
+- [ ] 알고리즘 5문제 풀기
+
+---
+
+- `npm`으로 create-react-app을 다운받고 리액트 코드를 짜다가 어느시점에 라이브러리를 설치하면서 `yarn`을 썼더니 그 프로젝트에서만 `ESLint: Failed to load config "react-app" to extend from` 에러가 발생했다. 그런데 이 에러가 2시간짜리 삽질의 시작이 될 줄 누가 알았을까
+
+  1.  구글링으로도 명확한 해결책을 찾지 못함
+  2.  깔끔하게 node.js부터 최신버전으로 다시 세팅하자!
+  3.  node.js를 쓸 때 마다 매번 버전 체크하고 업데이트 하는 일이 번거롭다.
+      간단한 방법으로 node.js를 항상 최신버전으로 유지할 수 없을까?
+  4.  [NVM(Node Version Manager)](https://github.com/coreybutler/nvm-windows/releases)라는 녀석을 발견.
+      node.js 버전 관리 프로그램인데, 이걸 쓰면 터미널에서 간단한 명령어만으로 여러 버전의 node.js를 설치/사용/관리할 수 있다! (물론 NVM 말고 [nodist](https://github.com/nullivex/nodist/releases/tag/0.9.1)이나 [n](https://github.com/tj/n)도 있지만.. 난 그냥 NVM을 쓰기로 했다.)
+  5.  NVM을 설치하기 전에 local에서 기존 node.js 관련 파일을 **전부** 삭제해야한다.
+      windows 기준으로 다음과 같은데, 이 중에서 하나라도 빼먹으면 node.js가 제대로 설치되지 않는다.
+      (이걸 전부 명시한 글이 없어서 또 헤맸다.)
+      > - 제어판에서 node.js 삭제
+      > - C:\Program Files\nodejs 폴더 삭제
+      > - C:\Users\AppData\Roaming\npm 폴더 삭제
+      > - C:\Users\AppData\Roaming\npm_cache 폴더 삭제
+  6.  NVM 설치 후 원하는 버전의 node.js를 설치한다. ([참고1](http://kimstar.kr/8375/), [참고2](https://heropy.blog/2018/02/17/node-js-install/))
+
+  그래서 교훈은.. `npm`과 `yarn`을 섞어서 쓰지 말자.
+
+- `display: none`을 포함한 display 속성을 변경하는데엔 transition 효과가 먹히지 않는다. 이걸 찾느라 한시간 반 동안 또..ㅎㅎ 어렵게 배운 만큼 잊어버리지 않을 것 같다.
+
+- 이번주는 Amazon Prime 클론코딩이랑 리액트 챌린지 예습한다고 알고리즘은 뒷전이었다. 토이 프로젝트를 하면서 5문제를 풀고 깃헙에 정리까지 하는게 살짝 부담이 된 것 같다. 그래서 알고리즘은 매주 2-3문제로 조정하려고 한다.
+
+- Amazon Prime 클론코딩의 경우 계획했던 분량만큼 작업을 끝냈다. (뿌듯!) HTML/CSS와 JS 작업 비율이 7:3 정도 였는데, HTML/CSS랑 JS를 동시에 진행하려니 자꾸 미완성된 HTML/CSS가 거슬려서 HTML/CSS를 끝내고 JS에 집중하는 방법을 택했다.
+  개인적으로 이번 프로젝트에 Semantic Markup을 작성하는데 공을 들였다. 제대로 한건지는 모르겠지만.. 어쨌든 다음주부터는 JS에 집중할 수 있을 것 같다! :)
+
+&nbsp;
+
+## PLAN NEXT WEEK
+
+- [초보를 위한 React JS](https://academy.nomadcoders.co/p/react-for-beginners) 2주 Challenge 시작!
+- Amazon Prime 메가드롭다운메뉴 / 메뉴 네비게이션 만들기
+- 알고리즘 2-3문제 풀기
+
+&nbsp;
+
+## CONTENTS OF THIS WEEK
+
+---
+
+**[러버덕과 디버깅](https://www.youtube.com/watch?v=15EQ5C2yBFE&t=69s)**
+
+---
+
+**인상깊었던 내용**
+내 머릿속 어딘가에, 내 능력 어딘가에는 내가 되고 싶은 그 사람처럼 될 수 있는 가능성이 숨어있고,
+러버덕 디버깅이 그 가능성을 이끌어내는 하나의 방법이 될 수 있다.
+
+**적용하기**
+영상을 보고 리액트와 리액트 라우터에 대해 공부한 내용을 소리내어 설명하는 방식으로 러버덕 디버깅을 해보았다. 확실히 어떤 내용을 머리로만 이해하고 넘어갔을 때 보다 말로 설명할 때 공부한 내용이 머릿속에서 한번 더 체계적으로 정리가 되고, 내가 실제로 무엇을 알고 무엇을 모르는지 명확하게 판단할 수 있었던 것 같다. 앞으로는 뭔가를 학습할 때 뿐만 아니라 잘 풀리지 않는 문제를 해결할 때에도 러버덕을 활용해봐야겠다!
+
+> 관련글 │ [러버덕 디버깅](https://medium.com/@codesquad_yoda/러버덕-디버깅-76c4e3fbef3c)

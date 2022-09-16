@@ -7,7 +7,6 @@ const GlobalStyle = createGlobalStyle`
   html {
     height: 100vh;
     font-size: 10px;
-    scroll-behavior: smooth;
   }
 
   body {
@@ -36,6 +35,13 @@ const GlobalStyle = createGlobalStyle`
   ul, ol {
     margin: 0;
     margin-top: 1rem;
+    padding-left: 2.4rem;
+  }
+
+  ul.contains-task-list {
+    list-style: none;
+    padding: 0;
+    padding-left: 2.4rem;
   }
 
   li {
@@ -82,12 +88,12 @@ const GlobalStyle = createGlobalStyle`
 
   code {
     font-family: ${({ theme }) => theme.fontFamily.monospace};
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.sm};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
     color: ${({ theme }) => theme.colors.text};
-    border: 2px solid ${({ theme }) => theme.colors.primary};
+    background-color: rgba(144, 164, 174, 0.3);
     border-radius: 5px;
-    padding: 0.03rem 0.5rem;
+    padding: 0.1rem 0.4rem;
     margin: 0 0.3rem;
   }
 
@@ -118,7 +124,7 @@ const GlobalStyle = createGlobalStyle`
     height: 0.1rem;
     border: none;
     background: ${({ theme }) => theme.colors.gray1};
-    margin: 7rem 0;
+    margin: 4rem 0;
   }
 
   img {

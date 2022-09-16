@@ -13,7 +13,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        extensions: [`.mdx`, `.md`],
+        mdxOptions: {
+          remarkPlugins: [require(`remark-gfm`)],
+        },
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
@@ -21,7 +23,17 @@ module.exports = {
               maxWidth: 852,
             },
           },
+          {
+            resolve: `gatsby-remark-copy-linked-files`,
+          },
         ],
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: `images`,
+        path: `${__dirname}/content/images`,
       },
     },
     {

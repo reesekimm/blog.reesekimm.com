@@ -1,25 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { MDXProvider } from '@mdx-js/react'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 import Theme from '../theme'
 import { StyledBody, PageTitle } from './style'
 import Header from '../header'
 import Footer from '../footer'
-import Codeblock from '../codeblock'
-import Link from '../link'
-import LinkedHeading from '../linkedHeading'
 import { persistor, store } from '../../state/store'
 import { toggleHeaderTransition } from '../../state/appSlice'
-
-const components = {
-  pre: Codeblock,
-  a: Link,
-  h2: LinkedHeading.h2,
-  h3: LinkedHeading.h3,
-  h4: LinkedHeading.h4,
-  h5: LinkedHeading.h5,
-}
 
 const isBrowser = typeof window !== 'undefined'
 
@@ -73,7 +60,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
           <Header showing={headerTransition && showHeader} />
           <StyledBody>
             {pageTitle && <PageTitle>{pageTitle}</PageTitle>}
-            <MDXProvider components={components}>{children}</MDXProvider>
+            {children}
           </StyledBody>
           <Footer />
         </Theme>

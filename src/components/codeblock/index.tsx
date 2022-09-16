@@ -25,7 +25,7 @@ const Codeblock: ComponentType<any> = (props) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <Pre className={className} style={style}>
           {tokens.map((line, i) => {
-            if (line[i] && !line[i].empty)
+            if (i < tokens.length - 1)
               return (
                 <Line key={i} {...getLineProps({ line, key: i })}>
                   {language && <LineNo>{i + 1}</LineNo>}

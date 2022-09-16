@@ -1,0 +1,125 @@
+---
+date: 2019-11-03
+title: 자바스크립트 평가 전략
+subtitle: Call by value vs Call by reference in Javascript
+tags: ['Javascript']
+slug: /posts/evaluation-strategy
+---
+
+call by value와 call by reference는 프로그래밍 언어에서 사용되는 평가전략(Evaluation Strategy)의 일종이다.
+
+평가전략이란 프로그래밍 언어에서 함수 호출시 전달할 arguments를 언제 평가할 것인지, 어떤 종류의 값을 함수에게 전달할 것인지를 결정하는 방법이라고 할 수 있는데 크게 Strict evaluation(엄격한 평가)와 Non-strict evaluation(엄격하지 않은 평가)로 구분한다.
+
+<br />
+
+- **Strict evaluation** (Eager evaluation, greedy evaluation)
+
+  - arguments에 대한 모든 평가를 마친 후 함수에 전달한다.
+  - `call by value`, `call by reference`, call by sharing 등이 여기에 속한다.
+
+<br />
+
+- **Non-strict evaluation** (lazy evaluation)
+  - arguments가 함수 본문(body)를 평가할때 사용되지 않는 한 평가하지 않는다.
+  - call by name, call by need, call by macro expansion 등이 여기에 속한다.
+
+<br />
+
+## call by value
+
+call by value는 함수 호출 시 arguments의 값을 그대로 복사하여 전달한다. arguments의 원본과 복사본이 각각 다른 메모리에 할당되어 있기 때문에 함수에 의해 본사본이 수정되더라도 원본에 영향을 미치지 않는다.
+
+```js
+var a = 1
+
+var plusOne = function (b) {
+  b = b + 1
+}
+
+plusOne(a)
+
+console.log(a) // 1
+```
+
+<br />
+
+## call by reference
+
+call by reference는 함수 호출 시 arguments의 reference(값에 대한 참조 주소, 메모리 주소를 담고있는 변수)를 전달한다. 이때 메모리에 들어있는 값을 복사하지는 않는다. 원본과 복사본이 동일한 reference를 가지기 때문에 함수에 전달된 복사본을 수정할 경우 원본이 함께 수정된다.
+
+```js
+var a = {}
+
+var plusOne = function (b) {
+  b.add = 1
+}
+
+plusOne(a)
+
+console.log(a.add) // 1
+```
+
+<br />
+
+_그렇다면 Javascript는 call by value이면서 동시에 call by reference방식으로 동작하는걸까?_
+
+아래 코드를 보자.
+
+```js
+function change(a, b, c) {
+  a = a * 10
+  b.item = 'changed'
+  c = { item: 'changed' }
+}
+
+var num = 10
+var obj1 = { item: 'unchanged' }
+var obj2 = { item: 'unchanged' }
+
+change(num, obj1, obj2)
+
+console.log(num) // 10 ─ (1)
+console.log(obj1.item) // changed ─ (2)
+console.log(obj2.item) // unchanged ─ (3)
+```
+
+숫자나 문자열 같은 primitive value를 넘기면
+
+**(1)** 별도의 메모리 공간에 위치한 복사본을 전달한다. 복사본의 변경사항이 원본에 영향을 미치지 않는다.<br />→ call by value와 동일
+
+<br />
+
+배열, 객체와 같은 참조 타입의 값을 넘기면
+
+**(2)** 복사본과 원본이 동일한 메모리 주소를 참조하기 때문에 복사본을 수정하면 원본도 함께 수정된다.<br />→ call by reference와 같은 점
+
+<br />
+
+**(3)** `=`연산자를 사용하여 복사본을 새로운 값으로 초기화(재할당)할 경우 복사본의 reference가 달라지면서 이후의 변경사항은 원본에 영향을 미치지 않는다.<br />→ call by reference와 다른 점
+
+<br />
+
+전달되는 값의 데이터 타입에 따라 위와 같이 동작하는 방식을 [call by sharing](https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_sharing)이라고 하며 **자바스크립트는 `call by sharing` 방식으로 동작한다**고 할 수 있다.
+
+<br />
+
+## 결론
+
+- 자바스크립트는 **call by sharing** 방식으로 동작한다.
+- 함수 호출시 원시타입의 값을 전달할 경우 복사본의 수정사항은 원본에 반영되지 않는다.
+- 참조타입의 값을 전달할 경우 복사본과 원본의 참조관계에 의해 원본도 함께 수정되지만
+- 복사본에 값을 재할당하면 복사본과 원본의 참조관계가 깨지면서 변경사항이 생겨도 원본에 영향을 미치지 않게 된다.
+
+<br />
+<br />
+
+---
+
+**Reference**
+
+- https://perfectacle.github.io/2017/10/30/js-014-call-by-value-vs-call-by-reference/
+- https://en.wikipedia.org/wiki/Evaluation_strategy
+- https://blueshw.github.io/2018/09/15/pass-by-reference/
+- https://www.guru99.com/call-by-value-vs-call-by-reference.html
+- https://stackoverflow.com/questions/6605640/javascript-by-reference-vs-by-value
+- https://stackoverflow.com/questions/518000/is-javascript-a-pass-by-reference-or-pass-by-value-language

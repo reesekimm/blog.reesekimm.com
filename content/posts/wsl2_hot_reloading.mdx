@@ -1,0 +1,48 @@
+---
+date: 2020-08-10
+title: WSL2 hot reloading not working
+tags: ['문제해결']
+slug: /posts/wsl2-hot-reloading-not-working
+---
+
+## 개발환경
+
+- Windows 10 (2004)
+- WSL2
+- VSCode 1.47.3
+- Next.js 9.5.1
+
+## 이슈
+
+소스 코드 변경시 Next.js hot-reloading이 동작하지 않아서 local server를 껐다가 다시 켜야 함
+
+## 원인
+
+For those stumbling upon, some notes about WSL2 features & limitations (OS build 19041.21, insiders slow ring):
+
+- inotify filesystem events are not propagated between WSL2 & Windows. Although it will be supported in future releases as stated in Microsoft documentation.
+- Accessing Windows filesystem from WSL2, when developing is extremely slow. While moving projects to WSL2 filesystem, will increase performance, much faster than WSL1 & Windows development. (WSL2 can be accessed in path \\wsl\$\)
+- VSCode installed in Windows, with remote extension pack, will install VSCode server automatically in WSL2. Some extensions should be installed in the WSL2 side to work, when openning files from the local WSL2 filesystem. The VSCode Extenions tab in the UI provides indications and guides through the required changes.
+- `localhost` is managed for you by Windows, and allows access to WSL2. Some cases require accessing the WSL2 VM by it's IP directly.
+- Symlinks in WSL2 work seamlessly between WSL2, Docker containers, & Windows, which wasn't the case with WSL1. Using Docker Desktop on WSL2 experimental feature.
+- Some graphical programs (e.g. SmartGit/GitKraken) need to be installed in WSL2 and accessed through GUI client through Windows (Unix X server), to overcome the inotify events & performance degredations.
+
+WSL2의 기능과 한계점들을 정리한 내용.
+hot reloading이 제대로 동작하지 않는 이유는 첫문장에 나와있다.
+`WSL2와 Windows 사이에서 filesystem 이벤트가 전파되지 않아서 발생한 이슈`라는 것이다.
+microsoft 공식문서에는 이 기능이 언급되어 있어서 나중에 추가될 예정 이라고 한다.
+
+<br />
+
+> ref.
+
+- [HRM not working on WSL 2](https://github.com/microsoft/WSL/issues/4417)
+- [[WSL2] File changes made by Windows apps on Windows filesystem don't trigger notifications for Linux apps](https://github.com/microsoft/WSL/issues/4739)
+
+## 해결
+
+1. 프로젝트 디렉토리를 Linux root(`\\wsl$`)로 옮기고
+2. VSCode `remote-WSL: New Window` mode로 접속하여 작업
+
+하지만 개인적으로는 hot reloading 기능 때문에 일부 프로젝트를 linux 환경으로 옮길 경우 프로젝트 관리 환경이 분산되기 때문에 좋은 방법이 아니라고 판단했다.
+마소에서 filesystem 관련 기능을 업데이트 하기 전까지 local server 구동이 필요한 프로젝트는 PowerShell이나 Git Bash를 사용해서 작업하기로 했다.

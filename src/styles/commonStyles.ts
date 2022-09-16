@@ -19,7 +19,7 @@ const commonStyles = {
     bold: 700,
   },
   fontSize: {
-    sm: '1rem',
+    sm: '1.4rem',
     md: '1.6rem',
     lg: '2.125rem',
     xl: '2.8rem',

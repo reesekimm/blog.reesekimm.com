@@ -18,7 +18,8 @@ export default function useActiveId(ids: string[]) {
     }, options)
 
     ids.forEach((id) => {
-      observer.observe(document.getElementById(id)!)
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
     })
 
     return () => {

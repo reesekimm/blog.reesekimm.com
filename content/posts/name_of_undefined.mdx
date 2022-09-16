@@ -1,0 +1,80 @@
+---
+date: 2020-08-24
+title: Cannot read property 'name' of undefined
+tags: ['문제해결']
+slug: /posts/name-of-undefined
+---
+
+## 개발환경
+
+- Windows Terminal / WSL@2
+- node 12.18.3 / npm 6.14.6
+- react 16.13.1
+- typescript 3.7.5
+- eslint 6.8.0
+
+<br />
+
+[CRA 공식 홈페이지](https://create-react-app.dev/docs/adding-typescript/#installation)를 참고하여 아래의 스크립트를 실행하고 CRA + Typescript 개발환경을 구성한 상태였다.
+
+```
+npx create-react-app my-app --template typescript
+```
+
+<br />
+
+## 이슈
+
+> index.ts
+
+```ts
+export * from './todo'
+```
+
+위 코드를 작성하고 build시 `Line 0: Parsing error: Cannot read property 'name' of undefined [eslint]` 에러가 발생했다.
+
+<br />
+
+## 원인파악 & 해결방안탐색
+
+### 탐색 1
+
+[Stackoverflow - React Typescript: Line 0: Parsing error: Cannot read property 'name' of undefined](https://stackoverflow.com/questions/60729199/react-typescript-line-0-parsing-error-cannot-read-property-name-of-undefine)
+
+**→ 이슈 해결 안됨**
+
+<br />
+
+### 탐색 2
+
+[typescript-eslint Issue](https://github.com/typescript-eslint/typescript-eslint/issues/1746)
+
+1. typescript 버전을 `3.8.3`으로 upgrade (cf. [typescript releases](https://github.com/Microsoft/TypeScript/releases)를 참고하여 3.8.x의 가장 마지막 버전 사용)
+2. [yarn resolutions](https://classic.yarnpkg.com/en/docs/selective-version-resolutions/)로 아래 @typescript-eslint package들을 downgrade
+
+```
+"@typescript-eslint/eslint-plugin": "2.23.0",
+"@typescript-eslint/parser": "2.23.0",
+"@typescript-eslint/typescript-estree": "2.23.0"
+```
+
+**→ 이슈 해결 안됨**
+
+<br />
+
+### 해결
+
+1. create-react-app을 설치했을때 생성된 `/node_modules`, `yarn.lock`을 삭제
+2. `yarn install`을 실행하여 모든 패키지를 다시 설치
+3. `yarn upgrade`로 모든 패키지를 최신 버전으로 업데이트
+
+탐색 1에서 찾은 해결방안에 덧붙여서 모든 패키지를 업데이트 해주었더니 그제서야 에러가 사라지고 제대로 동작했다. 약 1시간 반 동안의 삽질 끝에..ㅠㅠ
+
+<br />
+
+## 정리
+
+- 명확한 원인을 파악하지 못하고 에러만 겨우 해결한 것 같아 아쉽다.
+- CRA를 쓴다고 환경설정에 관련된 에러 없이 술술 진행이 되는 건 아니라는걸 깨달았다.
+- 심심할때 TypeScript ESLint [README](https://github.com/typescript-eslint/typescript-eslint#typescript-eslint)를 읽어봐야겠다. 정리가 참 잘 되어있다.
+- 구글링을 하다가 [Nightly build](https://openmicrolab.com/nightly-build/)라는 것에 대해 알게 됐다.
