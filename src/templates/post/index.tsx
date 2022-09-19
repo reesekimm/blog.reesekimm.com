@@ -15,6 +15,7 @@ import {
   Subtitle,
   Title,
 } from './style'
+import Comments from '../../components/comments'
 
 const components = {
   pre: Codeblock,
@@ -44,6 +45,8 @@ const Post = ({ data, children }: PostProps) => {
         <TableOfContents tocItems={tableOfContents.items} />
         <MarkdownWrapper>
           <MDXProvider components={components}>{children}</MDXProvider>
+          <hr />
+          <Comments />
         </MarkdownWrapper>
       </PageBody>
     </Layout>

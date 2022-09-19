@@ -124,7 +124,7 @@ const GlobalStyle = createGlobalStyle`
     height: 0.1rem;
     border: none;
     background: ${({ theme }) => theme.colors.gray1};
-    margin: 4rem 0;
+    margin: 6rem 0;
   }
 
   img {
