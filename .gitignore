@@ -6,3 +6,5 @@ public
 cypress/downloads
 cypress/screenshots
 cypress/videos
+
+.DS_Store
