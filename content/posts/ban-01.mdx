@@ -29,13 +29,13 @@ slug: /posts/ban-01
 
 프로세서, 기억장치, 입출력 장치 등의 하드웨어 자원의 경우 사양이 이미 정해져 있다. 운영체제는 주어진 자원으로 최대한의 성능을 낼 수 있도록 자원을 효율적으로 관리하며(**효율성**), 동시에 여러 사용자들에게 공평하게 분배하는 역할을 수행한다.(**형평성**)
 
-![role_1](../images/os_role_1.PNG)
+![role_1](../images/os_role_1.png)
 
 ### 2. 컴퓨터 시스템을 편리하게 사용할 수 있는 환경을 제공
 
 운영체제가 자원을 효율적으로 관리하고 사용자들에게 고르게 분배하기 때문에 사용자/프로그램의 입장에서는 자신이 컴퓨터를 혼자 점유하고 있는 듯한 환상을 느끼게 된다. 하드웨어를 직접 다루는 복잡한 부분 역시 운영체제가 수행하기 때문에 컴퓨터를 편리하게 사용할 수 있다.
 
-![role_2](../images/os_role_2.PNG)
+![role_2](../images/os_role_2.png)
 
 <br />
 
@@ -61,7 +61,7 @@ slug: /posts/ban-01
   - 작업이 완전히 종료될 때까지 기다려야 함
   - 예) 초기 Punch Card 처리 시스템
 
-  ![batch_processing](../images/os_batch.PNG)
+  ![batch_processing](../images/os_batch.png)
 
 <br />
 
@@ -72,7 +72,7 @@ slug: /posts/ban-01
   - interactive한 사용자 경험 제공 (즉각적인 출력)
   - 예) UNIX
 
-  ![time_sharing](../images/os_time_sharing.PNG)
+  ![time_sharing](../images/os_time_sharing.png)
 
 <br />
 
@@ -85,8 +85,8 @@ slug: /posts/ban-01
     - Hard Realtime System (경성 실시간 시스템): 데드라인을 지키지 않으면 치명적인 결과를 초례하는 경우
     - Soft Realtime System (연성 실시간 시스템)
 
-  ![realtime_1](../images/os_realtime_1.PNG)
-  ![realtime_2](../images/os_realtime_2.PNG)
+  ![realtime_1](../images/os_realtime_1.png)
+  ![realtime_2](../images/os_realtime_2.png)
 
 <br />
 
@@ -141,7 +141,7 @@ slug: /posts/ban-01
 
 운영체제의 가장 기본적인 역할은 주어진 자원들을 효율적으로 관리해서 컴퓨터 시스템의 성능을 최대한으로 활용하는 것이다. 자원을 관리하는 차원에서 각각의 자원별로 어떤 이슈들이 있는지 살펴보자.
 
-![resource](../images/os_resource.PNG)
+![resource](../images/os_resource.png)
 
 - `CPU` : **CPU 스케줄링** ─ 어떤 프로그램에게 CPU를 할당할 것인가? 일반적으로 생각할때 '스케줄링'이라고 하면 선착순으로 처리하는 것이 가장 공정하고 합리적인 방법이라고 생각하는 경향이 있지만 이는 컴퓨터에서는 효율적이지 못한 방식이다. 디스크가 메모리에 비해 60만에서 100만배가 느리고 메모리는 CPU에 비해 수백배가 느리기 때문. 운영체제는 여기서 발생하는 천문학적인 시간차이를 완충하면서 주어진 자원의 특성을 최대한 활용하는 방향으로 발전해왔다. CPU는 짧은 시간을 간격으로 CPU를 할당했다가 다시 회수하는 방식으로 작동한다.
 

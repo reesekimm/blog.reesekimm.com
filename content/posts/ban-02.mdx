@@ -21,7 +21,7 @@ slug: /posts/ban-02
 - 컴퓨터 내부 장치(Host): CPU, 메모리
 - 컴퓨터 외부 장치(I/O device): 하드디스크, 키보드, 마우스, 모니터 등
 
-![system structure 1](../images/02_system_structure_1.PNG)
+![system structure 1](../images/02_system_structure_1.png)
 
 - `CPU` (Central Processing Unit, 중앙처리장치) ─ 컴퓨터의 중심에 위치하여 시스템 전반을 이끄는 장치다. 입력 받은 명령을 해석/연산 한 후, 결과 값을 출력 장치로 전달한다. 스스로 작업을 수행하는 것이 아니라 매뉴얼에 따라 CPU 내부의 program counter 레지스터가 가리키고 있는 메모리 주소에 위치한 instruction을 실행한다. CPU에 대한 통제 역시 운영체제의 역할이다.
 
@@ -39,7 +39,7 @@ slug: /posts/ban-02
 
 세부 구조와 함께 CPU가 I/O 연산을 제어하는 과정을 살펴보자.
 
-![system structure 2](../images/02_system_structure_2.PNG)
+![system structure 2](../images/02_system_structure_2.png)
 
 - `Device controller` ─ 각각의 I/O device마다 Device controller가 있다. I/O device의 내부 동작을 제어하는 일을 전담하는 작은 CPU라고 할 수 있다. `Local buffer`라는 일종의 data register를 가지고 있어서 I/O device로부터 들어오고 나가는 데이터를 임시 저장할 수 있다.<br />Device controller는 CPU의 요청을 I/O device에 전달하고 처리가 완료되면 [인터럽트](https://real-dongsoo7.tistory.com/93?category=784608)를 발생시킨다.
 
@@ -72,7 +72,7 @@ slug: /posts/ban-02
 
 - `DMA controller` (Direct Memory Access) ─ I/O device로부터 들어온 인터럽트를 처리해서 CPU의 성능 저하를 막는다. CPU의 중재 없이 I/O device의 Local buffer에 접근하여 저장된 데이터를 **block** 단위로 메인 메모리에 복사(전송)하는 작업을 해준다. 인터럽트 역시 byte가 아닌 block 단위로 발생시키기 때문에 너무 많은 I/O 인터럽트로 인해 CPU의 성능이 떨어지는 것을 예방한다.
 
-  <img src="../images/os_dma.PNG" alt="DMA Controller" width="500" />
+  <img src="../images/os_dma.png" alt="DMA Controller" width="500" />
 
   > 메모리에 데이터를 block 단위로 전송한 뒤 전송이 완료되면 인터럽트를 발생시켜 CPU에 알린다.
 
@@ -113,7 +113,7 @@ CPU가 다른 프로그램을 실행하고 있을 때, 입출력 하드웨어 �
 - Exception: 프로그램 오류로 인해 발생하는 인터럽트
 - `System call`: 프로그램이 운영체제의 서비스를 받기 위해 커널 함수를 호출하는 경우 발생하는 인터럽트
 
-![system call](../images/system_call.PNG)
+![system call](../images/system_call.png)
 
 > I/O 처리시에는 Hardware Interrupt와 Software Interrupt가 모두 발생한다. 프로그램이 I/O를 요청할 때 OS에 System call을 하고, I/O 처리가 끝난 뒤에는 Devicee cotroller가 Hardware Interrupt를 발생시키기 때문!
 
@@ -129,7 +129,7 @@ CPU가 다른 프로그램을 실행하고 있을 때, 입출력 하드웨어 �
 ## 동기식 입출력과 비동기식 입출력
 
 <img
-  src="../images/os_sync_async.PNG"
+  src="../images/os_sync_async.png"
   alt="sync I/O and async I/O"
   width="500"
 />
@@ -156,7 +156,7 @@ CPU가 다른 프로그램을 실행하고 있을 때, 입출력 하드웨어 �
 1. I/O를 수행하는 special instruction에 의해
 2. Memory Mapped I/O에 의해
 
-<img src="../images/os_io.PNG" alt="I/O" width="500" />
+<img src="../images/os_io.png" alt="I/O" width="500" />
 
 (좌) **일반적인 I/O 처리 방법** ─ 메모리상에 I/O 처리를 위한 별도의 instruction이 존재. 해당 instruction을 실행하여 I/O 처리를 할 수 있다.
 
@@ -167,7 +167,7 @@ CPU가 다른 프로그램을 실행하고 있을 때, 입출력 하드웨어 �
 ## 저장장치의 계층 구조
 
 <img
-  src="../images/os_storage.PNG"
+  src="../images/os_storage.png"
   alt="hierarchy of computer storage"
   width="500"
 />

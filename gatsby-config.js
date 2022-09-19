@@ -1,3 +1,7 @@
+// require('dotenv').config({
+//   path: `.env.${process.env.NODE_ENV}`,
+// })
+
 module.exports = {
   siteMetadata: {
     title: '<DevReese />',
@@ -18,13 +22,10 @@ module.exports = {
         },
         gatsbyRemarkPlugins: [
           {
-            resolve: `gatsby-remark-images`,
+            resolve: 'gatsby-remark-copy-linked-files',
             options: {
-              maxWidth: 852,
+              ignoreFileExtensions: [],
             },
-          },
-          {
-            resolve: `gatsby-remark-copy-linked-files`,
           },
         ],
       },
