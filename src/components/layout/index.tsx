@@ -1,30 +1,22 @@
 import React from 'react'
-import { Provider } from 'react-redux'
-import Theme from '../theme'
-import { StyledBody, PageTitle } from './style'
+import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
+import { StyledBody } from './style'
 import Header from '../header'
 import Footer from '../footer'
-import store from '../../state/store'
 import useHeaderTransition from '../../hooks/useHeaderTransition'
 
 interface LayoutProps {
-  pageTitle?: string
-  children: React.ReactNode
+  element: GatsbyBrowser['wrapPageElement'] | GatsbySSR['wrapPageElement']
 }
 
-const Layout = ({ pageTitle, children }: LayoutProps) => {
+const Layout = ({ element }: LayoutProps) => {
   const { headerShowing } = useHeaderTransition()
   return (
-    <Provider store={store}>
-      <Theme>
-        <Header showing={headerShowing} />
-        <StyledBody>
-          {pageTitle && <PageTitle>{pageTitle}</PageTitle>}
-          {children}
-        </StyledBody>
-        <Footer />
-      </Theme>
-    </Provider>
+    <>
+      <Header showing={headerShowing} />
+      <StyledBody>{element}</StyledBody>
+      <Footer />
+    </>
   )
 }
 

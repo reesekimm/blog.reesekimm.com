@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { graphql, PageProps } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react'
-import Layout from '../../components/layout'
 import TableOfContents from '../../components/tableOfContents'
 import Codeblock from '../../components/codeblock'
 import Link from '../../components/link'
@@ -35,7 +34,7 @@ const Post = ({ data, children }: PostProps) => {
   } = data.mdx
 
   return (
-    <Layout>
+    <>
       <PageHeader>
         <Date>{date}</Date>
         <Title>{title}</Title>
@@ -49,7 +48,7 @@ const Post = ({ data, children }: PostProps) => {
           <Comments />
         </MarkdownWrapper>
       </PageBody>
-    </Layout>
+    </>
   )
 }
 

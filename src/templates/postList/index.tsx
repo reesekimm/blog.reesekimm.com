@@ -1,26 +1,29 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { graphql, PageProps } from 'gatsby'
-import Layout from '../../components/layout'
 import ListItem from '../../components/listItem'
 import { PostListQueryResult } from '../../queries/post-list'
 import { PostContainer, TagContainer } from './style'
 import Tag from '../../components/tag'
+import { selectAppState, setSelectedTag } from '../../state/appSlice'
+import { useAppDispatch, useAppSelector } from '../../state/hooks'
 
 type PostListProps = Pick<PageProps<PostListQueryResult>, 'data'>
 
 const PostList = ({ data }: PostListProps) => {
-  const [selectedTag, setSelectedTag] = useState('All')
+  const { selectedTag } = useAppSelector(selectAppState)
+
+  const dispatch = useAppDispatch()
+
+  const onClickTag = (tag: string) => {
+    dispatch(setSelectedTag(tag))
+  }
 
   const selectedTagPosts = data.allMdx.group.find(
     ({ fieldValue }) => fieldValue === selectedTag
   )
 
-  const onClickTag = (tag: string) => {
-    setSelectedTag(tag)
-  }
-
   return (
-    <Layout pageTitle="All Posts">
+    <>
       <TagContainer>
         <Tag
           label="All"
@@ -78,7 +81,7 @@ const PostList = ({ data }: PostListProps) => {
               )
             )}
       </PostContainer>
-    </Layout>
+    </>
   )
 }
 

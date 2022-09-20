@@ -6,13 +6,13 @@ export type Theme = 'light' | 'dark'
 interface AppState {
   theme: Theme
   headerTransition: boolean
+  selectedTag: string
 }
 
 export const initialState: AppState = {
-  theme: window.matchMedia('(prefers-color-scheme: light)').matches
-    ? 'light'
-    : 'dark',
+  theme: 'light',
   headerTransition: true,
+  selectedTag: 'All',
 }
 
 export const appSlice = createSlice({
@@ -25,10 +25,14 @@ export const appSlice = createSlice({
     toggleHeaderTransition: (state, action) => {
       state.headerTransition = action.payload
     },
+    setSelectedTag: (state, action) => {
+      state.selectedTag = action.payload
+    },
   },
 })
 
-export const { toggleTheme, toggleHeaderTransition } = appSlice.actions
+export const { toggleTheme, toggleHeaderTransition, setSelectedTag } =
+  appSlice.actions
 
 export const selectAppState = (state: RootState) => state.app
 

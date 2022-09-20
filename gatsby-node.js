@@ -3,7 +3,6 @@ const _ = require('lodash')
 
 const postListTemplate = path.resolve('src/templates/postList/index.tsx')
 const postTemplate = path.resolve('src/templates/post/index.tsx')
-const tagTemplate = path.resolve('src/templates/tags/index.tsx')
 
 const POSTS_PER_PAGE = 5
 

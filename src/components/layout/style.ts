@@ -8,14 +8,3 @@ export const StyledBody = styled.main`
   margin: 0 auto;
   padding: 10rem 2.4rem 4rem;
 `
-
-export const PageTitle = styled.h2`
-  font-size: 4rem;
-  margin: 0;
-
-  @media ${({ theme }) => theme.device.mobile} {
-    font-size: 2.8rem;
-    padding: 0;
-    margin: 0;
-  }
-`
