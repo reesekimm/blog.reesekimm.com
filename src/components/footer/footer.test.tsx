@@ -6,7 +6,7 @@ describe('Footer', () => {
   it('renders correnctly', () => {
     render(<Footer />)
 
-    const contents = screen.getByText('© 2022 Reese')
+    const contents = screen.getByText(`© Reese ${new Date().getFullYear()}`)
 
     expect(contents).toBeInTheDocument()
   })
