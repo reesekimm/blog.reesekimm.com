@@ -5,7 +5,7 @@ import { render, RenderOptions, RenderResult } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup'
 import Theme from '../components/theme'
-import { store } from '../state/store'
+import store from '../state/store'
 
 interface CustomRenderResult extends RenderResult {
   user: UserEvent

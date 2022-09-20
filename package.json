@@ -50,7 +50,6 @@
     "react-helmet": "^6.1.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",
-    "redux-persist": "^6.0.0",
     "remark-gfm": "^1.0.0",
     "styled-components": "^5.3.5",
     "styled-icons": "^10.45.0",
