@@ -6,12 +6,9 @@ export const StyledBody = styled.main`
 
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 12rem 2.4rem 4rem;
-
-  @media ${({ theme }) => theme.device.mobile} {
-    padding: ;
-  }
+  padding: 10rem 2.4rem 4rem;
 `
+
 export const PageTitle = styled.h2`
   font-size: 4rem;
   margin: 0;
