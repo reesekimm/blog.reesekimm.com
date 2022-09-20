@@ -4,7 +4,9 @@ import { Container, StyledFooter } from './style'
 const Footer = () => {
   return (
     <StyledFooter>
-      <Container>© 2022 Reese</Container>
+      <Container>
+        <>© Reese {new Date().getFullYear()}</>
+      </Container>
     </StyledFooter>
   )
 }
