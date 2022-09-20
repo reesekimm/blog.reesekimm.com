@@ -28,13 +28,17 @@ describe('Header', () => {
     const { user } = render(<Header showing={true} />)
 
     const themeButton = screen.getByRole('button', { name: 'theme' })
-    const darktModeIcon = within(themeButton).getByLabelText('dark-mode')
+
+    const darktModeIcon = await within(themeButton).findByLabelText('dark-mode')
 
     expect(darktModeIcon).toBeInTheDocument()
 
     await user.click(themeButton)
 
-    const lighttModeIcon = within(themeButton).getByLabelText('light-mode')
+    const lighttModeIcon = await within(themeButton).findByLabelText(
+      'light-mode'
+    )
+
     expect(lighttModeIcon).toBeInTheDocument()
   })
 })
