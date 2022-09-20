@@ -10,7 +10,9 @@ interface AppState {
 }
 
 export const initialState: AppState = {
-  theme: 'light',
+  theme: window.matchMedia('(prefers-color-scheme: light)').matches
+    ? 'light'
+    : 'dark',
   headerTransition: true,
   selectedTag: 'All',
 }
