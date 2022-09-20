@@ -5,7 +5,7 @@ const selectedStyle = css`
   color: ${({ theme }) => theme.colors.white};
 `
 
-export const Container = styled.span<{ selected: boolean; disabled: boolean }>`
+export const Container = styled.div<{ selected: boolean; disabled: boolean }>`
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
   color: ${({ theme }) => theme.colors.gray2};
   background-color: ${({ theme }) => theme.colors.background};
@@ -17,6 +17,9 @@ export const Container = styled.span<{ selected: boolean; disabled: boolean }>`
 
   font-size: 1.3rem;
   font-weight: ${({ theme }) => theme.fontWeight.bold};
+
+  display: inline-block;
+  line-height: 1.5;
 
   ${({ selected }) => selected && selectedStyle}
 `
