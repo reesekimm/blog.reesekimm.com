@@ -29,7 +29,7 @@ const Layout = ({ pageTitle, children }: LayoutProps) => {
 
       let currentPositionY = window.scrollY
 
-      if (prevPositionY < currentPositionY) {
+      if (prevPositionY < currentPositionY && currentPositionY > 120) {
         setShowHeader(false)
         store.dispatch(toggleHeaderTransition(true))
       } else {
