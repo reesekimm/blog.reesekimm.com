@@ -9,6 +9,7 @@ describe('Header', () => {
   })
 
   it('should toggle theme when clicking theme button', () => {
+    cy.visit('/')
     cy.get('body').should('have.css', 'background-color', 'rgb(255, 255, 255)')
     cy.findByRole('button', { name: 'theme' }).click()
     cy.get('body').should('have.css', 'background-color', 'rgb(33, 33, 33)')
