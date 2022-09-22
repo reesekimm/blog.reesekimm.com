@@ -27,4 +27,5 @@ export const LineNo = styled.span`
 
 export const LineContent = styled.span`
   display: table-cell;
+  word-break: break-all;
 `
