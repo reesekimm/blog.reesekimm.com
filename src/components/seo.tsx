@@ -1,48 +1,36 @@
 import React from 'react'
-
-import { Helmet } from 'react-helmet'
-import { useLocation } from '@reach/router'
-import { useStaticQuery, graphql } from 'gatsby'
+import useSiteMetadata from '../hooks/useSiteMetadata'
 
 interface SEOProps {
-  title: string
-  article: boolean
+  title?: string
+  description?: string
+  pathname?: string
+  children?: React.ReactNode
 }
 
-const SEO = ({ title, article }: SEOProps) => {
-  const { pathname } = useLocation()
+const SEO = ({ title, description, pathname, children }: SEOProps) => {
   const {
-    site: {
-      siteMetadata: { defaultTitle, titleTemplate, siteUrl },
-    },
-  } = useStaticQuery(query)
+    title: defaultTitle,
+    description: defaultDescription,
+    image,
+    siteUrl,
+  } = useSiteMetadata()
 
   const seo = {
     title: title || defaultTitle,
-    url: `${siteUrl}${pathname}`,
+    description: description || defaultDescription,
+    image: `${siteUrl}${image}`,
+    url: `${siteUrl}${pathname || ``}`,
   }
 
   return (
-    <Helmet title={seo.title} titleTemplate={titleTemplate}>
-      {seo.url && <meta property="og:url" content={seo.url} />}
-      {(article ? true : null) && <meta property="og:type" content="article" />}
-      {seo.title && <meta property="og:title" content={seo.title} />}
-      <meta name="twitter:card" content="summary_large_image" />
-      {seo.title && <meta name="twitter:title" content={seo.title} />}
-    </Helmet>
+    <>
+      <title>{seo.title}</title>
+      <meta name="description" content={seo.description} />
+      <meta name="image" content={seo.image} />
+      {children}
+    </>
   )
 }
 
 export default SEO
-
-const query = graphql`
-  query SEO {
-    site {
-      siteMetadata {
-        defaultTitle: title
-        titleTemplate
-        siteUrl
-      }
-    }
-  }
-`

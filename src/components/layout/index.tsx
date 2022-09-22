@@ -4,6 +4,7 @@ import { StyledBody } from './style'
 import Header from '../header'
 import Footer from '../footer'
 import useHeaderTransition from '../../hooks/useHeaderTransition'
+import SEO from '../seo'
 
 interface LayoutProps {
   element: GatsbyBrowser['wrapPageElement'] | GatsbySSR['wrapPageElement']
@@ -22,3 +23,5 @@ const Layout = ({ element }: LayoutProps) => {
 }
 
 export default Layout
+
+export const Head = () => <SEO />

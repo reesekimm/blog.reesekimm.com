@@ -1,11 +1,12 @@
 module.exports = {
   siteMetadata: {
     title: '<DevReese />',
+    description: `Reese's tech blog`,
     titleTemplate: '%s | DevReese',
+    image: `/favicon-192x192.png`,
     siteUrl: 'https://blog.reesekimm.com',
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
@@ -62,7 +63,7 @@ module.exports = {
         background_color: `#fff`,
         theme_color: `#15db95`,
         display: `standalone`,
-        icon: `./src/images/favicon-192x192.png`,
+        icon: `./static/favicon-192x192.png`,
       },
     },
   ],
