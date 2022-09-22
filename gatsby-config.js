@@ -51,7 +51,7 @@ module.exports = {
       resolve: 'gatsby-plugin-google-fonts',
       options: {
         fonts: ['IBM+Plex+Sans+KR:300,500,700', 'Roboto+Mono:400,400i'],
-        display: 'swap',
+        display: 'optional',
       },
     },
     {
