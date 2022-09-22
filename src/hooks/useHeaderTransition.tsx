@@ -18,7 +18,7 @@ export default function useHeaderTransition() {
 
     let currentPositionY = window.scrollY
 
-    if (prevPositionY < currentPositionY && currentPositionY > 120) {
+    if (prevPositionY < currentPositionY && currentPositionY > 50) {
       setShowHeader(false)
       dispatch(toggleHeaderTransition(true))
     } else {
