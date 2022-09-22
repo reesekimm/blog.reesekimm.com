@@ -28,6 +28,8 @@ const components = {
 type PostProps = Pick<PageProps<PostQueryResult>, 'data' | 'children'>
 
 const Post = ({ data, children }: PostProps) => {
+  if (!data) return null
+
   const {
     frontmatter: { title, subtitle, date },
     tableOfContents,

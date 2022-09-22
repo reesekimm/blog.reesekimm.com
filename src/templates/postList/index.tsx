@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from '../../state/hooks'
 type PostListProps = Pick<PageProps<PostListQueryResult>, 'data'>
 
 const PostList = ({ data }: PostListProps) => {
+  if (!data) return null
+
   const { selectedTag } = useAppSelector(selectAppState)
 
   const dispatch = useAppDispatch()

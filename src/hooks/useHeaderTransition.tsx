@@ -1,44 +1,42 @@
 import { useCallback, useEffect, useState } from 'react'
-import store from '../state/store'
-import { toggleHeaderTransition } from '../state/appSlice'
+import { selectAppState, toggleHeaderTransition } from '../state/appSlice'
+import { useAppDispatch, useAppSelector } from '../state/hooks'
 
 const isBrowser = typeof window !== 'undefined'
 
 export default function useHeaderTransition() {
+  if (!isBrowser) return { headerShowing: true }
+
   const [prevPositionY, setPrevPositionY] = useState(0)
   const [showHeader, setShowHeader] = useState(true)
 
-  const {
-    app: { headerTransition },
-  } = store.getState()
+  const { headerTransition } = useAppSelector(selectAppState)
+  const dispatch = useAppDispatch()
 
   const handleHeaderVisibility = useCallback(() => {
-    if (isBrowser) {
-      setPrevPositionY(window.scrollY)
+    setPrevPositionY(window.scrollY)
 
-      let currentPositionY = window.scrollY
+    let currentPositionY = window.scrollY
 
-      if (prevPositionY < currentPositionY && currentPositionY > 120) {
-        setShowHeader(false)
-        store.dispatch(toggleHeaderTransition(true))
+    if (prevPositionY < currentPositionY && currentPositionY > 120) {
+      setShowHeader(false)
+      dispatch(toggleHeaderTransition(true))
+    } else {
+      if (headerTransition) {
+        setShowHeader(true)
       } else {
-        if (headerTransition) {
-          setShowHeader(true)
-        } else {
-          setTimeout(() => {
-            store.dispatch(toggleHeaderTransition(true))
-          }, 1000)
-        }
+        setTimeout(() => {
+          dispatch(toggleHeaderTransition(true))
+        }, 1000)
       }
     }
   }, [prevPositionY])
 
   useEffect(() => {
-    if (isBrowser) window.addEventListener('scroll', handleHeaderVisibility)
+    window.addEventListener('scroll', handleHeaderVisibility)
 
     return () => {
-      if (isBrowser)
-        window.removeEventListener('scroll', handleHeaderVisibility)
+      window.removeEventListener('scroll', handleHeaderVisibility)
     }
   }, [handleHeaderVisibility])
 

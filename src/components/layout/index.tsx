@@ -11,6 +11,7 @@ interface LayoutProps {
 
 const Layout = ({ element }: LayoutProps) => {
   const { headerShowing } = useHeaderTransition()
+
   return (
     <>
       <Header showing={headerShowing} />
