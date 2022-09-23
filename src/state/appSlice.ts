@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 
-const isBrowser = typeof window !== 'undefined'
-
 export type Theme = 'light' | 'dark'
 
 interface AppState {
@@ -12,11 +10,7 @@ interface AppState {
 }
 
 export const initialState: AppState = {
-  theme: isBrowser
-    ? window.matchMedia('(prefers-color-scheme: light)').matches
-      ? 'light'
-      : 'dark'
-    : 'light',
+  theme: 'light',
   headerTransition: true,
   selectedTag: 'All',
 }
