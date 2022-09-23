@@ -38,11 +38,11 @@ function generateTocItems(items: Item[], activeItemId: string) {
 
   return (
     <TocItemList>
-      {items.map((item) => {
+      {items.map((item, index) => {
         const href = `#${item.title}`
 
         return (
-          <li key={item.url}>
+          <li key={item.url || item + '' + index}>
             <TocItemLink
               href={href}
               onClick={disableHeaderTransition}
