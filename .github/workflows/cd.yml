@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
       - name: 🔍 Test
-        run: npm test
+        run: npm run test:coverage
 
       - name: 🔐 Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
