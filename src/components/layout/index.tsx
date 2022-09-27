@@ -5,6 +5,7 @@ import Header from '../header'
 import Footer from '../footer'
 import useHeaderTransition from '../../hooks/useHeaderTransition'
 import SEO from '../seo'
+import Theme from '../theme'
 
 interface LayoutProps {
   element: GatsbyBrowser['wrapPageElement'] | GatsbySSR['wrapPageElement']
@@ -14,11 +15,15 @@ const Layout = ({ element }: LayoutProps) => {
   const { headerShowing } = useHeaderTransition()
 
   return (
-    <>
-      <Header showing={headerShowing} />
-      <StyledBody>{element}</StyledBody>
-      <Footer />
-    </>
+    <Theme>
+      <>
+        <Header showing={headerShowing} />
+        <StyledBody>
+          <>{element}</>
+        </StyledBody>
+        <Footer />
+      </>
+    </Theme>
   )
 }
 

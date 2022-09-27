@@ -1,5 +1,4 @@
 import React from 'react'
-import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
 import { ThemeProvider } from 'styled-components'
 import GlobalStyle from '../styles/global'
 import lightTheme from '../styles/light-theme'
@@ -13,7 +12,7 @@ const themeMap = {
 }
 
 interface ThemeProps {
-  children: GatsbyBrowser['wrapRootElement'] | GatsbySSR['wrapRootElement']
+  children: React.ReactNode
 }
 
 const Theme = ({ children }: ThemeProps) => {

@@ -3,7 +3,6 @@ import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
 
 import { Provider } from 'react-redux'
 import store from '../state/store'
-import Theme from './theme'
 
 interface WrapperProps {
   element: GatsbyBrowser['wrapRootElement'] | GatsbySSR['wrapRootElement']
@@ -12,7 +11,7 @@ interface WrapperProps {
 const Wrapper = ({ element }: WrapperProps) => {
   return (
     <Provider store={store}>
-      <Theme>{element}</Theme>
+      <>{element}</>
     </Provider>
   )
 }
