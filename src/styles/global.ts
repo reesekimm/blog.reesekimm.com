@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
   html {
     height: 100vh;
     font-size: 10px;
+    overscroll-behavior-y: none;
   }
 
   body {
