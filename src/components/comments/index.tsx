@@ -5,7 +5,7 @@ import { Container } from './style'
 
 const UTTERANCES_SETTINGS = {
   src: 'https://utteranc.es/client.js',
-  repo: 'reesekimm/blog.reesekimm.com',
+  repo: 'reesekimm/utterances',
   'issue-term': 'pathname',
   label: 'Comment',
   theme: 'github-light',
