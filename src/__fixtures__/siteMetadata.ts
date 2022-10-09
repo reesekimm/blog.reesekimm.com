@@ -1,7 +1,7 @@
 const siteMetadata = {
   site: {
     siteMetadata: {
-      title: '<DevReese />',
+      title: 'Reese.dev',
     },
   },
 }

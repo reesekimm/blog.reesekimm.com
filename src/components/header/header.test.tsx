@@ -20,7 +20,7 @@ describe('Header', () => {
     render(<Header showing={true} />)
 
     expect(
-      screen.getByRole('heading', { name: '<DevReese />' })
+      screen.getByRole('heading', { name: 'Reese.dev' })
     ).toBeInTheDocument()
   })
 

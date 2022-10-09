@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: '<DevReese />',
+    title: 'Reese.dev',
     description: `Reese's tech blog`,
-    titleTemplate: '%s | DevReese',
+    titleTemplate: '%s | Reese.dev',
     image: `/favicon-192x192.png`,
     siteUrl: 'https://blog.reesekimm.com',
   },
