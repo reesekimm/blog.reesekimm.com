@@ -8,7 +8,7 @@ export const PageHeader = styled.div`
 
 export const Date = styled.time`
   font-weight: ${({ theme }) => theme.fontWeight.medium};
-  color: ${({ theme }) => theme.colors.gray3};
+  color: ${({ theme }) => theme.colors.gray4};
   display: block;
   width: 100%;
   margin-bottom: 2rem;
@@ -22,8 +22,8 @@ export const Title = styled.h1`
 
 export const Subtitle = styled.h2`
   font-size: ${({ theme }) => theme.fontSize.md};
-  color: ${({ theme }) => theme.colors.gray3};
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  color: ${({ theme }) => theme.colors.gray4};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   padding: 0;
   margin: 0;
 `

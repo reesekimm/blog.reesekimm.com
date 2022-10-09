@@ -37,8 +37,8 @@ export const Title = styled.h2`
 
 export const Subtitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize.md};
-  color: ${({ theme }) => theme.colors.gray3};
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  color: ${({ theme }) => theme.colors.gray4};
+  font-weight: ${({ theme }) => theme.fontWeight.medium};
   padding: 0;
   margin: 2.4rem 0 2rem;
 `
