@@ -1,6 +1,6 @@
 import React from 'react'
+import { Heading } from '@chakra-ui/react'
 import { Link45deg } from '@styled-icons/bootstrap/Link45deg'
-import { Container } from './style'
 
 interface LinkedHeadingProps {
   children: string
@@ -11,12 +11,12 @@ function LinkedHeading({ children, tag }: LinkedHeadingProps) {
   const href = `#${children}`
 
   return (
-    <Container as={tag} id={children}>
+    <Heading as={tag} id={children}>
       <a href={href}>
         {children}
         <Link45deg size="2.4rem" />
       </a>
-    </Container>
+    </Heading>
   )
 }
 

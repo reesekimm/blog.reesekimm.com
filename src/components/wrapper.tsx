@@ -1,7 +1,6 @@
 import React from 'react'
 import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
-
-import { Provider } from 'react-redux'
+import { Provider as ReduxProvider } from 'react-redux'
 import store from '../state/store'
 
 interface WrapperProps {
@@ -10,9 +9,9 @@ interface WrapperProps {
 
 const Wrapper = ({ element }: WrapperProps) => {
   return (
-    <Provider store={store}>
+    <ReduxProvider store={store}>
       <>{element}</>
-    </Provider>
+    </ReduxProvider>
   )
 }
 

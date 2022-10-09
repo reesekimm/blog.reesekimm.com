@@ -1,14 +1,7 @@
 import React, { Children, isValidElement } from 'react'
 import { Link } from 'gatsby'
+import { Button, Container, Heading, Wrap, WrapItem } from '@chakra-ui/react'
 import { ArrowRight } from '@styled-icons/heroicons-solid/ArrowRight'
-import {
-  Container,
-  Date,
-  Subtitle,
-  Title,
-  ReadMore,
-  TagContainer,
-} from './style'
 import Tag from '../tag'
 
 function getTags(children: React.ReactNode) {
@@ -30,21 +23,21 @@ const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
   const tags = getTags(children)
 
   return (
-    <Container>
-      <Date>{date}</Date>
-      <div>
-        <TagContainer>{tags}</TagContainer>
-        <Title>
+    <WrapItem>
+      <Container as="time">{date}</Container>
+      <Container>
+        <Wrap>{tags}</Wrap>
+        <Heading as="h2">
           <Link to={path}>{title}</Link>
-        </Title>
-        <Subtitle>{subtitle}</Subtitle>
-        <ReadMore>
+        </Heading>
+        <Heading as="h3">{subtitle}</Heading>
+        <Button>
           <Link to={path}>
             Read more <ArrowRight size="1.6rem" />
           </Link>
-        </ReadMore>
-      </div>
-    </Container>
+        </Button>
+      </Container>
+    </WrapItem>
   )
 }
 

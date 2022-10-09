@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'
-import { Pre, Line, LineNo, LineContent } from './style'
-import { ComponentType } from 'react'
+import { Box, Container } from '@chakra-ui/react'
 
 // TODO: line highlighting
 
@@ -23,21 +22,21 @@ const Codeblock: ComponentType<any> = (props) => {
       language={language}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <Pre className={className} style={style}>
+        <Container as="pre" className={className} style={style}>
           {tokens.map((line, i) => {
             if (i < tokens.length - 1)
               return (
-                <Line key={i} {...getLineProps({ line, key: i })}>
-                  {language && <LineNo>{i + 1}</LineNo>}
-                  <LineContent>
+                <Container key={i} {...getLineProps({ line, key: i })}>
+                  {language && <Box>{i + 1}</Box>}
+                  <Container>
                     {line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token, key })} />
                     ))}
-                  </LineContent>
-                </Line>
+                  </Container>
+                </Container>
               )
           })}
-        </Pre>
+        </Container>
       )}
     </Highlight>
   )

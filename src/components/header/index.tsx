@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import { Flex, Heading, IconButton, Spacer } from '@chakra-ui/react'
 import { LightMode } from '@styled-icons/material-rounded/LightMode'
 import { Nightlight } from '@styled-icons/material-rounded/Nightlight'
-import { Button, Container, StyledHeader, Title } from './style'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { selectAppState, toggleTheme } from '../../state/appSlice'
 import useSiteMetadata from '../../hooks/useSiteMetadata'
@@ -22,20 +22,23 @@ export const Header = ({ showing }: HeaderProps) => {
   }
 
   return (
-    <StyledHeader showing={showing}>
-      <Container>
-        <Title>
-          <Link to="/">{title}</Link>
-        </Title>
-        <Button aria-label="theme" onClick={changeTheme}>
-          {theme === 'dark' ? (
+    <Flex as="header" top={showing ? '0' : '-10rem'}>
+      <Heading as="h2" size="2xl">
+        <Link to="/">{title}</Link>
+      </Heading>
+      <Spacer />
+      <IconButton
+        aria-label="theme"
+        onClick={changeTheme}
+        icon={
+          theme === 'dark' ? (
             <LightMode size="2rem" aria-label="light-mode" />
           ) : (
             <Nightlight size="2rem" aria-label="dark-mode" />
-          )}
-        </Button>
-      </Container>
-    </StyledHeader>
+          )
+        }
+      />
+    </Flex>
   )
 }
 

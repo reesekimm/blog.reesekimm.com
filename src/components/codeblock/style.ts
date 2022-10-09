@@ -6,7 +6,6 @@ export const Pre = styled.pre`
   font-size: 1.4rem;
   line-height: 2rem;
 
-  margin: 3rem 0;
   padding: 1em;
   border-radius: 10px;
 

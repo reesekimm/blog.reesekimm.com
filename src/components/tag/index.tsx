@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from './style'
+import { Tag as ChakraTag } from '@chakra-ui/react'
 
 interface TagProps {
   label: string
@@ -8,11 +8,7 @@ interface TagProps {
 }
 
 const Tag = ({ label, selected = false, onClick }: TagProps) => {
-  return (
-    <Container selected={selected} disabled={!onClick} onClick={onClick}>
-      {label}
-    </Container>
-  )
+  return <ChakraTag onClick={onClick}>{label}</ChakraTag>
 }
 
 export default Tag

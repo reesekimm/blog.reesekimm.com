@@ -1,11 +1,11 @@
 import React from 'react'
 import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
-import { StyledBody } from './style'
 import Header from '../header'
 import Footer from '../footer'
 import useHeaderTransition from '../../hooks/useHeaderTransition'
 import SEO from '../seo'
-import Theme from '../theme'
+import { ChakraProvider, Container } from '@chakra-ui/react'
+import theme from '../../styles/theme'
 
 interface LayoutProps {
   element: GatsbyBrowser['wrapPageElement'] | GatsbySSR['wrapPageElement']
@@ -15,15 +15,15 @@ const Layout = ({ element }: LayoutProps) => {
   const { headerShowing } = useHeaderTransition()
 
   return (
-    <Theme>
+    <ChakraProvider theme={theme}>
       <>
         <Header showing={headerShowing} />
-        <StyledBody>
+        <Container as="main">
           <>{element}</>
-        </StyledBody>
+        </Container>
         <Footer />
       </>
-    </Theme>
+    </ChakraProvider>
   )
 }
 

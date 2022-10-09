@@ -1,14 +1,8 @@
+import { Center } from '@chakra-ui/react'
 import React from 'react'
-import { Container, StyledFooter } from './style'
 
 const Footer = () => {
-  return (
-    <StyledFooter>
-      <Container>
-        <>© Reese {new Date().getFullYear()}</>
-      </Container>
-    </StyledFooter>
-  )
+  return <Center as="footer">© Reese {new Date().getFullYear()}</Center>
 }
 
 export default Footer

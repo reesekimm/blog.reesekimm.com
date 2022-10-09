@@ -12,6 +12,13 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-styled-components',
     {
+      resolve: '@chakra-ui/gatsby-plugin',
+      options: {
+        resetCSS: true,
+        isUsingColorMode: true,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-mdx',
       options: {
         mdxOptions: {

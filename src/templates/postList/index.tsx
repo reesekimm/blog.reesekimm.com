@@ -2,10 +2,10 @@ import React from 'react'
 import { graphql, PageProps } from 'gatsby'
 import ListItem from '../../components/listItem'
 import { PostListQueryResult } from '../../queries/post-list'
-import { PostContainer, TagContainer } from './style'
 import Tag from '../../components/tag'
 import { selectAppState, setSelectedTag } from '../../state/appSlice'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
+import { Wrap } from '@chakra-ui/react'
 
 type PostListProps = Pick<PageProps<PostListQueryResult>, 'data'>
 
@@ -26,7 +26,7 @@ const PostList = ({ data }: PostListProps) => {
 
   return (
     <>
-      <TagContainer>
+      <Wrap as="ol">
         <Tag
           label="All"
           selected={selectedTag === 'All'}
@@ -40,8 +40,8 @@ const PostList = ({ data }: PostListProps) => {
             onClick={() => onClickTag(fieldValue)}
           />
         ))}
-      </TagContainer>
-      <PostContainer>
+      </Wrap>
+      <Wrap as="ol">
         {selectedTagPosts
           ? selectedTagPosts.edges.map(
               (
@@ -82,7 +82,7 @@ const PostList = ({ data }: PostListProps) => {
                 </ListItem>
               )
             )}
-      </PostContainer>
+      </Wrap>
     </>
   )
 }

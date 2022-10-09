@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { ChevronUp } from '@styled-icons/ionicons-outline/ChevronUp'
-import { Container, TocHeader, TocItemList, TocItemLink } from './style'
 import { useAppDispatch } from '../../state/hooks'
 import { toggleHeaderTransition } from '../../state/appSlice'
 import useActiveId from '../../hooks/useActiveId'
+import { Container, Wrap, WrapItem } from '@chakra-ui/react'
 
 interface Item {
   title: string
@@ -37,24 +37,25 @@ function generateTocItems(items: Item[], activeItemId: string) {
   }
 
   return (
-    <TocItemList>
+    <Wrap>
       {items.map((item, index) => {
         const href = `#${item.title}`
 
         return (
-          <li key={item.url || item + '' + index}>
-            <TocItemLink
+          <WrapItem key={item.url || item + '' + index}>
+            <Container
+              as="a"
               href={href}
               onClick={disableHeaderTransition}
-              isActive={activeItemId === item.title}
+              // isActive={activeItemId === item.title}
             >
               {item.title}
-            </TocItemLink>
+            </Container>
             {item.items && generateTocItems(item.items, activeItemId)}
-          </li>
+          </WrapItem>
         )
       })}
-    </TocItemList>
+    </Wrap>
   )
 }
 
@@ -67,11 +68,11 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
   }
 
   return tocItems ? (
-    <Container>
-      <TocHeader showItems={showing} onClick={toggleItems}>
+    <Container as="aside">
+      <Container as="summary" onClick={toggleItems}>
         Table of Contents
         <ChevronUp size="2.4rem" />
-      </TocHeader>
+      </Container>
       {showing ? generateTocItems(tocItems, activeItemId ?? '') : null}
     </Container>
   ) : null
