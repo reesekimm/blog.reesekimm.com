@@ -17,7 +17,7 @@ describe('Header', () => {
   })
 
   it('should render title correctly', () => {
-    render(<Header showing={true} />)
+    render(<Header />)
 
     expect(
       screen.getByRole('heading', { name: 'Reese.dev' })
@@ -25,7 +25,7 @@ describe('Header', () => {
   })
 
   it('should display different theme button icon when user clicks the theme button', async () => {
-    const { user } = render(<Header showing={true} />)
+    const { user } = render(<Header />)
 
     const themeButton = screen.getByRole('button', { name: 'theme' })
 

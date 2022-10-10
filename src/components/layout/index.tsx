@@ -2,7 +2,6 @@ import React from 'react'
 import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
 import Header from '../header'
 import Footer from '../footer'
-import useHeaderTransition from '../../hooks/useHeaderTransition'
 import SEO from '../seo'
 import { ChakraProvider, Container } from '@chakra-ui/react'
 import theme from '../../styles/theme'
@@ -12,13 +11,11 @@ interface LayoutProps {
 }
 
 const Layout = ({ element }: LayoutProps) => {
-  const { headerShowing } = useHeaderTransition()
-
   return (
     <ChakraProvider theme={theme}>
       <>
-        <Header showing={headerShowing} />
-        <Container as="main">
+        <Header />
+        <Container as="main" maxW="75rem" flex="1" centerContent>
           <>{element}</>
         </Container>
         <Footer />

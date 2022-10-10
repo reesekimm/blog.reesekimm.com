@@ -1,6 +1,6 @@
 import React, { Children, isValidElement } from 'react'
 import { Link } from 'gatsby'
-import { Button, Container, Heading, Wrap, WrapItem } from '@chakra-ui/react'
+import { Button, Grid, GridItem, Heading, Text, Wrap } from '@chakra-ui/react'
 import { ArrowRight } from '@styled-icons/heroicons-solid/ArrowRight'
 import Tag from '../tag'
 
@@ -23,21 +23,38 @@ const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
   const tags = getTags(children)
 
   return (
-    <WrapItem>
-      <Container as="time">{date}</Container>
-      <Container>
+    <Grid
+      templateColumns={{ sm: '1fr', md: '1fr 3fr' }}
+      gridGap={{ sm: '2' }}
+      padding={{ sm: '2rem 0', md: '3rem 0' }}
+      borderBottom="1px solid #E2E8F0"
+    >
+      <GridItem marginBottom={{ sm: '1rem' }}>
+        <Text as="time" color="gray.500">
+          {date}
+        </Text>
+      </GridItem>
+      <GridItem>
         <Wrap>{tags}</Wrap>
-        <Heading as="h2">
+        <Heading as="h2" size="lg" marginTop=".5rem">
           <Link to={path}>{title}</Link>
         </Heading>
-        <Heading as="h3">{subtitle}</Heading>
-        <Button>
+        <Heading
+          as="h3"
+          size="sm"
+          fontWeight="normal"
+          color="gray.500"
+          margin=".5rem 0 1rem"
+        >
+          {subtitle}
+        </Heading>
+        <Button variant="unstyled" colorScheme="gray">
           <Link to={path}>
-            Read more <ArrowRight size="1.6rem" />
+            Read more <ArrowRight size="1rem" />
           </Link>
         </Button>
-      </Container>
-    </WrapItem>
+      </GridItem>
+    </Grid>
   )
 }
 

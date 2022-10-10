@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tag as ChakraTag } from '@chakra-ui/react'
+import { Tag as ChakraTag, WrapItem } from '@chakra-ui/react'
 
 interface TagProps {
   label: string
@@ -8,7 +8,17 @@ interface TagProps {
 }
 
 const Tag = ({ label, selected = false, onClick }: TagProps) => {
-  return <ChakraTag onClick={onClick}>{label}</ChakraTag>
+  return (
+    <WrapItem cursor={onClick ? 'pointer' : 'default'}>
+      <ChakraTag
+        borderRadius="full"
+        variant={selected ? 'solid' : 'outline'}
+        onClick={onClick}
+      >
+        {label}
+      </ChakraTag>
+    </WrapItem>
+  )
 }
 
 export default Tag

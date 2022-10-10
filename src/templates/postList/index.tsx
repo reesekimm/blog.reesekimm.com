@@ -26,7 +26,7 @@ const PostList = ({ data }: PostListProps) => {
 
   return (
     <>
-      <Wrap as="ol">
+      <Wrap as="ol" w="100%" paddingTop={{ sm: '2rem', md: '3rem' }}>
         <Tag
           label="All"
           selected={selectedTag === 'All'}
@@ -41,7 +41,7 @@ const PostList = ({ data }: PostListProps) => {
           />
         ))}
       </Wrap>
-      <Wrap as="ol">
+      <Wrap as="ol" w="100%" paddingTop="1rem" direction="column">
         {selectedTagPosts
           ? selectedTagPosts.edges.map(
               (
