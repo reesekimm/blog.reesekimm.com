@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { selectAppState } from '../../state/appSlice'
-import { useAppSelector } from '../../state/hooks'
+import { selectAppState } from '../state/appSlice'
+import { useAppSelector } from '../state/hooks'
 
 const UTTERANCES_SETTINGS = {
   src: 'https://utteranc.es/client.js',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useAppDispatch } from '../../state/hooks'
-import { toggleHeaderTransition } from '../../state/appSlice'
-import useActiveId from '../../hooks/useActiveId'
+import { useAppDispatch } from '../state/hooks'
+import { toggleHeaderTransition } from '../state/appSlice'
+import useActiveId from '../hooks/useActiveId'
 import {
   Container,
   Link,

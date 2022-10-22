@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Heading, Link } from '@chakra-ui/react'
-import { Link45deg } from '@styled-icons/bootstrap/Link45deg'
+import { LinkIcon } from '@chakra-ui/icons'
 
 interface LinkedHeadingProps {
   children: string
@@ -37,7 +37,9 @@ function LinkedHeading({ children, tag }: LinkedHeadingProps) {
         onMouseLeave={onLeave}
       >
         {children}
-        {showLinkIcon && <Link45deg size="1.4rem" color="#A0AEC0" />}
+        {showLinkIcon && (
+          <LinkIcon w={4} h={4} marginLeft="1.5" color="gray.400" />
+        )}
       </Link>
     </Heading>
   )

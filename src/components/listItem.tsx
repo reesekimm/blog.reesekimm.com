@@ -9,8 +9,8 @@ import {
   Text,
   Wrap,
 } from '@chakra-ui/react'
-import { ArrowRight } from '@styled-icons/heroicons-solid/ArrowRight'
-import Tag from '../tag'
+import { ArrowForwardIcon } from '@chakra-ui/icons'
+import Tag from './tag'
 
 function getTags(children: React.ReactNode) {
   const TagType = (<Tag label="" />).type
@@ -65,7 +65,7 @@ const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
             _hover={{ textDecoration: 'none' }}
             color="purple.300"
           >
-            Read more <ArrowRight size="1rem" />
+            Read more <ArrowForwardIcon w={4} h={4} />
           </Link>
         </Button>
       </GridItem>
