@@ -9,7 +9,7 @@ interface TagProps {
 
 const Tag = ({ label, selected = false, onClick }: TagProps) => {
   return (
-    <WrapItem cursor={onClick ? 'pointer' : 'default'}>
+    <WrapItem cursor={onClick ? 'pointer' : 'default'} p={0}>
       <ChakraTag
         borderRadius="full"
         variant={selected ? 'solid' : 'outline'}

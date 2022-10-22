@@ -9,7 +9,7 @@ export const Header = () => {
   return (
     <Flex as="header" alignItems="center" p="4">
       <Box>
-        <Heading as="h2" size="lg">
+        <Heading as="h2" size="md" p={0}>
           <Link to="/">{title}</Link>
         </Heading>
       </Box>

@@ -1,6 +1,14 @@
 import React, { Children, isValidElement } from 'react'
-import { Link } from 'gatsby'
-import { Button, Grid, GridItem, Heading, Text, Wrap } from '@chakra-ui/react'
+// import { Link } from 'gatsby'
+import {
+  Button,
+  Grid,
+  GridItem,
+  Heading,
+  Link,
+  Text,
+  Wrap,
+} from '@chakra-ui/react'
 import { ArrowRight } from '@styled-icons/heroicons-solid/ArrowRight'
 import Tag from '../tag'
 
@@ -36,8 +44,10 @@ const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
       </GridItem>
       <GridItem>
         <Wrap>{tags}</Wrap>
-        <Heading as="h2" size="lg" marginTop=".5rem">
-          <Link to={path}>{title}</Link>
+        <Heading as="h2" size="lg" marginTop=".5rem" p={0}>
+          <Link href={path} _hover={{ textDecoration: 'none' }}>
+            {title}
+          </Link>
         </Heading>
         <Heading
           as="h3"
@@ -45,11 +55,16 @@ const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
           fontWeight="normal"
           color="gray.500"
           margin=".5rem 0 1rem"
+          p={0}
         >
           {subtitle}
         </Heading>
         <Button variant="unstyled" colorScheme="gray">
-          <Link to={path}>
+          <Link
+            href={path}
+            _hover={{ textDecoration: 'none' }}
+            color="purple.300"
+          >
             Read more <ArrowRight size="1rem" />
           </Link>
         </Button>

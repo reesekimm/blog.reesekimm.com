@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { selectAppState } from '../../state/appSlice'
 import { useAppSelector } from '../../state/hooks'
-import { Container } from './style'
 
 const UTTERANCES_SETTINGS = {
   src: 'https://utteranc.es/client.js',
@@ -38,7 +37,7 @@ const Comments = () => {
     }
   }, [theme])
 
-  return <Container id={COMMENTS_ID}></Container>
+  return <div id={COMMENTS_ID}></div>
 }
 
 export default Comments

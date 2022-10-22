@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
-import { ChevronUp } from '@styled-icons/ionicons-outline/ChevronUp'
 import { useAppDispatch } from '../../state/hooks'
 import { toggleHeaderTransition } from '../../state/appSlice'
 import useActiveId from '../../hooks/useActiveId'
-import { Container, Wrap, WrapItem } from '@chakra-ui/react'
+import {
+  Container,
+  Link,
+  ListItem,
+  OrderedList,
+  Wrap,
+  WrapItem,
+} from '@chakra-ui/react'
 
 interface Item {
   title: string
@@ -37,43 +43,53 @@ function generateTocItems(items: Item[], activeItemId: string) {
   }
 
   return (
-    <Wrap>
+    <OrderedList
+      display="flex"
+      flexDirection="column"
+      style={{ listStyle: 'none' }}
+    >
       {items.map((item, index) => {
         const href = `#${item.title}`
 
         return (
-          <WrapItem key={item.url || item + '' + index}>
-            <Container
-              as="a"
+          <ListItem key={item.url || item + '' + index} fontSize="sm" p={0}>
+            <Link
               href={href}
               onClick={disableHeaderTransition}
-              // isActive={activeItemId === item.title}
+              color={activeItemId === item.title ? 'purple.300' : 'gray.400'}
+              textDecoration={
+                activeItemId === item.title ? 'underline dotted' : 'none'
+              }
+              _hover={{ textDecoration: 'underline dotted' }}
             >
               {item.title}
-            </Container>
+            </Link>
             {item.items && generateTocItems(item.items, activeItemId)}
-          </WrapItem>
+          </ListItem>
         )
       })}
-    </Wrap>
+    </OrderedList>
   )
 }
 
 export default function TableOfContents({ tocItems }: TableOfContentsProps) {
-  const [showing, setShowing] = useState(true)
   const activeItemId = useActiveId(getIds(tocItems ?? []))
 
-  const toggleItems = () => {
-    setShowing(!showing)
-  }
-
   return tocItems ? (
-    <Container as="aside">
-      <Container as="summary" onClick={toggleItems}>
-        Table of Contents
-        <ChevronUp size="2.4rem" />
-      </Container>
-      {showing ? generateTocItems(tocItems, activeItemId ?? '') : null}
+    <Container
+      as="aside"
+      color="gray.400"
+      display={['none', 'none', 'block']}
+      style={{
+        width: '24rem',
+        position: 'sticky',
+        alignSelf: 'flex-start',
+        top: '4.5rem',
+        left: '2rem',
+        order: 0,
+      }}
+    >
+      {generateTocItems(tocItems, activeItemId ?? '')}
     </Container>
   ) : null
 }

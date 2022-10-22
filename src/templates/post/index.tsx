@@ -8,7 +8,7 @@ import Link from '../../components/link'
 import LinkedHeading from '../../components/linkedHeading'
 import { PostQueryResult } from '../../queries/post'
 import Comments from '../../components/comments'
-import { Container, Heading } from '@chakra-ui/react'
+import { Container, Flex, Heading, Text } from '@chakra-ui/react'
 
 const components = {
   pre: Codeblock,
@@ -32,19 +32,25 @@ const Post = ({ data, children }: PostProps) => {
 
   return (
     <>
-      <Container>
-        <Container>{date}</Container>
-        <Heading as="h2">{title}</Heading>
-        <Heading as="h3">{subtitle}</Heading>
+      <Container w="100%" maxW="100%" p="14" m="0" centerContent>
+        <Text as="time" color="gray.500" marginBottom={4}>
+          {date}
+        </Text>
+        <Heading as="h2" p={0} marginBottom={1}>
+          {title}
+        </Heading>
+        <Heading as="h3" p={0} size="sm" fontWeight="normal" color="gray.500">
+          {subtitle}
+        </Heading>
       </Container>
-      <Container>
+      <Flex w="100%">
         <TableOfContents tocItems={tableOfContents.items} />
-        <Container as="article">
+        <Container as="article" order="1" maxW="100%">
           <MDXProvider components={components}>{children}</MDXProvider>
           <hr />
           <Comments />
         </Container>
-      </Container>
+      </Flex>
     </>
   )
 }

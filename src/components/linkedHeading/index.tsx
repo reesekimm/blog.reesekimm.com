@@ -1,5 +1,5 @@
-import React from 'react'
-import { Heading } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { Heading, Link } from '@chakra-ui/react'
 import { Link45deg } from '@styled-icons/bootstrap/Link45deg'
 
 interface LinkedHeadingProps {
@@ -7,15 +7,38 @@ interface LinkedHeadingProps {
   tag: 'h2' | 'h3' | 'h4' | 'h5'
 }
 
+const Size = {
+  h2: 'lg',
+  h3: 'md',
+  h4: 'sm',
+  h5: 'xsm',
+}
+
 function LinkedHeading({ children, tag }: LinkedHeadingProps) {
   const href = `#${children}`
 
+  const [showLinkIcon, setShowLinkIcon] = useState(false)
+
+  const onHover = () => {
+    setShowLinkIcon(true)
+  }
+
+  const onLeave = () => {
+    setShowLinkIcon(false)
+  }
+
   return (
-    <Heading as={tag} id={children}>
-      <a href={href}>
+    <Heading as={tag} id={children} size={Size[tag]}>
+      <Link
+        href={href}
+        color="gray.800"
+        _hover={{ textDecoration: 'none' }}
+        onMouseEnter={onHover}
+        onMouseLeave={onLeave}
+      >
         {children}
-        <Link45deg size="2.4rem" />
-      </a>
+        {showLinkIcon && <Link45deg size="1.4rem" color="#A0AEC0" />}
+      </Link>
     </Heading>
   )
 }
