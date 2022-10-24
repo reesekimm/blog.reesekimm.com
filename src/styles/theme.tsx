@@ -47,8 +47,8 @@ const theme = {
     global: (props: StyleFunctionProps) => ({
       'html, body': {
         height: '100vh',
-        bg: mode('white', 'gray.800')(props),
-        color: mode('gray.800', 'whiteAlpha.900')(props),
+        bg: 'white',
+        color: 'gray.800',
         overscrollBehaviorY: 'none',
       },
       '#___gatsby, #gatsby-focus-wrapper': {
@@ -74,7 +74,7 @@ const theme = {
         color: 'gray.500',
         borderLeft: '4px',
         borderColor: 'gray.400',
-        bg: mode('gray.100', 'gray.700')(props),
+        bg: 'gray.100',
         p: {
           margin: 0,
         },
@@ -87,7 +87,7 @@ const theme = {
         padding: '1rem',
       },
       a: {
-        color: mode('brand.light', 'brand.dark')(props),
+        color: 'brand.light',
       },
       img: {
         margin: '2rem auto',

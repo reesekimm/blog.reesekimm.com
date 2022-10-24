@@ -3,7 +3,7 @@ import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
 import Header from './header'
 import Footer from './footer'
 import SEO from './seo'
-import { ChakraProvider, Container } from '@chakra-ui/react'
+import { ChakraProvider, Container, LightMode } from '@chakra-ui/react'
 import theme from '../styles/theme'
 import useHeaderTransition from '../hooks/useHeaderTransition'
 
@@ -16,7 +16,8 @@ const Layout = ({ element }: LayoutProps) => {
 
   return (
     <ChakraProvider theme={theme}>
-      <>
+      {/* flash 이슈에 대한 임시 해결책으로 Light mode 고정 */}
+      <LightMode>
         <Header showing={headerShowing} />
         <Container
           as="main"
@@ -28,7 +29,7 @@ const Layout = ({ element }: LayoutProps) => {
           <>{element}</>
         </Container>
         <Footer />
-      </>
+      </LightMode>
     </ChakraProvider>
   )
 }
