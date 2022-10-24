@@ -14,6 +14,13 @@ const config: ThemeConfig = {
 
 const theme = {
   ...baseTheme,
+  colors: {
+    ...baseTheme.colors,
+    brand: {
+      light: '#15db95',
+      dark: '#66ccad',
+    },
+  },
   fonts: {
     heading: `'IBM Plex Sans KR', sans-serif`,
     body: `'IBM Plex Sans KR', sans-serif`,
@@ -30,6 +37,11 @@ const theme = {
     lg: '960px',
     xl: '1200px',
     '2xl': '1536px',
+  },
+  shadows: {
+    ...baseTheme.shadows,
+    light: '0 4px 12px 0 rgb(0 0 0 / 3%)',
+    dark: '0 4px 12px 0 rgb(255 255 255 / 3%)',
   },
   styles: {
     global: (props: StyleFunctionProps) => ({
@@ -74,7 +86,7 @@ const theme = {
         padding: '1rem',
       },
       a: {
-        color: 'purple.300',
+        color: mode('brand.light', 'brand.dark')(props),
       },
       img: {
         margin: '2rem auto',

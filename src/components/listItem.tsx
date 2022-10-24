@@ -62,7 +62,7 @@ const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
           <Link
             href={path}
             _hover={{ textDecoration: 'none' }}
-            color="purple.300"
+            color="brand.primary"
           >
             Read more <ArrowForwardIcon w={4} h={4} />
           </Link>
