@@ -2,7 +2,13 @@ import React from 'react'
 import { useAppDispatch } from '../state/hooks'
 import { toggleHeaderTransition } from '../state/appSlice'
 import useActiveId from '../hooks/useActiveId'
-import { Container, Link, ListItem, OrderedList } from '@chakra-ui/react'
+import {
+  Container,
+  Link,
+  ListItem,
+  OrderedList,
+  useColorMode,
+} from '@chakra-ui/react'
 
 interface Item {
   title: string
@@ -29,6 +35,7 @@ function getIds(items: Item[]) {
 }
 
 function generateTocItems(items: Item[], activeItemId: string) {
+  const { colorMode } = useColorMode()
   const dispatch = useAppDispatch()
 
   const disableHeaderTransition = () => {
@@ -50,11 +57,15 @@ function generateTocItems(items: Item[], activeItemId: string) {
             <Link
               href={href}
               onClick={disableHeaderTransition}
-              color={activeItemId === item.title ? 'purple.300' : 'gray.400'}
-              textDecoration={
-                activeItemId === item.title ? 'underline dotted' : 'none'
+              color={
+                activeItemId === item.title
+                  ? colorMode === 'light'
+                    ? 'brand.light'
+                    : 'brand.dark'
+                  : 'gray.400'
               }
-              _hover={{ textDecoration: 'underline dotted' }}
+              fontWeight={activeItemId === item.title ? 'bold' : 'normal'}
+              _hover={{ textDecoration: 'none' }}
             >
               {item.title}
             </Link>
