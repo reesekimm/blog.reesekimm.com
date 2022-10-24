@@ -82,7 +82,8 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
       color="gray.400"
       display={['none', 'none', 'block']}
       style={{
-        width: '24rem',
+        minWidth: '16rem',
+        maxWidth: '20rem',
         position: 'sticky',
         alignSelf: 'flex-start',
         top: '4.5rem',

@@ -35,8 +35,8 @@ const Post = ({ data, children }: PostProps) => {
       <Container
         w="100%"
         maxW="100%"
-        p={[0, 0, 14]}
-        m={['1rem 0', '1rem 0', '2rem 0']}
+        p={[0, 6, 14]}
+        m={['1rem 0', '2rem 0', '2rem 0']}
         centerContent
       >
         <Text as="time" color="gray.500" marginBottom={4}>

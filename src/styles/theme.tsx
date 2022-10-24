@@ -83,9 +83,11 @@ const theme = {
         margin: '2rem auto',
       },
       p: {
+        display: 'inline',
         lineHeight: '1.8',
       },
       'ol, ul': {
+        listStylePosition: 'inside',
         marginBottom: '1rem',
       },
       h1: {
