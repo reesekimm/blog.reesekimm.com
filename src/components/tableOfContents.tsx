@@ -64,7 +64,7 @@ function generateTocItems(items: Item[], activeItemId: string) {
                     : 'brand.dark'
                   : 'gray.400'
               }
-              fontWeight={activeItemId === item.title ? 'bold' : 'normal'}
+              fontWeight={activeItemId === item.title ? 'medium' : 'normal'}
               _hover={{ textDecoration: 'none' }}
             >
               {item.title}
