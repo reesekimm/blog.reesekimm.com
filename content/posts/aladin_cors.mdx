@@ -15,13 +15,9 @@ slug: /posts/aladin-cors
 Access to XMLHttpRequest at 알라딘 open api from origin http://localhost:3010 has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 ```
 
-자바스크립트는 보안상의 이유로 클라이언트와 서버의 출처가 같은 경우에만 (=같은 도메인 주소를 가진 경우에만) ajax를 통해 데이터를 요청/응답 할 수 있다. 이러한 보안 규정을 **SOP(Same-Origin Policy, 동일 출처 정책)**라고 한다.
+자바스크립트는 보안상의 이유로 클라이언트와 서버의 출처가 같은 경우에만 (=같은 도메인 주소를 가진 경우에만) ajax를 통해 데이터를 요청/응답 할 수 있다. 이러한 보안 규정을 **SOP**(Same-Origin Policy, 동일 출처 정책)라고 한다.
 
-SOP에 의한 제약을 해결하기 위해 등장한 것이 바로 **CORS**다.
-
-CORS는 Cross-Origin Resource Sharing의 약자로 도메인이 다르더라도 데이터를 공유할 수 있게 해주는 메커니즘이다. 웹 어플리케이션은 다른 도메인(출처)로 데이터를 요청할때 cross-origin HTTP 요청을 실행하게된다.
-
-서버단에서는 cross-origin HTTP 요청을 처리하기 위해 아래와 같은 추가적인 HTTP header를 사용한다. 클라이언트와 서버의 도메인 다를 경우 클라이언트에게 서버측 응답에 접근할 수 있는 권한을 부여하는 것이다.
+SOP에 의한 제약을 해결하기 위해 등장한 것이 바로 **CORS**다. CORS는 Cross-Origin Resource Sharing의 약자로 도메인이 다르더라도 데이터를 공유할 수 있게 해주는 메커니즘이다. 웹 어플리케이션은 다른 도메인(출처)로 데이터를 요청할때 cross-origin HTTP 요청을 실행하게된다. 서버단에서는 cross-origin HTTP 요청을 처리하기 위해 아래와 같은 추가적인 HTTP header를 사용한다. 클라이언트와 서버의 도메인 다를 경우 클라이언트에게 서버측 응답에 접근할 수 있는 권한을 부여하는 것이다.
 
 ```
 Access - Control - Allow - Origin
@@ -44,9 +40,7 @@ JSONP? 생소하다.
 
 JSON with Padding 의 약자로 2009년 CORS가 나오기 전까지 다른 도메인에 비동기 요청을 하기 위해 사용되던 방법이다. HTML의 script 요소로 요청되는 호출에는 보안상 정책이 적용되지 않는점을 이용, SOP를 피해서 다른 도메인에 비동기 요청을 보내고 응답을 받는 것이다.
 
-JSONP를 사용해서 데이터 통신을 하려면
-
-HTML 파일내에 있는 `<script>` 태그의 src 속성에 요청 url을 입력하고
+JSONP를 사용해서 데이터 통신을 하려면 HTML 파일내에 있는 `<script>` 태그의 src 속성에 요청 url을 입력하고
 
 ```markup
 <script src="http://www.aladin.co.kr"></script>
@@ -79,31 +73,17 @@ JSONP는 보안상 이슈로 더이상 사용되지 않는 방법이라 그런�
 Cross-Origin Read Blocking (CORB) blocked cross-origin response [알라딘 open api] with MIME type application/json. See https://www.chromestatus.com/feature/5629709824032768 for more details.
 ```
 
-CORB란 CORS와 마찬가지로 웹사이트의 보안을 위한 기능으로 `<script>` 또는 `<img>` 태그 안에서 출처가 다른 도메인(cross-origin)으로 요청을 보내고 응답을 받은 경우 해당 응답을 차단하는 기능이다.
-
-응답의 형식(Content-Type)이 **HTML** 또는 **XML** 또는 **JSON**인 경우 해당 응답은 [CORB](https://www.chromium.org/Home/chromium-security/corb-for-developers)에 의해 빈 응답으로 대체된다.
-
-결론적으로 알라딘 api 응답 포맷은 XML 또는 JSON이기 때문에 CORB를 피해갈 수 없었다.
+CORB란 CORS와 마찬가지로 웹사이트의 보안을 위한 기능으로 `<script>` 또는 `<img>` 태그 안에서 출처가 다른 도메인(cross-origin)으로 요청을 보내고 응답을 받은 경우 해당 응답을 차단하는 기능이다. 응답의 형식(Content-Type)이 **HTML** 또는 **XML** 또는 **JSON**인 경우 해당 응답은 [CORB](https://www.chromium.org/Home/chromium-security/corb-for-developers)에 의해 빈 응답으로 대체된다. 결론적으로 알라딘 api 응답 포맷은 XML 또는 JSON이기 때문에 CORB를 피해갈 수 없었다.
 
 <br />
 
 ## 2. Next.js 서버를 proxy 서버로 사용
 
-두번째로 시도한 방법은 Next.js 서버를 custom해서 proxy server로 사용하는 방법이다.
-
-기본적으로 CORS는 브라우저-서버간에 발생하는 이슈이고 서버끼리 통신할때는 발생하지 않는다는 점에 착안했다.
-
-의도했던 플로우는 클라이언트에서 알라딘 서버로 요청을 보내면 Next.js가 해당 요청을 가로채서 대신 알라딘 서버에 요청을 보내고, 다시 알라딘 서버로부터 오는 응답을 받아서 클라이언트측에 보내주는 것이었다.
-
-Next.js를 proxy 서버로 사용할 경우 도서 검색 플로우는 다음과 같이 나타낼 수 있겠다.
+두번째로 시도한 방법은 Next.js 서버를 custom해서 proxy server로 사용하는 방법이다. 기본적으로 CORS는 브라우저-서버간에 발생하는 이슈이고 서버끼리 통신할때는 발생하지 않는다는 점에 착안했다. 의도했던 플로우는 클라이언트에서 알라딘 서버로 요청을 보내면 Next.js가 해당 요청을 가로채서 대신 알라딘 서버에 요청을 보내고, 다시 알라딘 서버로부터 오는 응답을 받아서 클라이언트측에 보내주는 것이었다. Next.js를 proxy 서버로 사용할 경우 도서 검색 플로우는 다음과 같이 나타낼 수 있겠다.
 
 ![next.js proxy server](https://i.postimg.cc/D0gDPhwc/2020-09-30-14-46-49.png)
 
-서버 리소스가 추가적으로 필요하다는 단점은 있지만 CORS가 발생하지 않을 것이기 때문에 시도해볼만 하다고 판단했고.
-
-하지만 [Next.js 문서](https://nextjs.org/docs/advanced-features/custom-server), [Next.js github 예시](https://github.com/vercel/next.js/blob/canary/examples/with-custom-reverse-proxy/server.js), [블로그](https://medium.com/bb-tutorials-and-thoughts/next-js-how-to-proxy-to-backend-server-987174737331) 글 등을 참고해보니 내가 원하는 동작을 구현하는데 적절한 방법이 아닌 것 같았다.
-
-Next.js 서버를 통한 proxying은 localhost 같은 base URL을 제외한 나머지 path (query 부분)을 기준으로 외부 api 서버로 라우팅을 해주는 것에 그쳤기 때문이다.
+서버 리소스가 추가적으로 필요하다는 단점은 있지만 CORS가 발생하지 않을 것이기 때문에 시도해볼만 하다고 판단했고. 하지만 [Next.js 문서](https://nextjs.org/docs/advanced-features/custom-server), [Next.js github 예시](https://github.com/vercel/next.js/blob/canary/examples/with-custom-reverse-proxy/server.js), [블로그](https://medium.com/bb-tutorials-and-thoughts/next-js-how-to-proxy-to-backend-server-987174737331) 글 등을 참고해보니 내가 원하는 동작을 구현하는데 적절한 방법이 아닌 것 같았다. Next.js 서버를 통한 proxying은 localhost 같은 base URL을 제외한 나머지 path (query 부분)을 기준으로 외부 api 서버로 라우팅을 해주는 것에 그쳤기 때문이다.
 
 <br />
 
