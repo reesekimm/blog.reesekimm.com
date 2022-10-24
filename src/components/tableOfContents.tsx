@@ -1,15 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useAppDispatch } from '../state/hooks'
 import { toggleHeaderTransition } from '../state/appSlice'
 import useActiveId from '../hooks/useActiveId'
-import {
-  Container,
-  Link,
-  ListItem,
-  OrderedList,
-  Wrap,
-  WrapItem,
-} from '@chakra-ui/react'
+import { Container, Link, ListItem, OrderedList } from '@chakra-ui/react'
 
 interface Item {
   title: string
@@ -86,7 +79,7 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
         maxWidth: '20rem',
         position: 'sticky',
         alignSelf: 'flex-start',
-        top: '4.5rem',
+        top: '6rem',
         left: '2rem',
         order: 0,
       }}

@@ -31,7 +31,6 @@ function LinkedHeading({ children, tag }: LinkedHeadingProps) {
     <Heading as={tag} id={children} size={Size[tag]}>
       <Link
         href={href}
-        color="gray.800"
         _hover={{ textDecoration: 'none' }}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}

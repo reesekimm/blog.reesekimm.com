@@ -1,6 +1,5 @@
+import { useColorMode } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
-import { selectAppState } from '../state/appSlice'
-import { useAppSelector } from '../state/hooks'
 
 const UTTERANCES_SETTINGS = {
   src: 'https://utteranc.es/client.js',
@@ -15,11 +14,11 @@ const UTTERANCES_SETTINGS = {
 const COMMENTS_ID = 'utterances-wrapper'
 
 const Comments = () => {
-  const { theme } = useAppSelector(selectAppState)
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
     UTTERANCES_SETTINGS.theme =
-      theme === 'light' ? 'github-light' : 'photon-dark'
+      colorMode === 'light' ? 'github-light' : 'photon-dark'
 
     const utterances = document.createElement('script')
 
@@ -35,7 +34,7 @@ const Comments = () => {
         utterancesWrapper.removeChild(utterancesWrapper.firstChild)
       }
     }
-  }, [theme])
+  }, [colorMode])
 
   return <div id={COMMENTS_ID}></div>
 }

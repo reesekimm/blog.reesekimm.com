@@ -32,13 +32,7 @@ const Post = ({ data, children }: PostProps) => {
 
   return (
     <>
-      <Container
-        w="100%"
-        maxW="100%"
-        p={[0, 6, 14]}
-        m={['1rem 0', '2rem 0', '2rem 0']}
-        centerContent
-      >
+      <Container w="100%" maxW="100%" p={[0, 6, 14]} centerContent>
         <Text as="time" color="gray.500" marginBottom={4}>
           {date}
         </Text>

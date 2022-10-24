@@ -48,9 +48,6 @@ const theme = {
       hr: {
         margin: '4rem 0',
       },
-      li: {
-        padding: '0.5rem',
-      },
       code: {
         bg: 'gray.200',
         borderRadius: '5px',
@@ -64,7 +61,7 @@ const theme = {
         color: 'gray.500',
         borderLeft: '4px',
         borderColor: 'gray.400',
-        bg: 'gray.100',
+        bg: mode('gray.100', 'gray.700')(props),
         p: {
           margin: 0,
         },
@@ -89,6 +86,9 @@ const theme = {
       'ol, ul': {
         listStylePosition: 'inside',
         marginBottom: '1rem',
+      },
+      li: {
+        padding: '0.5rem',
       },
       h1: {
         paddingBotton: '4rem',

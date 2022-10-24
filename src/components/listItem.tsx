@@ -1,5 +1,4 @@
 import React, { Children, isValidElement } from 'react'
-// import { Link } from 'gatsby'
 import {
   Button,
   Grid,
