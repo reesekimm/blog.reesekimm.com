@@ -4,8 +4,8 @@ import { MDXProvider } from '@mdx-js/react'
 import { render, RenderOptions, RenderResult } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup'
-import Theme from '../components/theme'
 import store from '../state/store'
+import { useColorMode } from '@chakra-ui/react'
 
 interface CustomRenderResult extends RenderResult {
   user: UserEvent
@@ -17,13 +17,13 @@ const renderWithWrapper = (
 ): CustomRenderResult => {
   const user = userEvent.setup()
 
-  const Wrapper = ({ children }: { children: React.ReactElement }) => (
-    <Provider store={store}>
-      <Theme>
+  const Wrapper = ({ children }: { children: React.ReactElement }) => {
+    return (
+      <Provider store={store}>
         <MDXProvider>{children}</MDXProvider>
-      </Theme>
-    </Provider>
-  )
+      </Provider>
+    )
+  }
 
   return { ...render(ui, { wrapper: Wrapper, ...options }), user }
 }

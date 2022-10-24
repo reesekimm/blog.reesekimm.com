@@ -8,8 +8,8 @@ import {
   Spacer,
   useColorMode,
 } from '@chakra-ui/react'
-import { MoonIcon } from '@chakra-ui/icons'
-import useSiteMetadata from '../../hooks/useSiteMetadata'
+import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import useSiteMetadata from '../hooks/useSiteMetadata'
 
 interface HeaderProps {
   showing: boolean
@@ -31,27 +31,25 @@ export const Header = ({ showing }: HeaderProps) => {
       transform={showing ? 'translateY(0)' : 'translateY(-5rem)'}
       transition="transform 0.3s"
       zIndex={10}
-      boxShadow={
-        colorMode === 'light'
-          ? '0 4px 12px 0 rgb(0 0 0 / 3%)'
-          : '0 4px 12px 0 rgb(255 255 255 / 3%)'
-      }
+      boxShadow={colorMode === 'light' ? 'light' : 'dark'}
     >
       <Box zIndex={10}>
         <Heading as="h2" size="md" p={0}>
-          <Link to="/">{title}</Link>
+          <Link to="/" color="brand.primary">
+            {title}
+          </Link>
         </Heading>
       </Box>
       <Spacer />
       <IconButton
         icon={
-          <MoonIcon
-            w={5}
-            h={5}
-            color={colorMode === 'light' ? 'gray.800' : 'white'}
-          />
+          colorMode === 'light' ? (
+            <MoonIcon w={5} h={5} color="gray.800" />
+          ) : (
+            <SunIcon w={5} h={5} color="white" />
+          )
         }
-        aria-label="toggle mode"
+        aria-label={colorMode === 'light' ? 'dark-mode' : 'light-mode'}
         variant="unstyled"
         onClick={toggleColorMode}
       />

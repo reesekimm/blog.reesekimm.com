@@ -26,8 +26,8 @@ describe('Post', () => {
     render(<Post data={mdx}>{undefined}</Post>)
 
     expect(screen.getByText(date))
-    expect(screen.getByRole('heading', { level: 1, name: title }))
-    expect(screen.getByRole('heading', { level: 2, name: subtitle }))
+    expect(screen.getByRole('heading', { level: 2, name: title }))
+    expect(screen.getByRole('heading', { level: 3, name: subtitle }))
     expect(items).toHaveLength(4)
   })
 })
