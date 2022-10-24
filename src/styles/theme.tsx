@@ -54,9 +54,10 @@ const theme = {
       code: {
         bg: 'gray.200',
         borderRadius: '5px',
-        padding: '0.1rem 0.4rem',
-        margin: '0 0.3rem',
+        padding: '0.2rem 0.25rem',
         fontSize: 'sm',
+        fontWeight: 'bold',
+        color: 'gray.500',
       },
       blockquote: {
         padding: '1rem 1rem 1rem 2rem',
@@ -64,6 +65,9 @@ const theme = {
         borderLeft: '4px',
         borderColor: 'gray.400',
         bg: 'gray.100',
+        p: {
+          margin: 0,
+        },
       },
       th: {
         borderBottom: '1px',
@@ -75,14 +79,23 @@ const theme = {
       a: {
         color: 'purple.300',
       },
+      img: {
+        margin: '2rem auto',
+      },
+      p: {
+        lineHeight: '1.8',
+      },
+      'ol, ul': {
+        marginBottom: '1rem',
+      },
       h1: {
-        padding: '4rem 0',
+        paddingBotton: '4rem',
       },
       h2: {
-        padding: '2rem 0',
+        paddingBottom: '2rem',
       },
       'h3, h4': {
-        padding: '1rem 0',
+        paddingBottom: '1rem',
       },
     }),
   },

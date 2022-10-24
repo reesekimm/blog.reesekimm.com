@@ -32,11 +32,17 @@ const Post = ({ data, children }: PostProps) => {
 
   return (
     <>
-      <Container w="100%" maxW="100%" p="14" m="0" centerContent>
+      <Container
+        w="100%"
+        maxW="100%"
+        p={[0, 0, 14]}
+        m={['1rem 0', '1rem 0', '2rem 0']}
+        centerContent
+      >
         <Text as="time" color="gray.500" marginBottom={4}>
           {date}
         </Text>
-        <Heading as="h2" p={0} marginBottom={1}>
+        <Heading as="h2" p={0} marginBottom={1} textAlign="center">
           {title}
         </Heading>
         <Heading as="h3" p={0} size="sm" fontWeight="normal" color="gray.500">
@@ -45,7 +51,7 @@ const Post = ({ data, children }: PostProps) => {
       </Container>
       <Flex w="100%">
         <TableOfContents tocItems={tableOfContents.items} />
-        <Container as="article" order="1" maxW="100%">
+        <Container as="article" order="1" maxW="100%" p={0}>
           <MDXProvider components={components}>{children}</MDXProvider>
           <hr />
           <Comments />

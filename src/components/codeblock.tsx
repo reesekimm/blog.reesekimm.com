@@ -27,10 +27,10 @@ const Codeblock: ComponentType<any> = (props) => {
           className={className}
           style={{
             ...style,
-            width: '100%',
+            maxWidth: '100%',
             borderRadius: '8px',
             padding: '.8rem',
-            margin: 0,
+            margin: '2rem 0',
             fontSize: '.8rem',
             whiteSpace: 'pre-wrap',
           }}
@@ -41,7 +41,8 @@ const Codeblock: ComponentType<any> = (props) => {
                 <Container
                   key={i}
                   {...getLineProps({ line, key: i })}
-                  style={{ display: 'table-row', padding: 0 }}
+                  display="table-row"
+                  p={0}
                 >
                   {language && (
                     <span
@@ -56,11 +57,10 @@ const Codeblock: ComponentType<any> = (props) => {
                     </span>
                   )}
                   <Container
-                    style={{
-                      display: 'table-cell',
-                      wordBreak: 'break-all',
-                      padding: 0,
-                    }}
+                    display="table-cell"
+                    wordBreak="break-all"
+                    p={0}
+                    maxW="100%"
                   >
                     {line.map((token, key) => (
                       <span key={key} {...getTokenProps({ token, key })} />

@@ -46,6 +46,7 @@ function generateTocItems(items: Item[], activeItemId: string) {
     <OrderedList
       display="flex"
       flexDirection="column"
+      marginBottom={0}
       style={{ listStyle: 'none' }}
     >
       {items.map((item, index) => {
