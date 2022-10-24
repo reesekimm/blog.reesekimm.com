@@ -49,6 +49,7 @@ const theme = {
         height: '100vh',
         bg: mode('white', 'gray.800')(props),
         color: mode('gray.800', 'whiteAlpha.900')(props),
+        overscrollBehaviorY: 'none',
       },
       '#___gatsby, #gatsby-focus-wrapper': {
         height: '100%',
