@@ -1,6 +1,14 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { Box, Flex, Heading, Spacer, useColorMode } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Spacer,
+  useColorMode,
+} from '@chakra-ui/react'
+import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import useSiteMetadata from '../hooks/useSiteMetadata'
 
 interface HeaderProps {
@@ -9,14 +17,14 @@ interface HeaderProps {
 
 export const Header = ({ showing }: HeaderProps) => {
   const { title } = useSiteMetadata()
-  const { colorMode } = useColorMode()
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <Flex
       as="header"
       alignItems="center"
       bg={colorMode === 'light' ? 'white' : 'gray.800'}
-      p={4}
+      p="0.6rem 1rem"
       position="fixed"
       w="100%"
       left={0}
@@ -33,6 +41,18 @@ export const Header = ({ showing }: HeaderProps) => {
         </Heading>
       </Box>
       <Spacer />
+      <IconButton
+        icon={
+          colorMode === 'light' ? (
+            <MoonIcon w={5} h={5} color="gray.800" />
+          ) : (
+            <SunIcon w={5} h={5} color="white" />
+          )
+        }
+        aria-label={colorMode === 'light' ? 'dark-mode' : 'light-mode'}
+        variant="unstyled"
+        onClick={toggleColorMode}
+      />
     </Flex>
   )
 }
