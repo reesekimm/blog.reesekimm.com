@@ -35,6 +35,7 @@ const ListItem = ({ path, title, date, subtitle, children }: ListItemProps) => {
       gridGap={{ sm: '2' }}
       padding={{ sm: '2rem 0', md: '3rem 0' }}
       borderBottom="1px solid #E2E8F0"
+      w="100%"
     >
       <GridItem marginBottom={{ sm: '1rem' }}>
         <Text as="time" color="gray.500">

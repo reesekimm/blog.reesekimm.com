@@ -41,7 +41,13 @@ const PostList = ({ data }: PostListProps) => {
           />
         ))}
       </Wrap>
-      <Wrap as="ol" w="100%" paddingTop="1rem" direction="column">
+      <Wrap
+        as="ol"
+        w="100%"
+        paddingTop="1rem"
+        direction="column"
+        shouldWrapChildren
+      >
         {selectedTagPosts
           ? selectedTagPosts.edges.map(
               (
