@@ -51,6 +51,10 @@ const theme = {
         color: mode('gray.800', 'whiteAlpha.900')(props),
         overscrollBehaviorY: 'none',
       },
+      '*::selection': {
+        color: 'white',
+        bg: mode('brand.light', 'brand.dark')(props),
+      },
       '#___gatsby, #gatsby-focus-wrapper': {
         height: '100%',
       },
