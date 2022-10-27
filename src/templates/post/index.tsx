@@ -9,6 +9,7 @@ import LinkedHeading from '../../components/linkedHeading'
 import { PostQueryResult } from '../../queries/post'
 import Comments from '../../components/comments'
 import { Container, Flex, Heading, Text } from '@chakra-ui/react'
+import SEO from '../../components/seo'
 
 const components = {
   pre: Codeblock,
@@ -69,3 +70,11 @@ export const query = graphql`
 `
 
 export default Post
+
+export const Head = ({ location, pageContext }) => {
+  const {
+    frontmatter: { title, subtitle },
+  } = pageContext
+
+  return <SEO title={title} subtitle={subtitle} path={location.pathname} />
+}

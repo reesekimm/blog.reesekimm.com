@@ -6,6 +6,7 @@ import Tag from '../../components/tag'
 import { selectAppState, setSelectedTag } from '../../state/appSlice'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { Wrap } from '@chakra-ui/react'
+import SEO from '../../components/seo'
 
 type PostListProps = Pick<PageProps<PostListQueryResult>, 'data'>
 
@@ -129,3 +130,7 @@ export const query = graphql`
 `
 
 export default PostList
+
+export const Head = () => {
+  return <SEO path={location.pathname} />
+}

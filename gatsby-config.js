@@ -3,7 +3,7 @@ module.exports = {
     title: 'Reese.dev',
     description: `Reese's tech blog`,
     titleTemplate: '%s | Reese.dev',
-    image: `/favicon-192x192.png`,
+    image: `/og-default.png`,
     siteUrl: 'https://blog.reesekimm.com',
   },
   plugins: [
@@ -46,12 +46,6 @@ module.exports = {
       options: {
         name: `posts`,
         path: `${__dirname}/content/posts`,
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        gfm: true,
       },
     },
     {

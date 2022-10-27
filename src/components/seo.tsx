@@ -3,31 +3,34 @@ import useSiteMetadata from '../hooks/useSiteMetadata'
 
 interface SEOProps {
   title?: string
-  description?: string
-  pathname?: string
+  subtitle?: string
+  path?: string
   children?: React.ReactNode
 }
 
-const SEO = ({ title, description, pathname, children }: SEOProps) => {
-  const {
-    title: defaultTitle,
-    description: defaultDescription,
-    image,
-    siteUrl,
-  } = useSiteMetadata()
+const SEO = ({ title, subtitle, path, children }: SEOProps) => {
+  const { title: blogTitle, description, image, siteUrl } = useSiteMetadata()
 
   const seo = {
-    title: title || defaultTitle,
-    description: description || defaultDescription,
+    title: title ? `${blogTitle} | ${title}` : blogTitle,
+    description: subtitle || description,
     image: `${siteUrl}${image}`,
-    url: `${siteUrl}${pathname || ``}`,
+    ogImage:
+      path === '/' ? `${siteUrl}${image}` : `${siteUrl}${path}/og-image.png`,
+    url: `${siteUrl}${path || ``}`,
   }
 
   return (
     <>
       <title>{seo.title}</title>
       <meta name="description" content={seo.description} />
-      <meta name="image" content={seo.image} />
+      <meta name="og:image" content={seo.ogImage} />
+      <meta name="og:title" content={seo.title} />
+      <meta name="og:type" content="image/png" />
+      <meta name="og:url" content={seo.url} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={seo.ogImage} />
+      <meta name="twitter:url" content={seo.url} />
       {children}
     </>
   )

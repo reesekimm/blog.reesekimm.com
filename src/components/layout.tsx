@@ -2,7 +2,6 @@ import React from 'react'
 import type { GatsbyBrowser, GatsbySSR } from 'gatsby'
 import Header from './header'
 import Footer from './footer'
-import SEO from './seo'
 import { ChakraProvider, Container } from '@chakra-ui/react'
 import theme from '../styles/theme'
 import useHeaderTransition from '../hooks/useHeaderTransition'
@@ -34,5 +33,3 @@ const Layout = ({ element }: LayoutProps) => {
 }
 
 export default Layout
-
-export const Head = () => <SEO />
