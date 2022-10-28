@@ -33,6 +33,7 @@ const SEO = ({ title, subtitle, path, children }: SEOProps) => {
       <meta name="og:url" content={seo.url} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={seo.ogImage} />
+      <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:url" content={seo.url} />
       {children}
