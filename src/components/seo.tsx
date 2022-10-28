@@ -12,7 +12,7 @@ const SEO = ({ title, subtitle, path, children }: SEOProps) => {
   const { title: blogTitle, description, image, siteUrl } = useSiteMetadata()
 
   const seo = {
-    title: title ? `${blogTitle} | ${title}` : blogTitle,
+    title: title || blogTitle,
     description: subtitle || description,
     image: `${siteUrl}${image}`,
     ogImage:
@@ -22,10 +22,13 @@ const SEO = ({ title, subtitle, path, children }: SEOProps) => {
 
   return (
     <>
-      <title>{seo.title}</title>
+      <title>
+        {title || 'Home'} | {blogTitle}
+      </title>
       <meta name="description" content={seo.description} />
       <meta name="og:image" content={seo.ogImage} />
       <meta name="og:title" content={seo.title} />
+      <meta name="og:description" content={seo.description} />
       <meta name="og:type" content="image/png" />
       <meta name="og:url" content={seo.url} />
       <meta name="twitter:card" content="summary_large_image" />
