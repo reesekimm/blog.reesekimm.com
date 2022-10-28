@@ -131,6 +131,6 @@ export const query = graphql`
 
 export default PostList
 
-export const Head = () => {
+export const Head = ({ location }) => {
   return <SEO path={location.pathname} />
 }
