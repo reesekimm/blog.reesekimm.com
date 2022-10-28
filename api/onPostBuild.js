@@ -42,8 +42,8 @@ module.exports = module.onPostBuild = async (
   {
     blogTitle = 'Reese.dev',
     author = '@reesekimm',
-    background = '#1a202c',
-    fontColor = '#66ccad',
+    background = require.resolve('../static/og-bg.png'),
+    fontColor = '#ffffff',
     titleFontSize = 125,
     subtitleFontSize = 60,
     fontStyle = 'sans-serif',

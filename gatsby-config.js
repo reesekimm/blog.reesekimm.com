@@ -3,7 +3,7 @@ module.exports = {
     title: 'Reese.dev',
     description: `Reese's tech blog`,
     titleTemplate: '%s | Reese.dev',
-    image: `/og-default.png`,
+    image: `/og-bg-default.png`,
     siteUrl: 'https://blog.reesekimm.com',
   },
   plugins: [
