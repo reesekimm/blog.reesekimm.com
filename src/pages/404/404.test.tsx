@@ -19,7 +19,8 @@ describe('404', () => {
   it('should display contents correctly', () => {
     render(<NotFound />)
 
-    expect(screen.getByRole('heading', { name: /page not found/i }))
-    expect(screen.getByRole('link', { name: /back to home/i }))
+    expect(
+      screen.getByRole('heading', { name: '존재하지 않는 페이지 입니다.' })
+    )
   })
 })
