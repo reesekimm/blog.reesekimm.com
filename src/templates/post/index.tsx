@@ -10,6 +10,7 @@ import { PostQueryResult } from '../../queries/post'
 import Comments from '../../components/comments'
 import { Container, Flex, Heading, Text } from '@chakra-ui/react'
 import SEO from '../../components/seo'
+import Layout from '../../components/layout'
 
 const components = {
   pre: Codeblock,
@@ -32,7 +33,7 @@ const Post = ({ data, children }: PostProps) => {
   } = data.mdx
 
   return (
-    <>
+    <Layout>
       <Container w="100%" maxW="100%" p={[0, 6, 14]} centerContent>
         <Text as="time" color="gray.500" marginBottom={4}>
           {date}
@@ -52,7 +53,7 @@ const Post = ({ data, children }: PostProps) => {
           <Comments />
         </Container>
       </Flex>
-    </>
+    </Layout>
   )
 }
 

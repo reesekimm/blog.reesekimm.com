@@ -7,6 +7,7 @@ import { selectAppState, setSelectedTag } from '../../state/appSlice'
 import { useAppDispatch, useAppSelector } from '../../state/hooks'
 import { Wrap } from '@chakra-ui/react'
 import SEO from '../../components/seo'
+import Layout from '../../components/layout'
 
 type PostListProps = Pick<PageProps<PostListQueryResult>, 'data'>
 
@@ -26,7 +27,7 @@ const PostList = ({ data }: PostListProps) => {
   )
 
   return (
-    <>
+    <Layout>
       <Wrap as="ol" w="100%" paddingTop={{ sm: '2rem', md: '3rem' }}>
         <Tag
           label="All"
@@ -90,7 +91,7 @@ const PostList = ({ data }: PostListProps) => {
               )
             )}
       </Wrap>
-    </>
+    </Layout>
   )
 }
 

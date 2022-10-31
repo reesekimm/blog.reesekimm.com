@@ -2,6 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Reese.dev',
     description: `Reese's tech blog`,
+    author: `reeesekimm`,
     titleTemplate: '%s | Reese.dev',
     image: `/og-bg-default.png`,
     siteUrl: 'https://blog.reesekimm.com',
@@ -60,5 +61,6 @@ module.exports = {
         icon: `./static/favicon-192x192.png`,
       },
     },
+    `gatsby-plugin-my-opengraph`,
   ],
 }
