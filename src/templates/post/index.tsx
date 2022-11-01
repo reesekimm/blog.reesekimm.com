@@ -74,8 +74,11 @@ export default Post
 
 export const Head = ({ location, pageContext }) => {
   const {
+    id,
     frontmatter: { title, subtitle },
   } = pageContext
 
-  return <SEO title={title} subtitle={subtitle} path={location.pathname} />
+  return (
+    <SEO id={id} title={title} subtitle={subtitle} path={location.pathname} />
+  )
 }

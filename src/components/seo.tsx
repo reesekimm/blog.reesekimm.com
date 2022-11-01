@@ -2,21 +2,26 @@ import React from 'react'
 import useSiteMetadata from '../hooks/useSiteMetadata'
 
 interface SEOProps {
+  id?: string
   title?: string
   subtitle?: string
   path?: string
   children?: React.ReactNode
 }
 
-const SEO = ({ title, subtitle, path, children }: SEOProps) => {
+const SEO = ({ id, title, subtitle, path, children }: SEOProps) => {
   const { title: blogTitle, description, image, siteUrl } = useSiteMetadata()
+
+  console.log('og image path', `${siteUrl}/og-image/${id}/image.png`)
 
   const seo = {
     title: title || blogTitle,
     description: subtitle || description,
     image: `${siteUrl}${image}`,
     ogImage:
-      path === '/' ? `${siteUrl}${image}` : `${siteUrl}${path}/og-image.png`,
+      path !== '/' && id && path
+        ? `${siteUrl}/og-image/${id}/image.png`
+        : `${siteUrl}${image}`,
     url: `${siteUrl}${path || ``}`,
   }
 
