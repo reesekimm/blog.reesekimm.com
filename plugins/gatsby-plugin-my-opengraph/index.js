@@ -6,4 +6,6 @@ exports.createOpenGraphImage = (createPage, options) => {
     component,
     context,
   })
+
+  return { path: `${path}.png` }
 }

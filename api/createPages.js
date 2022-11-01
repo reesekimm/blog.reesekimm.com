@@ -56,6 +56,11 @@ module.exports = async ({ graphql, actions, reporter }) => {
     createPage({
       path: '/',
       component: postListTemplate,
+      context: {
+        ogImage: {
+          path: `/og-bg-default.png`,
+        },
+      },
     })
   })
 
@@ -66,18 +71,17 @@ module.exports = async ({ graphql, actions, reporter }) => {
       component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         id: node.id,
-      },
-    })
-
-    createOpenGraphImage(createPage, {
-      path: `/og-image/${node.id}`,
-      component: postOgImageTemplate,
-      context: {
-        id: node.id,
-        date: node.frontmatter.date,
-        title: node.frontmatter.title,
-        subtitle: node.frontmatter.subtitle,
-        tags: node.frontmatter.tags,
+        ogImage: createOpenGraphImage(createPage, {
+          path: `/og-image/${node.id}`,
+          component: postOgImageTemplate,
+          context: {
+            id: node.id,
+            date: node.frontmatter.date,
+            title: node.frontmatter.title,
+            subtitle: node.frontmatter.subtitle,
+            tags: node.frontmatter.tags,
+          },
+        }),
       },
     })
   })

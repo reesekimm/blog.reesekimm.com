@@ -132,6 +132,6 @@ export const query = graphql`
 
 export default PostList
 
-export const Head = ({ location }) => {
-  return <SEO path={location.pathname} />
+export const Head = ({ location, pageContext }) => {
+  return <SEO path={location.pathname} ogImagePath={pageContext.ogImage.path} />
 }

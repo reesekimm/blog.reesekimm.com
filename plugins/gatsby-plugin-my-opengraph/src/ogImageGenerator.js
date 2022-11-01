@@ -41,7 +41,7 @@ exports.generateOgImages = async () => {
       waitUntil: 'networkidle2',
     })
     await page.screenshot({
-      path: `public/og-image/${path}/image.png`,
+      path: `public/og-image/${path}.png`,
       clip: { x: 0, y: 0, ...size },
     })
   }
