@@ -1,4 +1,4 @@
-import { useColorMode } from '@chakra-ui/react'
+import { useColorMode, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 
 const UTTERANCES_SETTINGS = {
@@ -15,10 +15,10 @@ const COMMENTS_ID = 'utterances-wrapper'
 
 const Comments = () => {
   const { colorMode } = useColorMode()
+  const theme = useColorModeValue('github-light', 'photon-dark')
 
   useEffect(() => {
-    UTTERANCES_SETTINGS.theme =
-      colorMode === 'light' ? 'github-light' : 'photon-dark'
+    UTTERANCES_SETTINGS.theme = theme
 
     const utterances = document.createElement('script')
 

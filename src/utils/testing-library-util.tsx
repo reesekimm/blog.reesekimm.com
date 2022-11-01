@@ -5,7 +5,6 @@ import { render, RenderOptions, RenderResult } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { UserEvent } from '@testing-library/user-event/dist/types/setup/setup'
 import store from '../state/store'
-import { useColorMode } from '@chakra-ui/react'
 
 interface CustomRenderResult extends RenderResult {
   user: UserEvent

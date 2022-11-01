@@ -24,6 +24,7 @@ module.exports = async ({ graphql, actions, reporter }) => {
               date(formatString: "MMMM D, YYYY")
               title
               subtitle
+              tags
             }
             internal {
               contentFilePath
@@ -77,6 +78,7 @@ module.exports = async ({ graphql, actions, reporter }) => {
         date: node.frontmatter.date,
         title: node.frontmatter.title,
         subtitle: node.frontmatter.subtitle,
+        tags: node.frontmatter.tags,
       },
     })
   })

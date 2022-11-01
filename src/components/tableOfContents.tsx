@@ -7,7 +7,7 @@ import {
   Link,
   ListItem,
   OrderedList,
-  useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react'
 
 interface Item {
@@ -35,7 +35,7 @@ function getIds(items: Item[]) {
 }
 
 function generateTocItems(items: Item[], activeItemId: string) {
-  const { colorMode } = useColorMode()
+  const activeColor = useColorModeValue('brand.light', 'brand.dark')
   const dispatch = useAppDispatch()
 
   const disableHeaderTransition = () => {
@@ -57,13 +57,7 @@ function generateTocItems(items: Item[], activeItemId: string) {
             <Link
               href={href}
               onClick={disableHeaderTransition}
-              color={
-                activeItemId === item.title
-                  ? colorMode === 'light'
-                    ? 'brand.light'
-                    : 'brand.dark'
-                  : 'gray.400'
-              }
+              color={activeItemId === item.title ? activeColor : 'gray.400'}
               fontWeight={activeItemId === item.title ? 'medium' : 'normal'}
               _hover={{ textDecoration: 'none' }}
             >

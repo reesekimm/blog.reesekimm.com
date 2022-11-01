@@ -7,6 +7,7 @@ import {
   IconButton,
   Spacer,
   useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import useSiteMetadata from '../hooks/useSiteMetadata'
@@ -17,7 +18,14 @@ interface HeaderProps {
 
 export const Header = ({ showing }: HeaderProps) => {
   const { title } = useSiteMetadata()
+
   const { colorMode, toggleColorMode } = useColorMode()
+  const boxShadowMode = useColorModeValue('light', 'dark')
+  const modeIcon = useColorModeValue(
+    <MoonIcon w={5} h={5} color="gray.800" />,
+    <SunIcon w={5} h={5} color="white" />
+  )
+  const modeAriaLabel = useColorModeValue('dark-mode', 'light-mode')
 
   return (
     <Flex
@@ -31,7 +39,7 @@ export const Header = ({ showing }: HeaderProps) => {
       transform={showing ? 'translateY(0)' : 'translateY(-5rem)'}
       transition="transform 0.3s"
       zIndex={10}
-      boxShadow={colorMode === 'light' ? 'light' : 'dark'}
+      boxShadow={boxShadowMode}
     >
       <Box zIndex={10}>
         <Heading as="h2" size="md" p={0}>
@@ -42,14 +50,8 @@ export const Header = ({ showing }: HeaderProps) => {
       </Box>
       <Spacer />
       <IconButton
-        icon={
-          colorMode === 'light' ? (
-            <MoonIcon w={5} h={5} color="gray.800" />
-          ) : (
-            <SunIcon w={5} h={5} color="white" />
-          )
-        }
-        aria-label={colorMode === 'light' ? 'dark-mode' : 'light-mode'}
+        icon={modeIcon}
+        aria-label={modeAriaLabel}
         variant="unstyled"
         onClick={toggleColorMode}
       />
