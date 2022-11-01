@@ -1,21 +1,5 @@
-exports.onPostBuild = async ({ graphql }) => {
-  const result = await graphql(`
-    query {
-      allMdx {
-        edges {
-          node {
-            id
-            frontmatter {
-              title
-              slug
-            }
-          }
-        }
-      }
-    }
-  `)
+const { generateOgImages } = require('./src/ogImageGenerator')
 
-  const posts = result.data.allMdx.edges
-
-  // puppeteer로 og image 생성
+exports.onPostBuild = async () => {
+  await generateOgImages()
 }

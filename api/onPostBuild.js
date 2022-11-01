@@ -18,16 +18,6 @@ async function generateBackground(background) {
   return Jimp.read(background)
 }
 
-function validateFontSize(fontSize, fieldName) {
-  if (
-    isNaN(fontSize) ||
-    parseInt(Number(fontSize)) != fontSize ||
-    isNaN(parseInt(fontSize, 10))
-  ) {
-    throw new Error(`Please pass an integer as ${fieldName}`)
-  }
-}
-
 function hexToRgb(hex) {
   const hexCode = hex.replace(/^#/, '')
   const bigint = parseInt(hexCode, 16)
@@ -72,7 +62,6 @@ module.exports = module.onPostBuild = async (
   const ogImagePromises = posts.map(
     async ({
       node: {
-        id,
         frontmatter: { title, slug },
       },
     }) => {

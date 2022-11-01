@@ -61,22 +61,22 @@ module.exports = async ({ graphql, actions, reporter }) => {
 
   // Create post detail pages
   posts.forEach(({ node }) => {
-    console.log('🔥[id]', node)
     createPage({
       path: node.frontmatter.slug,
       component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
       context: {
         id: node.id,
-        ogImage: createOpenGraphImage(createPage, {
-          path: `/og-image/${node.id}.png`,
-          component: postOgImageTemplate,
-          context: {
-            id: node.id,
-            date: node.frontmatter.date,
-            title: node.frontmatter.title,
-            subtitle: node.frontmatter.subtitle,
-          },
-        }),
+      },
+    })
+
+    createOpenGraphImage(createPage, {
+      path: `/og-image/${node.id}`,
+      component: postOgImageTemplate,
+      context: {
+        id: node.id,
+        date: node.frontmatter.date,
+        title: node.frontmatter.title,
+        subtitle: node.frontmatter.subtitle,
       },
     })
   })

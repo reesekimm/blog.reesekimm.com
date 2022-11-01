@@ -5,8 +5,6 @@ const PostOgImage = ({ pageContext }) => {
   const { title: blogTitle, author } = useSiteMetadata()
   const { date, title, subtitle } = pageContext
 
-  console.log('[pageContext]', pageContext)
-
   return (
     <>
       <h1>{blogTitle}</h1>
