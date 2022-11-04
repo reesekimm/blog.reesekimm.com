@@ -28,7 +28,7 @@ const SEO = ({ title, subtitle, path, ogImagePath, children }: SEOProps) => {
       <meta name="og:image" content={seo.image} />
       <meta name="og:title" content={seo.title} />
       <meta name="og:description" content={seo.description} />
-      <meta name="og:type" content="image/png" />
+      <meta name="og:type" content="website" />
       <meta name="og:url" content={seo.url} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:image" content={seo.image} />
