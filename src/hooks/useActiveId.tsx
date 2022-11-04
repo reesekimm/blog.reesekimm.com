@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
 const options = {
-  rootMargin: '0% 0% -80% 0%',
+  rootMargin: '0% 0% -75% 0%',
   threshold: 1,
 }
 
 export default function useActiveId(ids: string[]) {
-  const [activeId, setActiveId] = useState<string | undefined>()
+  const [activeId, setActiveId] = useState('')
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

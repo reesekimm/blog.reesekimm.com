@@ -89,7 +89,7 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
         order: 0,
       }}
     >
-      {generateTocItems(tocItems, activeItemId ?? '')}
+      {generateTocItems(tocItems, activeItemId)}
     </Container>
   ) : null
 }
