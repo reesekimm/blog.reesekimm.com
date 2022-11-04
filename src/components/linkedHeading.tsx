@@ -4,10 +4,11 @@ import { LinkIcon } from '@chakra-ui/icons'
 
 interface LinkedHeadingProps {
   children: string
-  tag: 'h2' | 'h3' | 'h4' | 'h5'
+  tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
 }
 
 const Size = {
+  h1: 'xl',
   h2: 'lg',
   h3: 'md',
   h4: 'sm',
@@ -31,13 +32,20 @@ function LinkedHeading({ children, tag }: LinkedHeadingProps) {
     <Heading as={tag} id={children} size={Size[tag]}>
       <Link
         href={href}
+        cursor="default"
         _hover={{ textDecoration: 'none' }}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}
       >
         {children}
         {showLinkIcon && (
-          <LinkIcon w={4} h={4} marginLeft="1.5" color="gray.400" />
+          <LinkIcon
+            w={4}
+            h={4}
+            marginLeft="1.5"
+            color="gray.400"
+            cursor="pointer"
+          />
         )}
       </Link>
     </Heading>
@@ -45,6 +53,9 @@ function LinkedHeading({ children, tag }: LinkedHeadingProps) {
 }
 
 export default {
+  h1: (props: { children: string }) => (
+    <LinkedHeading tag="h1">{props.children}</LinkedHeading>
+  ),
   h2: (props: { children: string }) => (
     <LinkedHeading tag="h2">{props.children}</LinkedHeading>
   ),

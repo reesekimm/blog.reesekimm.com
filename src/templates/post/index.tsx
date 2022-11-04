@@ -15,6 +15,7 @@ import Layout from '../../components/layout'
 const components = {
   pre: Codeblock,
   a: Link,
+  h1: LinkedHeading.h1,
   h2: LinkedHeading.h2,
   h3: LinkedHeading.h3,
   h4: LinkedHeading.h4,
