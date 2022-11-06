@@ -66,12 +66,12 @@ const theme = {
         margin: '4rem 0',
       },
       code: {
-        bg: 'gray.200',
-        borderRadius: '5px',
-        padding: '0.2rem 0.25rem',
         fontSize: 'sm',
         fontWeight: 'bold',
-        color: 'gray.500',
+        bg: mode('gray.200', 'gray.500')(props),
+        color: mode('gray.500', 'white')(props),
+        borderRadius: '5px',
+        padding: '0.15rem 0.25rem',
       },
       blockquote: {
         padding: '1rem 1rem 1rem 2rem',
