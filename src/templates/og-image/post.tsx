@@ -31,7 +31,7 @@ const PostOgImage = ({ pageContext }: PostOgImageProps) => {
           fontSize="8xl"
           fontWeight="black"
           lineHeight={1.2}
-          wordBreak="break-word"
+          wordBreak="keep-all"
           p={0}
         >
           {title}

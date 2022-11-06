@@ -84,7 +84,7 @@ export const Head = ({ location, pageContext }) => {
       title={title}
       subtitle={subtitle}
       path={location.pathname}
-      ogImagePath={ogImage.path}
+      ogImage={ogImage}
     />
   )
 }

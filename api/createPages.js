@@ -2,7 +2,7 @@ const path = require('path')
 const _ = require('lodash')
 const {
   createOpenGraphImage,
-} = require(`../plugins/gatsby-plugin-my-opengraph`)
+} = require(`gatsby-plugin-dynamic-open-graph-images`)
 
 const postListTemplate = path.resolve('src/templates/postList/index.tsx')
 const postTemplate = path.resolve('src/templates/post/index.tsx')
@@ -56,11 +56,6 @@ module.exports = async ({ graphql, actions, reporter }) => {
     createPage({
       path: '/',
       component: postListTemplate,
-      context: {
-        ogImage: {
-          path: `/og-bg-default.png`,
-        },
-      },
     })
   })
 
@@ -72,14 +67,12 @@ module.exports = async ({ graphql, actions, reporter }) => {
       context: {
         id: node.id,
         ogImage: createOpenGraphImage(createPage, {
-          path: `/og-image/${node.id}`,
           component: postOgImageTemplate,
           context: {
             id: node.id,
             date: node.frontmatter.date,
             title: node.frontmatter.title,
             subtitle: node.frontmatter.subtitle,
-            tags: node.frontmatter.tags,
           },
         }),
       },

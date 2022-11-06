@@ -61,6 +61,6 @@ module.exports = {
         icon: `./static/favicon-192x192.png`,
       },
     },
-    `gatsby-plugin-my-opengraph`,
+    `gatsby-plugin-dynamic-open-graph-images`,
   ],
 }
