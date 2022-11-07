@@ -5,19 +5,29 @@ on:
     branches:
       - main
 
+env:
+  lang: ko_KR.UTF-8
+  cache-name: cache-node-modules
+
 jobs:
   build_and_deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
+      - name: 🗣️ Set locale
+        run: |
+          locale
+          sudo apt-get install language-pack-ko
+          sudo locale-gen ${{ env.lang }}
+          sudo update-locale LANG=${{ env.lang }}
+          locale
+
       - name: ✅ Check out repository code
         uses: actions/checkout@v3
 
       - name: 🗃 Cache node modules
         id: cache-nodemodules
         uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
         with:
           path: node_modules
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
