@@ -6,26 +6,13 @@ on:
       - main
 
 env:
-  lang: ko_KR.UTF-8
   cache-name: cache-node-modules
 
 jobs:
   build_and_deploy:
     name: Build and Deploy
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - name: 🗣️ Set locale
-        run: |
-          locale
-          sudo apt-get install language-pack-ko
-          sudo locale-gen ${{ env.lang }}
-          locale -a
-          export LANG=${{ env.lang }}
-          export LANGUAGE=${{ env.lang }}
-          export LC_ALL=${{ env.lang }}
-          locale
-          echo '한글 설정 완료'
-
       - name: ✅ Check out repository code
         uses: actions/checkout@v3
 
