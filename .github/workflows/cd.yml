@@ -19,8 +19,12 @@ jobs:
           locale
           sudo apt-get install language-pack-ko
           sudo locale-gen ${{ env.lang }}
-          sudo update-locale LANG=${{ env.lang }}
+          locale -a
+          export LANG=${{ env.lang }}
+          export LANGUAGE=${{ env.lang }}
+          export LC_ALL=${{ env.lang }}
           locale
+          echo '한글 설정 완료'
 
       - name: ✅ Check out repository code
         uses: actions/checkout@v3
