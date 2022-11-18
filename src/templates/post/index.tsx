@@ -13,7 +13,6 @@ import { Container, Flex, Heading, Text } from '@chakra-ui/react'
 import SEO from '../../components/seo'
 import Layout from '../../components/layout'
 import Caption from '../../components/caption'
-import Image from '../../components/image'
 
 const components = {
   ...ChakraComponents,
@@ -26,7 +25,6 @@ const components = {
   h4: LinkedHeading.h4,
   h5: LinkedHeading.h5,
   Caption,
-  Image,
 }
 
 type PostProps = Pick<PageProps<PostQueryResult>, 'data' | 'children'>
