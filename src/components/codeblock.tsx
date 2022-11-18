@@ -32,7 +32,8 @@ const Codeblock: ComponentType<any> = (props) => {
             padding: '.8rem',
             margin: '2rem 0',
             fontSize: '.8rem',
-            whiteSpace: 'pre-wrap',
+            whiteSpace: language ? 'pre' : 'pre-wrap',
+            overflowX: language ? 'scroll' : 'auto',
           }}
         >
           {tokens.map((line, i) => {
@@ -44,7 +45,7 @@ const Codeblock: ComponentType<any> = (props) => {
                   display="table-row"
                   p={0}
                 >
-                  {language && (
+                  {/* {language && (
                     <span
                       style={{
                         display: 'table-cell',
@@ -55,7 +56,7 @@ const Codeblock: ComponentType<any> = (props) => {
                     >
                       {i + 1}
                     </span>
-                  )}
+                  )} */}
                   <Container
                     display="table-cell"
                     wordBreak="break-all"

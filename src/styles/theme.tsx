@@ -62,39 +62,8 @@ const theme = {
         display: 'flex',
         flexDirection: 'column',
       },
-      hr: {
-        margin: '4rem 0',
-      },
-      code: {
-        fontSize: 'sm',
-        fontWeight: 'bold',
-        bg: mode('gray.200', 'gray.500')(props),
-        color: mode('gray.500', 'white')(props),
-        borderRadius: '5px',
-        padding: '0.15rem 0.25rem',
-      },
-      blockquote: {
-        padding: '1rem 1rem 1rem 2rem',
-        color: 'gray.500',
-        borderLeft: '4px',
-        borderColor: 'gray.400',
-        bg: mode('gray.100', 'gray.700')(props),
-        p: {
-          margin: 0,
-        },
-      },
-      th: {
-        borderBottom: '1px',
-        borderColor: 'gray.300',
-      },
-      'th, td': {
-        padding: '1rem',
-      },
       a: {
         color: mode('brand.light', 'brand.dark')(props),
-      },
-      img: {
-        margin: '2rem auto',
       },
       p: {
         display: 'inline',
@@ -115,6 +84,76 @@ const theme = {
       },
       'h3, h4': {
         paddingBottom: '1rem',
+      },
+      '#post-content': {
+        'h1, h2, h3, h4, h5': {
+          padding: 0,
+        },
+        h1: {
+          margin: '5rem 0 2rem',
+        },
+        h2: {
+          margin: '4rem 0 1.6rem',
+        },
+        h3: {
+          margin: '3rem 0 1.4rem',
+        },
+        h4: {
+          margin: '2rem 0 1rem',
+        },
+        h5: {
+          margin: '2rem 0 .8rem',
+        },
+        'ol, ul': {
+          margin: 0,
+        },
+        p: {
+          display: 'block',
+          marginBottom: '1rem',
+          letterSpacing: '.02rem',
+        },
+        'blockquote > p': {
+          margin: 0,
+        },
+        img: {
+          margin: '3rem auto 0',
+          width: '40rem',
+        },
+        pre: {
+          /* Hide scrollbar */
+          '-ms-overflow-style': 'none' /* IE and Edge */,
+          'scrollbar-width': 'none' /* Firefox */,
+          '::-webkit-scrollbar': {
+            /* Chrome, Safari and Opera */
+            display: 'none',
+          },
+        },
+        hr: {
+          margin: '2rem 0',
+        },
+        code: {
+          fontSize: 'sm',
+          fontWeight: 'bold',
+          bg: mode('gray.200', 'gray.500')(props),
+          color: mode('gray.500', 'white')(props),
+          borderRadius: '5px',
+          padding: '0.15rem 0.25rem',
+        },
+        blockquote: {
+          padding: '.5rem 1rem',
+          color: 'gray.500',
+          borderLeft: '4px',
+          borderColor: 'gray.400',
+          bg: mode('gray.100', 'gray.700')(props),
+          margin: '1rem 0 2rem',
+        },
+        th: {
+          borderBottom: '1px',
+          borderColor: 'gray.300',
+        },
+        'th, td': {
+          padding: '1rem',
+        },
       },
     }),
   },

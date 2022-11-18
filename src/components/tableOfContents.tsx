@@ -78,6 +78,7 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
     <Container
       as="aside"
       color="gray.400"
+      p={0}
       display={['none', 'none', 'block']}
       style={{
         minWidth: '16rem',
