@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     title: 'Reese.dev',
@@ -30,6 +32,7 @@ module.exports = {
             resolve: 'gatsby-remark-copy-linked-files',
             options: {
               ignoreFileExtensions: [],
+              destinationDir: (f) => `images/${f.name}`,
             },
           },
         ],
