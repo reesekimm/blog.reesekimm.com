@@ -73,9 +73,6 @@ const theme = {
         listStylePosition: 'inside',
         marginBottom: '1rem',
       },
-      li: {
-        padding: '0.5rem',
-      },
       h1: {
         paddingBotton: '4rem',
       },
@@ -106,6 +103,9 @@ const theme = {
         },
         'ol, ul': {
           margin: 0,
+        },
+        li: {
+          padding: '0.5rem',
         },
         p: {
           display: 'block',

@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import {
   Box,
-  Flex,
-  Heading,
+  Container,
   IconButton,
   Spacer,
   useColorMode,
@@ -17,7 +16,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ showing }: HeaderProps) => {
-  const { title } = useSiteMetadata()
+  const { categories } = useSiteMetadata()
 
   const { colorMode, toggleColorMode } = useColorMode()
   const boxShadowMode = useColorModeValue('light', 'dark')
@@ -28,34 +27,47 @@ export const Header = ({ showing }: HeaderProps) => {
   const modeAriaLabel = useColorModeValue('dark-mode', 'light-mode')
 
   return (
-    <Flex
+    <Container
       as="header"
-      alignItems="center"
       bg={colorMode === 'light' ? 'white' : 'gray.800'}
-      p="0.6rem 1rem"
+      p="1rem"
       position="fixed"
       w="100%"
+      maxW="initial"
       left={0}
       transform={showing ? 'translateY(0)' : 'translateY(-5rem)'}
       transition="transform 0.3s"
       zIndex={10}
       boxShadow={boxShadowMode}
+      centerContent
     >
-      <Box zIndex={10}>
-        <Heading as="h2" size="md" p={0}>
-          <Link to="/" color="brand.primary">
-            {title}
+      <Box as="nav" maxW="45rem" zIndex={10}>
+        {categories.map(({ displayText, url }) => (
+          <Link
+            key={url}
+            to={url}
+            style={{
+              margin: '.5rem',
+              fontWeight: 'bold',
+              color: `${
+                colorMode === 'light' ? '#1A202C' : 'rgba(255, 255, 255, 0.92)'
+              }`,
+            }}
+          >
+            {displayText}
           </Link>
-        </Heading>
+        ))}
       </Box>
-      <Spacer />
       <IconButton
         icon={modeIcon}
         aria-label={modeAriaLabel}
         variant="unstyled"
         onClick={toggleColorMode}
+        position="absolute"
+        top=".5rem"
+        right=".5rem"
       />
-    </Flex>
+    </Container>
   )
 }
 

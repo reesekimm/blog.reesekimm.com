@@ -10,6 +10,10 @@ export default function useSiteMetadata() {
           author
           image
           siteUrl
+          categories {
+            displayText
+            url
+          }
         }
       }
     }

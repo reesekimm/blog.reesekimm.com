@@ -4,78 +4,114 @@ const {
   createOpenGraphImage,
 } = require(`gatsby-plugin-dynamic-open-graph-images`)
 
-const postListTemplate = path.resolve('src/templates/postList/index.tsx')
+const categoryPageTemplate = path.resolve('src/templates/category-page.tsx')
 const postTemplate = path.resolve('src/templates/post/index.tsx')
 const postOgImageTemplate = path.resolve('src/templates/og-image/post.tsx')
-
-const POSTS_PER_PAGE = 5
 
 module.exports = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  const result = await graphql(`
-    query {
-      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
-        edges {
-          node {
-            id
-            frontmatter {
-              slug
-              date(formatString: "MMMM D, YYYY")
-              title
-              subtitle
-            }
-            internal {
-              contentFilePath
-            }
-          }
-        }
-        group(field: frontmatter___tags) {
-          edges {
-            node {
-              id
-              frontmatter {
-                slug
-              }
-            }
+  const categoryInfo = await graphql(`
+    {
+      site {
+        siteMetadata {
+          categories {
+            displayText
+            name
+            url
+            description
+            priority
+            generatePage
           }
         }
       }
     }
   `)
 
-  if (result.errors) {
-    reporter.panicOnBuild('Error loading MDX result', result.errors)
-  }
+  const categories = categoryInfo.data.site.siteMetadata.categories
 
-  // Create post pagination
-  const posts = result.data.allMdx.edges
-  const numOfPages = Math.ceil(posts.length / POSTS_PER_PAGE)
-
-  Array.from({ length: numOfPages }).forEach(() => {
-    createPage({
-      path: '/',
-      component: postListTemplate,
+  categories
+    .filter((category) => category.generatePage)
+    .forEach((category) => {
+      reporter.info(`Createing category page - ${category.name}`)
+      createPage({
+        path: category.url,
+        component: categoryPageTemplate,
+        context: {
+          categoryName: category.name,
+          categoryDescription: category.description,
+        },
+      })
     })
-  })
 
-  // Create post detail pages
-  posts.forEach(({ node }) => {
-    createPage({
-      path: node.frontmatter.slug,
-      component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-      context: {
-        id: node.id,
-        ogImage: createOpenGraphImage(createPage, {
-          component: postOgImageTemplate,
+  for (
+    let index = 0, numOfCategories = categories.length;
+    index < numOfCategories;
+    index++
+  ) {
+    reporter.info(`Fetching posts under a category ${categories[index].name}`)
+
+    const result = await graphql(
+      `
+        query ($category: String!) {
+          allMdx(
+            filter: { frontmatter: { category: { eq: $category } } }
+            sort: { fields: frontmatter___date, order: DESC }
+            limit: 1000
+          ) {
+            edges {
+              node {
+                id
+                frontmatter {
+                  date(formatString: "MMM D, YYYY")
+                  title
+                  category
+                  slug
+                }
+                internal {
+                  contentFilePath
+                }
+              }
+            }
+          }
+        }
+      `,
+      { category: categories[index].name }
+    )
+
+    if (result.errors) {
+      reporter.panicOnBuild(
+        `There was an error loading your posts`,
+        result.errors
+      )
+      return
+    }
+
+    const posts = result.data.allMdx.edges
+
+    if (posts.length > 0) {
+      posts.forEach(({ node }) => {
+        const category = node.frontmatter?.category
+        const slug =
+          `${category ? '/' + category : ''}` + `${node.frontmatter.slug || ''}`
+
+        createPage({
+          path: slug,
+          component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
           context: {
             id: node.id,
-            date: node.frontmatter.date,
-            title: node.frontmatter.title,
-            subtitle: node.frontmatter.subtitle,
+            ogImage: createOpenGraphImage(createPage, {
+              component: postOgImageTemplate,
+              context: {
+                id: node.id,
+                date: node.frontmatter.date,
+                title: node.frontmatter.title,
+                subtitle: node.frontmatter.subtitle,
+              },
+            }),
           },
-        }),
-      },
-    })
-  })
+        })
+      })
+    }
+  }
 }
