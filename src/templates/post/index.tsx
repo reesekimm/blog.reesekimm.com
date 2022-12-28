@@ -39,13 +39,7 @@ const Post = ({ data, children }: PostProps) => {
 
   return (
     <Layout>
-      <Container
-        w="100%"
-        maxW="100%"
-        p={[0, 6, 14]}
-        m={[2, 6, 10]}
-        centerContent
-      >
+      <Container w="100%" p={[0, 6, 14]} maxW="initial" centerContent>
         <Text as="time" color="gray.500" marginBottom={4}>
           {date}
         </Text>
@@ -56,9 +50,9 @@ const Post = ({ data, children }: PostProps) => {
           {subtitle}
         </Heading>
       </Container>
-      <Flex w="100%">
+      <Flex w="100%" maxW="initial" p={0}>
         <TableOfContents tocItems={tableOfContents.items} />
-        <Container id="post-content" as="article" order="1" maxW="100%" p={0}>
+        <Container id="post-content" as="article" p={0} m={0} maxW="initial">
           <MDXProvider components={components}>{children}</MDXProvider>
           <hr />
           <Comments />
@@ -72,9 +66,8 @@ export const query = graphql`
   query ($id: String) {
     mdx(id: { eq: $id }) {
       frontmatter {
-        date(formatString: "MMMM D, YYYY")
+        date(formatString: "MMM D, YYYY")
         title
-        subtitle
       }
       tableOfContents
     }

@@ -102,9 +102,8 @@ export const query = graphql`
         node {
           id
           frontmatter {
-            date(formatString: "MMMM D, YYYY")
+            date(formatString: "MMM D, YYYY")
             title
-            subtitle
             slug
             tags
           }
@@ -117,9 +116,8 @@ export const query = graphql`
           node {
             id
             frontmatter {
-              date(formatString: "MMMM D, YYYY")
+              date(formatString: "MMM D, YYYY")
               title
-              subtitle
               slug
               tags
             }

@@ -14,7 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header showing={headerShowing} />
-      <Container as="main" maxW="75rem" flex="1" marginTop="4rem" centerContent>
+      <Container as="main" maxW="45rem" marginTop="4rem" centerContent>
         <>{children}</>
       </Container>
       <Footer />

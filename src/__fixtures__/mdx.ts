@@ -1,7 +1,7 @@
 const mdx = {
   mdx: {
     frontmatter: {
-      date: 'April 3, 2022',
+      date: 'Apr 3, 2022',
       title: '실용주의 프로그래머 08',
       subtitle:
         '노마드코더 북클럽 실용주의 프로그래머 1기에 참여하며 남기는 기록',
