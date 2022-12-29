@@ -104,5 +104,11 @@ module.exports = {
       },
     },
     `gatsby-plugin-dynamic-open-graph-images`,
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        excludes: [`/__og-image/*`],
+      },
+    },
   ],
 }
