@@ -79,8 +79,8 @@ export default function TableOfContents({ tocItems }: TableOfContentsProps) {
         width: '20rem',
         position: 'fixed',
         alignSelf: 'flex-start',
-        top: '16.5rem',
-        left: '4rem',
+        top: '18rem',
+        left: '8%',
         order: 0,
       }}
     >
