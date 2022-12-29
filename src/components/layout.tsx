@@ -1,7 +1,7 @@
 import React from 'react'
+import { Container, Flex } from '@chakra-ui/react'
 import Header from './header'
 import Footer from './footer'
-import { Container, Flex } from '@chakra-ui/react'
 import useHeaderTransition from '../hooks/useHeaderTransition'
 
 interface LayoutProps {

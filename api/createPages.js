@@ -5,7 +5,7 @@ const {
 } = require(`gatsby-plugin-dynamic-open-graph-images`)
 
 const categoryPageTemplate = path.resolve('src/templates/category-page.tsx')
-const postTemplate = path.resolve('src/templates/post/index.tsx')
+const postPageTemplate = path.resolve('src/templates/post-page.tsx')
 const postOgImageTemplate = path.resolve('src/templates/og-image/post.tsx')
 
 module.exports = async ({ graphql, actions, reporter }) => {
@@ -65,6 +65,7 @@ module.exports = async ({ graphql, actions, reporter }) => {
                 frontmatter {
                   date(formatString: "MMM D, YYYY")
                   title
+                  subtitle
                   category
                   slug
                 }
@@ -97,7 +98,7 @@ module.exports = async ({ graphql, actions, reporter }) => {
 
         createPage({
           path: slug,
-          component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+          component: `${postPageTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
           context: {
             id: node.id,
             ogImage: createOpenGraphImage(createPage, {

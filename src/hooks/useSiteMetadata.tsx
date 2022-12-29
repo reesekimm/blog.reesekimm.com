@@ -12,6 +12,7 @@ export default function useSiteMetadata() {
           siteUrl
           categories {
             displayText
+            description
             url
           }
         }

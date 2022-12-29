@@ -1,26 +1,32 @@
 import React from 'react'
-import { graphql } from 'gatsby'
-import ListItem from '../components/listItem'
+import { graphql, PageProps } from 'gatsby'
+import { Container, Text, Wrap } from '@chakra-ui/react'
 import Layout from '../components/layout'
-import { Text, Wrap } from '@chakra-ui/react'
+import ListItem from '../components/listItem'
+import { PostListQueryResult } from '../types'
 
-const Home = ({ data }) => {
+type HomeProps = Pick<PageProps<PostListQueryResult>, 'data'>
+
+const Home = ({ data }: HomeProps) => {
   if (!data) return null
 
   const recentPosts = data.allMdx.edges
 
   return (
     <Layout>
-      <Wrap
+      <Container
+        as="section"
         w="100%"
         p={['1rem 0', '2rem 0']}
+        m={0}
+        maxW="initial"
         borderBottom="1px solid lightgray"
       >
         <Text>
           웹 프론트엔드 개발을 합니다. <br /> 사용자 경험을 좌우할 수 있는
           디테일을 중요하게 생각합니다.
         </Text>
-      </Wrap>
+      </Container>
       <Text fontWeight="bold" w="100%" padding="2rem 0 1rem">
         최신글
       </Text>

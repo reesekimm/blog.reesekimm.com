@@ -1,10 +1,10 @@
 import React from 'react'
-import { Box, Flex, Heading, Tag, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import useSiteMetadata from '../../hooks/useSiteMetadata'
-import { PostFrontmatter } from '../../queries/post'
+import { Frontmatter } from '../../types'
 
 interface PostOgImageProps {
-  pageContext: Omit<PostFrontmatter, 'tags'>
+  pageContext: Pick<Frontmatter, 'date' | 'title' | 'subtitle'>
 }
 
 const PostOgImage = ({ pageContext }: PostOgImageProps) => {

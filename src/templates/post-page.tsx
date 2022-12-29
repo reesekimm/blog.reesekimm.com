@@ -3,16 +3,16 @@ import { graphql, PageProps } from 'gatsby'
 import { MDXProvider } from '@mdx-js/react'
 import * as ChakraComponents from '@chakra-ui/react'
 import * as ChakraIcons from '@chakra-ui/icons'
-import TableOfContents from '../../components/tableOfContents'
-import Codeblock from '../../components/codeblock'
-import Link from '../../components/link'
-import LinkedHeading from '../../components/linkedHeading'
-import { PostQueryResult } from '../../queries/post'
-import Comments from '../../components/comments'
+import TableOfContents from '../components/tableOfContents'
+import Codeblock from '../components/codeblock'
+import Link from '../components/link'
+import LinkedHeading from '../components/linkedHeading'
+import { PostQueryResult } from '../types'
+import Comments from '../components/comments'
 import { Container, Flex, Heading, Text } from '@chakra-ui/react'
-import SEO from '../../components/seo'
-import Layout from '../../components/layout'
-import Caption from '../../components/caption'
+import SEO from '../components/seo'
+import Layout from '../components/layout'
+import Caption from '../components/caption'
 
 const components = {
   ...ChakraComponents,
@@ -27,9 +27,9 @@ const components = {
   Caption,
 }
 
-type PostProps = Pick<PageProps<PostQueryResult>, 'data' | 'children'>
+type PostPageProps = Pick<PageProps<PostQueryResult>, 'data' | 'children'>
 
-const Post = ({ data, children }: PostProps) => {
+const PostPage = ({ data, children }: PostPageProps) => {
   if (!data) return null
 
   const {
@@ -68,13 +68,14 @@ export const query = graphql`
       frontmatter {
         date(formatString: "MMM D, YYYY")
         title
+        subtitle
       }
       tableOfContents
     }
   }
 `
 
-export default Post
+export default PostPage
 
 export const Head = ({ location, pageContext }) => {
   const {

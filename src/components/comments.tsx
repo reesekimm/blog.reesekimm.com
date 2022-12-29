@@ -1,5 +1,5 @@
-import { useColorMode, useColorModeValue } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
+import { useColorMode, useColorModeValue } from '@chakra-ui/react'
 
 const UTTERANCES_SETTINGS = {
   src: 'https://utteranc.es/client.js',

@@ -1,7 +1,4 @@
 import React from 'react'
-import { useAppDispatch } from '../state/hooks'
-import { toggleHeaderTransition } from '../state/appSlice'
-import useActiveId from '../hooks/useActiveId'
 import {
   Container,
   Link,
@@ -9,12 +6,10 @@ import {
   OrderedList,
   useColorModeValue,
 } from '@chakra-ui/react'
-
-interface Item {
-  title: string
-  url: string
-  items?: Item[]
-}
+import { useAppDispatch } from '../state/hooks'
+import { toggleHeaderTransition } from '../state/appSlice'
+import useActiveId from '../hooks/useActiveId'
+import { Item } from '../types'
 
 interface TableOfContentsProps {
   tocItems: Item[] | undefined

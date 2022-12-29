@@ -4,7 +4,6 @@ import {
   Box,
   Container,
   IconButton,
-  Spacer,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react'

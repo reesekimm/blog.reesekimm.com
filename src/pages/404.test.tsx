@@ -1,8 +1,8 @@
-import { useStaticQuery } from 'gatsby'
 import React from 'react'
-import { render, screen } from '../../utils/testing-library-util'
-import siteMetadata from '../../__fixtures__/siteMetadata'
-import NotFound from '.'
+import { useStaticQuery } from 'gatsby'
+import { render, screen } from '../utils/testing-library-util'
+import SITE_QUERY from '../__fixtures__/siteQuery'
+import NotFound from './404'
 
 jest.mock('gatsby')
 
@@ -13,10 +13,10 @@ const mockedUseStaticQuery = useStaticQuery as jest.MockedFunction<
 describe('404', () => {
   beforeEach(() => {
     mockedUseStaticQuery.mockClear()
-    mockedUseStaticQuery.mockReturnValue({ ...siteMetadata })
+    mockedUseStaticQuery.mockReturnValue(SITE_QUERY)
   })
 
-  it('should display contents correctly', () => {
+  it('에러 문구를 표시한다', () => {
     render(<NotFound />)
 
     expect(

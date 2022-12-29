@@ -1,4 +1,4 @@
-const mdx = {
+const postQuery = {
   mdx: {
     frontmatter: {
       date: 'Apr 3, 2022',
@@ -64,4 +64,4 @@ const mdx = {
   },
 }
 
-export default mdx
+export default postQuery
