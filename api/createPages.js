@@ -49,7 +49,7 @@ module.exports = async ({ graphql, actions, reporter }) => {
     index < numOfCategories;
     index++
   ) {
-    reporter.info(`Fetching posts under a category ${categories[index].name}`)
+    reporter.info(`Fetching posts under a category - ${categories[index].name}`)
 
     const result = await graphql(
       `
