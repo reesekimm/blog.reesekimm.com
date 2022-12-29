@@ -103,5 +103,15 @@ module.exports = {
         excludes: [`/__og-image/*`],
       },
     },
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ['G-BTEJNBMW35'],
+        pluginConfig: {
+          head: true,
+          exclude: ['/__og-image/**'],
+        },
+      },
+    },
   ],
 }
