@@ -50,6 +50,7 @@ const theme = {
         bg: mode('white', 'gray.800')(props),
         color: mode('gray.800', 'whiteAlpha.900')(props),
         overscrollBehaviorY: 'none',
+        lineHeight: 1.6,
       },
       '*::selection': {
         color: 'white',

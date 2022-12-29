@@ -17,8 +17,8 @@ const Home = ({ data }) => {
         borderBottom="1px solid lightgray"
       >
         <Text>
-          웹 프론트엔드 개발을 합니다. <br /> 사소해 보일 수 있지만 사용자
-          경험을 좌우할 수 있는 디테일을 중요하게 생각합니다.
+          웹 프론트엔드 개발을 합니다. <br /> 사용자 경험을 좌우할 수 있는
+          디테일을 중요하게 생각합니다.
         </Text>
       </Wrap>
       <Text fontWeight="bold" w="100%" padding="2rem 0 1rem">
