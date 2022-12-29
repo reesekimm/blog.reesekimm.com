@@ -16,7 +16,7 @@ export interface Item {
 export interface PostQueryResult {
   mdx: {
     frontmatter: Frontmatter
-    tableOfContents: Item[]
+    tableOfContents: { items: Item[] }
   }
 }
 
