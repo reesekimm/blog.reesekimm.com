@@ -98,9 +98,9 @@ module.exports = {
     },
     `gatsby-plugin-dynamic-open-graph-images`,
     {
-      resolve: 'gatsby-plugin-sitemap',
+      resolve: `gatsby-plugin-advanced-sitemap`,
       options: {
-        excludes: [`/__og-image/*`],
+        exclude: [`/dev-404-page`, `/404`, `/404.html`, `/__og-image`],
       },
     },
     {
