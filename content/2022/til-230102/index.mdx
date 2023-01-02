@@ -1,0 +1,205 @@
+---
+date: 2023-01-02
+title: React Fundamentals
+subtitle: React 기본 개념 정리
+category: til
+tags: ['React']
+slug: /til-220102
+---
+
+# 1. React without JSX
+
+## React는 선언형 API를 제공한다
+
+자바스크립트로 DOM을 그릴때 `document.createElement()`라는 브라우저 API를 사용한다.
+
+React 역시 내부적으로 DOM을 그릴때 같은 API를 사용하는데[[Reference]](https://github.com/facebook/react/blob/48907797294340b6d5d8fecfbcf97edf0691888d/packages/react-dom/src/client/ReactDOMComponent.js#L416), **명령형** API를 '추상화'를 통해 **선언형**으로 바꾸어 제공함으로써 선언형 프로그래밍을 가능하게 해준다.
+
+> 명령형 vs 선언형
+
+## React는 여러 플랫폼(e.g. 웹, 네이티브)을 지원한다
+
+각 플랫폼은 `플랫폼간에 공유하는 React 코드`와 `해당 플랫폼 React와 상호작용 하는데 필요한 코드`로 이루어지며, 웹에서 동작하는 React 애플리케이션을 만들려면 아래와 같이 두 개의 자바스크립트 파일이 필요하다.
+
+- [react](https://www.npmjs.com/package/react)
+  - React element를 생성하는 역할
+  - 플랫폼간에 공유하는 코드
+- [reactDOM](https://www.npmjs.com/package/react-dom)
+  - React element를 DOM으로 렌더링하는 역할
+  - React가 웹 플랫폼과 상호작용하는데 필요한 코드
+
+## JSX 없이 React 사용하기
+
+```html
+<div id="root">
+  <div class="container">Hello World</div>
+</div>
+```
+
+위와 같은 DOM을 JSX 없이 React를 사용해서 렌더링 하려면 어떻게 해야할까?
+
+React 18 기준으로 아래와 같이 구현할 수 있다.
+
+```html
+<head>
+  ...
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <!-- CDN으로 React 설치 -->
+  <!-- React, ReactDOM을 브라우저 전역에서 사용할 수 있다. -->
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.production.min.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+  ></script>
+
+  <script type="module">
+    const rootElement = document.getElementById('root')
+
+    // React element 생성
+    const container = React.createElement('div', {
+      className: 'container',
+      children: 'Hello World',
+    })
+
+    // React root 생성
+    const root = ReactDOM.createRoot(rootElement)
+
+    // React element(=container)를 DOM 내부에 렌더링
+    root.render(container)
+  </script>
+</body>
+```
+
+# 2. React with JSX
+
+JSX는 `React.createElement()`를 추상화하여 쉽게 사용할수 있게 만든 문법적 설탕(syntactic sugar)다.[[Reference]](https://reactjs.org/docs/jsx-in-depth.html)
+
+JSX를 사용하면 React API를 사용할때보다 간결하고 직관적으로 React 코드를 작성할 수 있다.
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+const container = React.createElement('div', {
+  className: 'container',
+  children: 'Hello World',
+})
+
+root.render(container)
+```
+
+<Caption value="React API를 사용한 경우" />
+
+```jsx
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+const container = <h1 className="container">Hello, world</h1>
+
+root.render(container)
+```
+
+<Caption value="JSX를 사용한 경우" />
+
+JSX는 자바스크립트 표준이 아니기 때문에 Babel 같은 컴파일러를 사용해서 변환시켜주는 작업이 필요하다.
+
+Babel에 의해 컴파일된 JSX는 `<head>` 태그 내부에 담긴다.
+
+```html
+<head>
+  <!-- 컴파일 결과물 -->
+  <script>
+    var element = /*#__PURE__*/ React.createElement(
+      'div',
+      null,
+      /*#__PURE__*/ React.createElement('span', null, 'Hello'),
+      ' ',
+      /*#__PURE__*/ React.createElement('span', null, 'World')
+    )
+
+    ReactDOM.createRoot(document.getElementById('root')).render(element)
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Laod React -->
+  <script src="https://unpkg.com/react@18.1.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18.1.0/umd/react-dom.development.js"></script>
+
+  <!-- Load Babel -->
+  <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+
+  <!-- type="text/babel" 인 경우 브라우저는 해당 script를 파싱하지 않는다. Babel이 읽고 컴파일한다. -->
+  <script type="text/babel">
+    // JSX를 사용하여 React element 생성
+    const element = (
+      <div className="container">
+        <span>Hello</span> <span>World</span>
+      </div>
+    )
+
+    ReactDOM.createRoot(document.getElementById('root')).render(element)
+  </script>
+</body>
+```
+
+# 3. Component
+
+컴포넌트는 React element를 반환하는 자바스크립트 함수다.[[Reference]](https://reactjs.org/docs/components-and-props.html)
+
+## 왜 컴포넌트인가?
+
+React는 관심사에 따라 컴포넌트를 나누고 독립적으로 개발하는 방식을 통해 UI 요소들간의 결합도를 낮춘다.
+
+이러한 방식은 아래와 같은 장점이 있다.
+
+1. 코드를 명료하고 직관적으로 작성할 수 있다.
+2. 코드의 재사용성이 높아진다.
+3. 테스트 작성이 용이하다.
+
+## props & state
+
+### 공통점
+
+1. plain JS 객체이다.
+2. 값이 변하면 리렌더링을 일으킨다.
+3. 컴포넌트의 렌더링 결과물을 결정한다. 같은 props/state는 항상 같은 React element를 렌더링한다.
+
+### 차이점
+
+#### props
+
+- 부모 컴포넌트가 전달해 주는 데이터이다.
+- immutable하다. (읽기 전용 값이다.)
+
+#### state
+
+- 컴포넌트 내부에서 (캡슐화되어) 관리되는 상태값이다.
+- `props`와 달리 private하며, 해당 state를 가지고 있는 컴포넌트가 직접 수정할 수 있다.
+
+---
+
+Deep-dive
+
+- [props-vs-state](https://github.com/uberVU/react-guide/blob/master/props-vs-state.md)
+- [react-state-vs-pros](https://lucybain.com/blog/2016/react-state-vs-pros/)
+
+## 모든 컴포넌트는 순수 함수여야 한다.
+
+> All React components must act like pure functions with respect to their props. [[Reference]](https://reactjs.org/docs/components-and-props.html#props-are-read-only)
+
+1. `props`는 직접 수정할 수 없다. (수정하려면 부모 컴포넌트의 상태값 변경 함수를 사용해야 한다.)
+2. 동일한 `props`에 대해 항상 동일한 React element를 반환한다.
+
+---
+
+Deep-dive
+
+- [The Rules of React](https://gist.github.com/sebmarkbage/75f0838967cd003cd7f9ab938eb1958f)
+- [리액트의 렌더링은 어떻게 일어나는가?](https://yceffort.kr/2022/04/deep-dive-in-react-rendering)
