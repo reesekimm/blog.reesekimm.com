@@ -15,7 +15,10 @@ slug: /til-220102
 
 React 역시 내부적으로 DOM을 그릴때 같은 API를 사용하는데[[Reference]](https://github.com/facebook/react/blob/48907797294340b6d5d8fecfbcf97edf0691888d/packages/react-dom/src/client/ReactDOMComponent.js#L416), **명령형** API를 '추상화'를 통해 **선언형**으로 바꾸어 제공함으로써 선언형 프로그래밍을 가능하게 해준다.
 
-> 명령형 vs 선언형
+> **명령형 프로그래밍 vs 선언형 프로그래밍**
+>
+> - 명령형 프로그래밍 : 컴퓨터가 _어떻게_ 동작해야 하는지를 프로그래밍하는 것
+> - 선언형 프로그래밍 : 컴퓨터가 _무엇을_ 해야할지를 프로그래밍 하는 것
 
 ## React는 여러 플랫폼(e.g. 웹, 네이티브)을 지원한다
 
