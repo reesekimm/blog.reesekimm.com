@@ -1,0 +1,126 @@
+---
+date: 2023-01-04
+title: useEffect 기본 개념 정리
+subtitle: useEffect Fundamentalsㅇ
+category: til
+tags: ['React']
+slug: /til-220104
+---
+
+# useEffect
+
+```jsx
+useEffect(부수 효과 함수, [의존성 배열])
+```
+
+`useEffect`는 함수 컴포넌트에서 부수효과를 처리할때 사용하는 hook이다.
+
+# 부수효과 (side effect)
+
+부수효과란 **실행 중인 함수의 범위 밖에 있는 것에 영향을 주는 모든 것**을 의미한다.
+
+React 컴포넌트는 함수 그 자체이며, 대표적으로 부수효과가 발생하는 경우는 아래와 같다.
+
+- DOM을 제어하는 경우 (e.g. 이벤트 핸들러 부착, 제거)
+- browser API와 상호작용 하는 경우 (e.g. localStorage)
+- API 호출
+
+> 클로저 스코프 내에 있는 변수의 값을 변경하는 것도 부수효과라고 할 수 있다. [[Reference]](https://www.reddit.com/r/reactjs/comments/8avfej/what_does_side_effects_mean_in_react/)
+>
+> `useEffect`의 부수 효과 함수에서 `useState`의 상태값을 변경하는 경우가 여기에 해당한다.
+
+# clean-up 함수
+
+`useEffect`의 부수 효과 함수는 아무것도 반환하지 않거나, clean-up 함수를 반환할 수 있다.
+
+```jsx
+useEffect(() => {
+  window.addEventListner('resize', onResize)
+
+  return () => {
+    // Clean up the event listner
+    window.removeEventListner('resize', onResize)
+  }
+}, [])
+```
+
+clean-up 함수는 아래와 같이 두가지 상황에서 호출되며 **메모리 누수를 막는 역할**을 한다.
+
+1. 컴포넌트가 리렌더링될때 부수 효과 함수가 호출되기 직전
+2. 컴포넌트가 화면에서 사라지기 직전
+
+# useEffect에서 async/await 사용하기
+
+`useEffect` 부수 효과 함수에 직접적으로 async를 사용할 수 없다. async 함수는 자동적으로 Promise를 반환하기 때문이다.
+
+```jsx
+// this does not work, don't do this:
+React.useEffect(async () => {
+  const result = await doSomeAsyncThing()
+  // do something with the result
+})
+```
+
+async/await을 사용하고 싶다면 부수 효과 함수 내부에서 사용하면 된다.
+
+```jsx
+React.useEffect(() => {
+  async function effect() {
+    const result = await doSomeAsyncThing()
+    // do something with the result
+  }
+  effect()
+})
+```
+
+이렇게 하면 `useEffect`가 아무것도 반환하지 않거나 clean-up 함수만 반환하도록 만들면서 async/await을 사용할 수 있다.
+
+# useEffect 실행 최적화
+
+기본적으로 `useEffect`의 부수 효과 함수와 clean-up 함수는 컴포넌트가 렌더링 될 때마다 실행된다. [(참고)](/til/til-220103#3.%20Hook%20Flow) 아래와 같이 의존성 배열이 없는 경우가 그렇다.
+
+```jsx
+React.useEffect(() => {
+  // 컴포넌트가 렌더링 될 때마다 실행됨
+
+  return () => {
+    // 컴포넌트가 리렌더링 될 때마다 실행됨
+  }
+})
+```
+
+하지만 부수 효과 함수/clean-up 함수를 매 렌더링마다 실행할 경우 성능 이슈나 불필요한 리소스 낭비가 발생하는 경우가 있다.
+
+대표적으로 API 호출을 하는 경우다.
+
+```jsx
+function Profile({ userId }) {
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    fetchUser(userId).then((data) => setUser(data))
+  })
+
+  //...
+}
+```
+
+이 경우 `useEffect`의 두번째 인자인 의존성 배열을 사용해서 부수 효과 함수/clean-up 함수의 실행 횟수를 제어할 수 있다.
+
+의존성 배열에 값을 추가하면 해당 값이 바뀐 경우에만 부수 효과 함수/clean-up 함수가 실행된다.
+
+위 예시의 경우 의존성 배열에 userId를 추가하여 userId가 변경된 경우에만 부수 효과 함수/clean-up 함수를 실행시킬 수 있다.
+
+```jsx
+function Profile({ userId }) {
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    fetchUser(userId).then((data) => setUser(data))
+  }, [userId])
+
+  //...
+}
+```
+
+의존성 배열이 빈 배열인 경우, 부수 효과 함수는 컴포넌트가 mount 됐을 때 한번만 실행되고, clean-up 함수는 컴포넌트가 unmount 되기 직전에 한번만 실행된다.
