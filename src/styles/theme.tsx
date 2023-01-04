@@ -106,10 +106,10 @@ const theme = {
           margin: 0,
         },
         li: {
-          padding: '0.5rem',
+          padding: '.5rem 0 .5rem 1rem',
         },
         p: {
-          display: 'block',
+          display: 'inline-block',
           marginBottom: '1rem',
           letterSpacing: '.02rem',
         },
