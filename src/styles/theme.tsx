@@ -102,9 +102,6 @@ const theme = {
         h5: {
           margin: '2rem 0 .8rem',
         },
-        'ol, ul': {
-          margin: 0,
-        },
         li: {
           padding: '.5rem 0 .5rem 1rem',
         },
@@ -117,8 +114,8 @@ const theme = {
           margin: 0,
         },
         img: {
-          margin: '3rem auto 0',
-          width: '40rem',
+          margin: '1rem auto 0',
+          width: '100%',
         },
         pre: {
           /* Hide scrollbar */
