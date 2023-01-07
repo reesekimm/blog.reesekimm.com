@@ -1,11 +1,17 @@
 ---
-date: 2023-01-05
+date: 2023-01-07
 title: React 렌더링 성능 최적화
 subtitle: React의 렌더링 과정 그리고 최적화 방법에 대하여
 category: til
 tags: ['React']
-slug: /230105
+slug: /230107
 ---
+
+# TL;DR
+
+1. React는 virtual DOM을 이용, DOM 변경 작업을 일괄(batch) 처리하여 렌더링 성능을 최적화한다.
+2. 렌더링 성능 최적화 시에는 state colocation을 우선적으로 적용하고 그 이후에 `memo`, `useCallback` 등을 사용하는게 좋다.
+3. 성능 최적화에는 비용이 든다. 비용 대비 얻는 이점이 큰지 따져보고, 책임감을 가지고 하자.
 
 # React는 어떻게 렌더링을 최적화 하나?
 
@@ -59,35 +65,39 @@ virtual DOM을 생성하고 비교하는 과정은 render, reconciliation 단계
 
 ## 1. State colocation
 
-렌더링 성능을 최적화 할때 무작정 `React.memo`나 `useCallback` 등을 사용하기보다 state colocation을 먼저 고려해보는게 좋다. [[Reference]](https://kentcdodds.com/blog/state-colocation-will-make-your-react-app-faster)
+렌더링 성능 최적화가 필요하다면 바로 `React.memo`를 사용하기보다 state colocation을 먼저 고려해보자.
 
-Component
-Context API / Redux 에도 적용된다.
+state colocation이란 **상태를 해당 상태와 관련있는 컴포넌트와 최대한 가깝게 위치시키는 것**을 말한다.
 
-서버 컴포넌트
+> Place code as close to where it's relevant as possible
 
-[[Reference]](https://overreacted.io/ko/before-you-memo/)
+React는 상태가 바뀌었을때 실제로 어떤 컴포넌트가 DOM 업데이트까지 수행해야 하는지 알 수 없기 때문에 해당 상태값이 위치한 컴포넌트와 모든 자식 컴포넌트를 전부 리렌더링 한다. 불필요한 리렌더링은 애플리케이션의 렌더링 성능을 떨어뜨리는 요인이기 때문에 state colocation으로 상태값과 해당 상태값을 참조하는 컴포넌트를 가까이 위치시켜서 불필요한 리렌더링을 막는 것이 좋다.
+
+### 어떻게 하는 것인가?
+
+1. **Component 레벨에서** ⎯ 상태를 아래로 내리거나 위로 올린다. [[Reference 1]](https://kentcdodds.com/blog/state-colocation-will-make-your-react-app-faster) [[Reference 2]](https://overreacted.io/before-you-memo/) [[Reference 3]](https://kentcdodds.com/blog/optimize-react-re-renders)
+2. **Context API 사용시** ⎯ (1) context 안에는 꼭 공유되어야 하는 상태값만 넣고 (2) provider는 해당 상태값을 사용하는 컴포넌트에 최대한 가까이 위치시킨다.
+3. **Redux 사용시** ⎯ global store에는 반드시 global한 상태값만 넣는다.
+
+### 어떤 장점이 있나?
+
+1. 불필요한 render, reconciliation 단계가 실행되지 않아 렌더링 성능이 개선된다.
+2. 애플리케이션 유지보수가 쉬워진다.
+3. 연산비용이 큰 컴포넌트를 분리하고 서버에서 실행함으로써 브라우저단에서 성능 이점을 누릴 수 있다. [[Reference]](https://overreacted.io/before-you-memo/#whats-the-moral)
 
 ## 2. 메모이제이션 (memoization)
 
 메모이제이션(memoization)이란 컴퓨터 프로그램이 동일한 계산을 반복해야 할 때, 이전에 계산한 값을 메모리에 저장함으로써 동일한 계산의 반복 수행을 제거하여 프로그램 실행 속도를 빠르게 하는 기술이다. 일종의 캐싱 전략인 셈이다. [[Reference]](https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98)
 
-React에서는 메모이제이션을 위해 `React.memo`, `useCallback`, `useMemo` 세 개의 API를 제공한다.
-
-가장 최근의 입력값과 반환값을 메모이제이션하고 **참조 동등성**을 사용하여 컴포넌트의 리렌더링 여부를 결정한다.
+React는 가장 최근의 입력값과 반환값을 메모이제이션하고 **참조 동등성**을 사용하여 컴포넌트의 리렌더링 여부를 결정한다. 그리고 메모이제이션을 위해 `React.memo`, `useCallback`, `useMemo` 세 개의 API를 제공한다.
 
 > **참조 동등성 (referential equality)**\
 > 값이 저장된 메모리 주소가 같으면 동일한 값으로 간주하는 것을 말한다.\
-> React는 내부적으로 [Object.is](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)를 사용
+> [[Reference 1]](https://blog.bitsrc.io/understanding-referential-equality-in-react-a8fb3769be0) [[Reference 2]](https://dev.to/vicnovais/understanding-referential-equality-in-reacts-useeffect-2m7o)
 
 ### React.memo로 리렌더링 줄이기
 
-컴포넌트는 아래 조건에서 리렌더링 된다.
-
-1. prop이 변하는 경우
-2. state가 변하는 경우
-3. 참조하고있는 context 값이 변하는 경우
-4. 부모 컴포넌트가 리렌더링되는 경우
+`React.memo`는 컴포넌트 함수 실행 결과를 메모이제이션 해두었다가 재사용하게 해주는 API다.
 
 ```js
 function CountButton({ count, onClick }) {
@@ -121,15 +131,15 @@ function Example() {
 }
 ```
 
-React DevTools로 `<Countbutton>`을 클릭하는 과정을 프로파일링 해보면 부모 컴포넌트가 리렌더링되면서 `<NameInput>`도 리렌더링 된 것을 알 수 있다.
+위 예시의 경우 React DevTools로 `<Countbutton>`을 클릭하는 과정을 프로파일링 해보면 부모 컴포넌트가 리렌더링되면서 `<NameInput>`도 리렌더링 되는 것을 알 수 있다.
 
 ![Profiling result - before using memo](./before-memo.png)
 
 <Caption value="부모 컴포넌트가 리렌더링되면 자식 컴포넌트도 리렌더링 된다." />
 
-하지만 `<CountButton>`을 클릭하더라도 `<NameInput>`이 참조하고 있는 상태값들(`name`, `setName`)은 클릭전과 동일하기 때문에 `<NameInput>`에 해당하는 **실제 DOM이 변경되지는 않는다**. 다시말해 `<NameInput>` 컴포넌트의 render, reconciliation 단계까지 수행했을때 virtual DOM에 변경사항이 없기 때문에 실제 DOM을 업데이트하는 commit 단계는 수행하지 않는 것이다.
+하지만 리렌더링이 됐다고 해서 `<NameInput>`에 해당하는 **실제 DOM이 변경되지는 않는다**. `<NameInput>`이 참조하고 있는 상태값들(`name`, `setName`)은 클릭전과 동일하기 때문에 render, reconciliation 단계까지 수행한 결과가 이전과 동일하고, commit 단계는 수행하지 않기 때문이다.
 
-**하지만 render, reconciliation 단계를 수행하는데 많은 연산이 필요하다면 어떻게 될까?** 실제 DOM이 변경되지 않음에도 불구하고 **불필요한 컴퓨팅 파워를 낭비**하게 되는 셈이다.
+**하지만 render, reconciliation 단계를 수행하는데 많은 연산이 필요하다면 어떨까?** 실제 DOM이 변경되지 않음에도 불구하고 **불필요한 컴퓨팅 파워를 낭비**하게 되는 셈이다.
 
 이때 `React.memo`를 사용해서 성능 최적화를 할 수 있다.
 
@@ -253,8 +263,8 @@ function SelectCandy({ selected, onChange }) {
 SelectCandy = React.memo(SelectCandy)
 
 function Parent() {
-  const [count, setCount] = useState(0)
   const [selectedCandy, setSelectedCandy] = useState('snickers')
+  const [count, setCount] = useState(0)
 
   const addCandy = () => {
     setCount(count + 1)
@@ -262,6 +272,7 @@ function Parent() {
 
   const showSelectedCandy = (candy) => {
     setSelectedCandy(candy)
+    console.log(`${candy} has been selected!`)
   }
 
   return (
@@ -274,13 +285,32 @@ function Parent() {
 }
 ```
 
-위 예시에서 버튼을 클릭하면 `<Parent>` 컴포넌트가 리렌더링 되고 `<SelectCandy>`도 함께 리렌더링 된다.
+위 예시에서 버튼을 클릭하면 `<Parent>` 컴포넌트가 리렌더링 되고 `<SelectCandy>`도 함께 리렌더링 된다. `React.memo`도 사용했고 `selectedCandy` 값도 그대로인데 왜 리렌더링이 됐을까?
 
-React.memo도 사용했고 selectedCandy 값도 그대로인데 왜 리렌더링이 됐을까?
+원인은 `<Parent>`가 렌더링될 때마다 `showSelectedCandy` 함수가 새로 생성되어 `onChange` props가 변하기 때문이다. 새로 생성된 함수는 기존의 함수와 다른 메모리 공간에 할당되기 때문에 기존 함수와 똑같더라도 참조 동등성에 의해 이 둘은 다르게 인식된다.
 
-원인은 onChange 속성으로 전달하는 showSelectedCandy에 있다.
+```js
+function Parent() {
+  const [selectedCandy, setSelectedCandy] = useState('snickers')
 
-showSelectedCandy 함수는 `<Parent>`가 렌더링될 때마다 새롭게 생성되어 별도의 메모리 공간에 할당되고 새로운 함수로 인식되기 때문이다. (참조 동등성)
+  // ...
+
+  useCallback((candy) => {
+    setSelectedCandy(candy)
+    console.log(`${candy} has been selected!`)
+  }, [])
+
+  return (
+    <>
+      <span>{count}</span>
+      <button onClick={addCandy}>add</button>
+      <SelectCandy selected={selectedCandy} onChange={setSelectedCandy} />
+    </>
+  )
+}
+```
+
+만약 `showSelectedCandy`가 상태값 변경만 한다면 `useState`의 상태값 변경 함수는 변하지 않는다는 점을 이용해서 `onChange` 속성값으로 `setSelectedCandy`를 전달할 수 있겠지만, console 출력 작업도 함께 하고 있으므로 `useCallback`을 사용해서 불필요하게 새로운 함수가 생성되어 리렌더링 발생하는 일을 막을 수 있다.
 
 ---
 
@@ -331,7 +361,7 @@ function Distance({ x, y, z }) {
 3. 의도치않게 성능 저하를 초래할 수 있으며 [[Reference]](https://kentcdodds.com/blog/usememo-and-usecallback#why-is-usecallback-worse)
 4. 의존성 배열에 넣은 값들 & 메모이제이션된 값들이 GC에서 제외되면서 메모리 누수가 발생할 수 있다.
 
-그러니 성능 최적화를 할 때는 발생하는 비용 대비 최적화의 효용이 큰지 따져보고 책임감을 가지고 해야 한다.
+그러니 **성능 최적화를 할 때는 발생하는 비용 대비 최적화의 효용이 큰지 따져보고 책임감을 가지고 해야 한다**.
 
 ## 느린 렌더링(slow render)를 먼저 고치자
 
@@ -340,11 +370,3 @@ function Distance({ x, y, z }) {
 느린 렌더링은 **render 단계에서 병목을 일으키는 코드가 있는 경우**를 의미한다. 느린 렌더링를 일으키는 병목 코드를 그대로 둔 채 리렌더링만 개선하면 코드의 복잡도가 올라가고 렌더링 이슈는 더 심해질 수 있다.
 
 Chrome 개발자 도구의 Performance 탭과 React DevTools profiler를 이용해서 느린 렌더링이 발생하는 인터랙션 구간을 분석하고 병목이 되는 원인을 찾아 조치를 취하자. **느린 렌더링으로 인한 렌더링 성능 저하가 개선된 이후에 리렌더링이 여전히 렌더링 성능을 저하시키는 원인이라는 판단이 되면, 그때 리렌더링을 최적화해도 늦지 않다**.
-
-https://kentcdodds.com/blog/optimize-react-re-renders
-
----
-
-Deep-dive
-
-- [리액트의 렌더링은 어떻게 일어나는가?](https://yceffort.kr/2022/04/deep-dive-in-react-rendering)
