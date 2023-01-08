@@ -100,7 +100,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-advanced-sitemap`,
       options: {
+        createLinkInHead: true,
         exclude: [`/dev-404-page`, `/404`, `/404.html`, `/__og-image`],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://blog.reesekimm.com',
+        sitemap: 'https://blog.reesekimm.com/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }],
       },
     },
     {
