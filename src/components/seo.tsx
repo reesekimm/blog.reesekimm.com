@@ -31,7 +31,7 @@ const SEO = ({ title, subtitle, path, ogImage, children }: SEOProps) => {
   return (
     <>
       <title>
-        {title || 'Home'} | {blogTitle}
+        {title} | {blogTitle}
       </title>
       <meta name="description" content={seo.description} />
       <meta name="og:image" content={seo.image} />

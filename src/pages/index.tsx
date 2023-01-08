@@ -4,6 +4,7 @@ import { Container, Text, Wrap } from '@chakra-ui/react'
 import Layout from '../components/layout'
 import ListItem from '../components/listItem'
 import { PostListQueryResult } from '../types'
+import SEO from '../components/seo'
 
 type HomeProps = Pick<PageProps<PostListQueryResult>, 'data'>
 
@@ -70,3 +71,7 @@ export const query = graphql`
 `
 
 export default Home
+
+export const Head = ({ location }) => {
+  return <SEO title="홈" path={location.pathname} />
+}

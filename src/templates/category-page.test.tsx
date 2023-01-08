@@ -1,10 +1,11 @@
 import React from 'react'
 import { useStaticQuery } from 'gatsby'
-import { render, screen } from '../utils/testing-library-util'
+import { render, screen, waitFor } from '../utils/testing-library-util'
 import SITE_QUERY from '../__fixtures__/siteQuery'
 import POST_LIST_QUERY from '../__fixtures__/postListQuery'
 import PAGE_CONTEXT from '../__fixtures__/pageContext'
 import CategoryPage from './category-page'
+import SEO from '../components/seo'
 
 jest.mock('gatsby')
 
@@ -17,10 +18,21 @@ describe('CategoryPage', () => {
     mockedUseStaticQuery.mockClear()
     mockedUseStaticQuery.mockReturnValue(SITE_QUERY)
     render(
-      <CategoryPage
-        data={POST_LIST_QUERY}
-        pageContext={PAGE_CONTEXT.categoryPage}
-      />
+      <>
+        <SEO title={PAGE_CONTEXT.categoryPage.categoryDisplayText} />
+        <CategoryPage
+          data={POST_LIST_QUERY}
+          pageContext={PAGE_CONTEXT.categoryPage}
+        />
+      </>
+    )
+  })
+
+  it('페이지 타이틀을 표시한다', async () => {
+    await waitFor(() =>
+      expect(document.title).toBe(
+        `${PAGE_CONTEXT.categoryPage.categoryDisplayText} | ${SITE_QUERY.site.siteMetadata.title}`
+      )
     )
   })
 

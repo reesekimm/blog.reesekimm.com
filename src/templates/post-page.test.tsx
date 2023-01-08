@@ -1,9 +1,10 @@
 import React from 'react'
 import { useStaticQuery } from 'gatsby'
-import { render, screen } from '../utils/testing-library-util'
+import { render, screen, waitFor } from '../utils/testing-library-util'
 import POST_QUERY from '../__fixtures__/postQuery'
 import SITE_QUERY from '../__fixtures__/siteQuery'
 import PostPage from './post-page'
+import SEO from '../components/seo'
 
 jest.mock('gatsby')
 
@@ -17,7 +18,20 @@ describe('PostPage', () => {
   beforeEach(() => {
     mockedUseStaticQuery.mockClear()
     mockedUseStaticQuery.mockReturnValue(SITE_QUERY)
-    render(<PostPage data={POST_QUERY}>{undefined}</PostPage>)
+    render(
+      <>
+        <SEO title={POST_QUERY.mdx.frontmatter.title} />
+        <PostPage data={POST_QUERY}>{undefined}</PostPage>
+      </>
+    )
+  })
+
+  it('페이지 타이틀을 표시한다.', async () => {
+    await waitFor(() =>
+      expect(document.title).toBe(
+        `${POST_QUERY.mdx.frontmatter.title} | ${SITE_QUERY.site.siteMetadata.title}`
+      )
+    )
   })
 
   it('포스트 작성일을 표시한다', () => {

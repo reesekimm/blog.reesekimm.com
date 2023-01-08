@@ -39,6 +39,7 @@ module.exports = async ({ graphql, actions, reporter }) => {
         component: categoryPageTemplate,
         context: {
           categoryName: category.name,
+          categoryDisplayText: category.displayText,
           categoryDescription: category.description,
         },
       })

@@ -1,6 +1,7 @@
 const pageContext = {
   categoryPage: {
     categoryName: 'dev',
+    categoryDisplayText: '개발',
     categoryDescription: '개발과 기술에 대해 기록합니다',
   },
   postOgImage: {

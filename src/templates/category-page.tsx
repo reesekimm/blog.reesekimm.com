@@ -73,5 +73,7 @@ export const query = graphql`
 export default CategoryPage
 
 export const Head = ({ location, pageContext }) => {
-  return <SEO path={location.pathname} ogImage={pageContext.ogImage} />
+  const { categoryDisplayText } = pageContext
+
+  return <SEO title={categoryDisplayText} path={location.pathname} />
 }
