@@ -110,9 +110,6 @@ const theme = {
           marginBottom: '1rem',
           letterSpacing: '.02rem',
         },
-        'blockquote > p': {
-          margin: 0,
-        },
         img: {
           margin: '1rem auto 0',
           width: '100%',
@@ -138,12 +135,18 @@ const theme = {
           padding: '0.15rem 0.25rem',
         },
         blockquote: {
-          padding: '.5rem 1rem',
+          padding: '1rem 1rem .5rem',
           color: 'gray.500',
           borderLeft: '4px',
           borderColor: 'gray.400',
           bg: mode('gray.100', 'gray.700')(props),
           margin: '1rem 0 2rem',
+        },
+        'blockquote > p': {
+          margin: 0,
+        },
+        'blockquote > ul, blockquote > ol': {
+          margin: 0,
         },
         th: {
           borderBottom: '1px',
