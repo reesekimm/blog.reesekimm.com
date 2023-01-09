@@ -7,22 +7,30 @@ tags: ['React']
 slug: /230102
 ---
 
-# 1. React without JSX
+# 1. React의 특징
 
 ## React는 선언형 API를 제공한다
 
 자바스크립트로 DOM을 그릴때 `document.createElement()`라는 브라우저 API를 사용한다.
 
-React 역시 내부적으로 DOM을 그릴때 같은 API를 사용하는데[[Reference]](https://github.com/facebook/react/blob/48907797294340b6d5d8fecfbcf97edf0691888d/packages/react-dom/src/client/ReactDOMComponent.js#L416), **명령형** API를 '추상화'를 통해 **선언형**으로 바꾸어 제공함으로써 선언형 프로그래밍을 가능하게 해준다.
+React 역시 내부적으로 DOM을 그릴때 같은 API를 사용하는데[[Reference]](https://github.com/facebook/react/blob/48907797294340b6d5d8fecfbcf97edf0691888d/packages/react-dom/src/client/ReactDOMComponent.js#L416), **명령형** API를 **추상화**를 통해 **선언형**으로 바꾸어 제공함으로써 여러가지 장점을 제공한다.
 
 > **명령형 프로그래밍 vs 선언형 프로그래밍**
 >
-> - 명령형 프로그래밍 : 컴퓨터가 _어떻게_ 동작해야 하는지를 프로그래밍하는 것
-> - 선언형 프로그래밍 : 컴퓨터가 _무엇을_ 해야할지를 프로그래밍 하는 것
+> - 명령형 프로그래밍 : 컴퓨터가 _어떻게_ 동작해야 하는지를 프로그래밍하는 것 (과정에 집중)
+> - 선언형 프로그래밍 : 컴퓨터가 _무엇을_ 해야할지를 프로그래밍 하는 것 (목적에 집중)
 
-## React는 여러 플랫폼(e.g. 웹, 네이티브)을 지원한다
+### 선언형 API의 장점
 
-각 플랫폼은 `플랫폼간에 공유하는 React 코드`와 `해당 플랫폼 React와 상호작용 하는데 필요한 코드`로 이루어지며, 웹에서 동작하는 React 애플리케이션을 만들려면 아래와 같이 두 개의 자바스크립트 파일이 필요하다.
+1. 가독성이 좋다.
+2. 예측 가능하고 디버깅이 쉽다.
+3. 재사용이 쉽다.
+
+## React는 여러 플랫폼을 지원한다
+
+선언적으로 작성된 코드는 추상화되어 있기 때문에 외부에 노출되는 인터페이스는 그대로 유지한채 내부 구현만 바꾸어 여러 플랫폼을 지원하기 용이하다.
+
+React는 웹 뿐만 아니라 다른 플랫폼(네이티브)을 [지원](https://reactnative.dev/)한다. 각 플랫폼은 `플랫폼간에 공유하는 React 코드`와 `해당 플랫폼 React와 상호작용 하는데 필요한 코드`로 이루어지며, 웹에서 동작하는 React 애플리케이션을 만들려면 아래와 같이 두 개의 자바스크립트 파일이 필요하다.
 
 - [react](https://www.npmjs.com/package/react)
   - React element를 생성하는 역할
@@ -30,6 +38,8 @@ React 역시 내부적으로 DOM을 그릴때 같은 API를 사용하는데[[Ref
 - [reactDOM](https://www.npmjs.com/package/react-dom)
   - React element를 DOM으로 렌더링하는 역할
   - React가 웹 플랫폼과 상호작용하는데 필요한 코드
+
+# 2. React without JSX
 
 ## JSX 없이 React 사용하기
 
@@ -80,7 +90,7 @@ React 18 기준으로 아래와 같이 구현할 수 있다.
 </body>
 ```
 
-# 2. React with JSX
+# 3. React with JSX
 
 JSX는 `React.createElement()`를 추상화하여 쉽게 사용할수 있게 만든 문법적 설탕(syntactic sugar)다.[[Reference]](https://reactjs.org/docs/jsx-in-depth.html)
 
@@ -152,7 +162,7 @@ Babel에 의해 컴파일된 JSX는 `<head>` 태그 내부에 담긴다.
 </body>
 ```
 
-# 3. Component
+# 4. Component
 
 컴포넌트는 React element를 반환하는 자바스크립트 함수다.[[Reference]](https://reactjs.org/docs/components-and-props.html)
 
