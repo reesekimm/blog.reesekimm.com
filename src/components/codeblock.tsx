@@ -30,7 +30,7 @@ const Codeblock: ComponentType<any> = (props) => {
             maxWidth: '100%',
             borderRadius: '8px',
             padding: '.8rem',
-            margin: '2rem 0',
+            marginBottom: '2rem',
             fontSize: '.8rem',
             whiteSpace: language ? 'pre' : 'pre-wrap',
             overflowX: language ? 'scroll' : 'auto',

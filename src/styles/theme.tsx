@@ -124,7 +124,7 @@ const theme = {
           },
         },
         hr: {
-          margin: '2rem 0',
+          margin: '3rem 0',
         },
         code: {
           fontSize: 'sm',
@@ -135,7 +135,7 @@ const theme = {
           padding: '0.15rem 0.25rem',
         },
         blockquote: {
-          padding: '1rem 1rem .5rem',
+          padding: '.5rem 1rem',
           color: 'gray.500',
           borderLeft: '4px',
           borderColor: 'gray.400',
