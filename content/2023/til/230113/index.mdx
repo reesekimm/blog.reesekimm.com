@@ -1,0 +1,172 @@
+---
+date: 2023-01-13
+title: 타입스크립트 extends, keyof, in
+subtitle: Typescript Challenges 4 - Pick
+category: til
+tags: ['typescript']
+slug: /230113
+---
+
+**Challenge**
+
+`T`에서 `K` 프로퍼티만 선택해 새로운 오브젝트 타입을 만드는 유틸리티 타입을 `Pick<T, K>`을 사용하지 않고 구현하기
+
+**Answer**
+
+```ts
+type MyPick<T, K extends keyof T> = { [key in K]: T[key] }
+```
+
+# extends 키워드
+
+`extends` 키워드는 크게 3가지 상황에서 사용한다.
+
+1. 특정 프로퍼티를 가지고 있어야 한다는 제약을 둘 때
+
+ㅤㅤ→ [Generic Constraints](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-constraints)
+
+```ts
+function loggingIdentity<Type>(arg: Type): Type {
+  console.log(arg.length) // Error: Property 'length' does not exist on type 'Type'.
+  return arg
+}
+```
+
+타입스크립트 컴파일러 입장에서는 모든 타입이 `length` 프로퍼티를 가지고 있는지 여부를 알 수 없기 때문에 에러가 발생한다.
+
+이때 `length` 프로퍼티를 가지고 있어야 한다는 최소한의 제약을 둬서 타입 안정성을 확보할 수 있다.
+
+```ts
+interface Lengthwise {
+  length: number
+}
+
+function loggingIdentity<Type extends Lengthwise>(arg: Type): Type {
+  console.log(arg.length) // arg가 length 프로퍼티를 가지고 있음이 보장됐기 때문에 에러가 발생하지 않는다
+  return arg
+}
+
+loggingIdentity(3) // ERROR: Argument of type 'number' is not assignable to parameter of type 'Lengthwise'.
+```
+
+2. 특정 [타입 파라미터](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#type-parameters)를 사용해서 타입을 강제할때
+
+ㅤㅤ→ [Using Type parameters in Generic Constraints](https://www.typescriptlang.org/docs/handbook/2/generics.html#using-type-parameters-in-generic-constraints)
+
+```ts
+function getProperty<Type, Key extends keyof Type>(obj: Type, key: Key) {
+  return obj[key]
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 }
+
+getProperty(x, 'a')
+getProperty(x, 'm') // ERROR: Argument of type '"m"' is not assignable to parameter of type '"a" | "b" | "c" | "d"'.
+```
+
+3. interface를 확장할때
+
+```ts
+interface BasicAddress {
+  name?: string
+  street: string
+  city: string
+  country: string
+  postalCode: string
+}
+
+interface AddressWithUnit extends BasicAddress {
+  unit: string
+}
+```
+
+```ts
+interface Colorful {
+  color: string
+}
+
+interface Circle {
+  radius: number
+}
+
+interface ColorfulCircle extends Colorful, Circle {}
+
+const cc: ColorfulCircle = {
+  color: 'red',
+  radius: 42,
+}
+```
+
+[[Reference]](https://www.typescriptlang.org/docs/handbook/2/objects.html#extending-types)
+
+# keyof 타입 연산자
+
+[keyof](https://www.typescriptlang.org/docs/handbook/2/keyof-types.html) 타입 연산자는 object 타입을 받아 string 또는 키값들의 numeric literal union을 생성한다.
+
+```ts
+type Point = { x: number; y: number }
+type P = keyof Point // 'x' | 'y'
+```
+
+타입에 [index signature](https://www.typescriptlang.org/docs/handbook/2/objects.html#index-signatures)가 있을 경우에는 지정한 타입을 반환한다.
+
+```ts
+type Arrayish = { [n: number]: unknown }
+type A = keyof Arrayish // number
+
+type Mapish = { [k: string]: boolean }
+type M = keyof Mapish // string | number
+```
+
+M이 string | number인 이유는 타입 `Mapish`에 string index signature가 포함되어 있기 때문이다.
+
+> If X contains a string index signature, keyof X is a union of string, number, and the literal types representing symbol-like properties [[Reference]](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-9.html)
+
+온전하게 string만 허용하고 싶다면 [`Extract<Type, Union>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#extracttype-union) 유틸리티 타입을 사용하면 된다.
+
+```ts
+type Mapish = { [k: string]: boolean }
+type M = Extract<keyof Mapish, string> // string
+```
+
+[[Reference]](https://stackoverflow.com/questions/51808160/keyof-inferring-string-number-when-key-is-only-a-string)
+
+# in 연산자
+
+[in](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in) 연산자는 자바스크립트에서 객체의 특정 프로퍼티가 존재하는지 여부를 불리언으로 반환해준다.
+
+```js
+const car = { make: 'Honda', model: 'Accord', year: 1998 }
+console.log('make' in car) // true
+```
+
+타입스크립트에서는 크게 두 가지 상황에서 사용된다.
+
+1. 유니온 키값들을 순회해서 [mapped 타입](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)을 생성할때 사용된다.
+
+```ts
+// Example 1
+type A = { [key in K]: T[key] }
+
+// Example 2
+type OptionsFlags<Type> = {
+  [Property in keyof Type]: boolean
+}
+```
+
+2. [narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#the-in-operator-narrowing)시 타입 가드로 사용된다.
+
+```ts
+type Fish = { swim: () => void }
+type Bird = { fly: () => void }
+
+function move(animal: Fish | Bird) {
+  if ('swim' in animal) {
+    return animal.swim()
+  }
+
+  return animal.fly()
+}
+```
+
+[[Reference]](https://github.com/Microsoft/TypeScript/issues/10485)
