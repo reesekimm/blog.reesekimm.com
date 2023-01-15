@@ -142,7 +142,7 @@ console.log('make' in car) // true
 
 타입스크립트에서는 크게 두 가지 상황에서 사용된다.
 
-1. 유니온 키값들을 순회해서 [mapped 타입](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)을 생성할때 사용된다.
+1. 유니온 키값들을 순회해서 [mapped 타입](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)을 생성할때
 
 ```ts
 // Example 1
@@ -154,7 +154,7 @@ type OptionsFlags<Type> = {
 }
 ```
 
-2. [narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#the-in-operator-narrowing)시 타입 가드로 사용된다.
+2. [narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#the-in-operator-narrowing)시 타입 가드
 
 ```ts
 type Fish = { swim: () => void }
