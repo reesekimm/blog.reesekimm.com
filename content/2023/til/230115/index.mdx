@@ -1,0 +1,143 @@
+---
+date: 2023-01-15
+title: 타입스크립트 readonly
+subtitle: Typescript Challenges 7 - Readonly
+category: til
+tags: ['typescript']
+slug: /230115
+---
+
+타입스크립트의 `readonly`는 어떠한 값이 '읽기 전용'임을 나타낸다. 읽기 전용이라는건 초기값을 할당한 이후에는 **값을 재할당 할 수 없다**는 의미로, **값을 읽고 변경하는 것은 가능하다**.
+
+자바스크립트의 [const](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)로 선언한 변수에 배열이나 객체를 할당하면 새로운 값을 재할당 하는건 불가능 하지만 배열 또는 객체의 값을 변경하는건 가능한 것과 비슷하다.
+
+[[Reference]](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-func.html#readonly-and-const)
+
+# 1. readonly 제한자
+
+특정 프로퍼티를 읽기 전용으로 만든다.
+
+```ts
+interface Home {
+  readonly resident: { name: string; age: number }
+}
+
+function visitForBirthday(home: Home) {
+  // 'home.resident' 값을 읽고 변경할 수 있다.
+  console.log(`Happy birthday ${home.resident.name}!`)
+  home.resident.age++
+}
+
+function evict(home: Home) {
+  // 하지만 재할당은 불가능하다.
+  // ERROR: Cannot assign to 'resident' because it is a read-only property.
+  home.resident = {
+    name: 'Victor the Evictor',
+    age: 42,
+  }
+}
+```
+
+주의할 점은 aliasing을 할때 `readonly` 여부가 바뀔 수 있다는 것이다. 이는 타입스크립트가 프로퍼티의 속성이 `readonly`인지 여부를 고려하지 않기 때문이다.
+
+```ts
+interface Person {
+  name: string
+  age: number
+}
+
+interface ReadonlyPerson {
+  readonly name: string
+  readonly age: number
+}
+
+let writablePerson: Person = {
+  name: 'Person McPersonface',
+  age: 42,
+}
+
+let readonlyPerson: ReadonlyPerson = writablePerson // works
+
+console.log(readonlyPerson.age) // prints '42'
+
+writablePerson.age++
+console.log(readonlyPerson.age) // prints '43'
+
+writablePerson.age = 50
+console.log(readonlyPerson.age) // prints '50'
+```
+
+`readonly` 제한자를 지우고 싶다면 [mapping 제한자](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#mapping-modifiers)를 사용하면 된다.
+
+```ts
+// Removes 'readonly' attributes from a type's properties
+type CreateMutable<Type> = {
+  -readonly [Property in keyof Type]: Type[Property]
+}
+
+type LockedAccount = {
+  readonly id: string
+  readonly name: string
+}
+
+type UnlockedAccount = CreateMutable<LockedAccount> // { id: string; name: string; }
+```
+
+[[Reference]](https://www.typescriptlang.org/docs/handbook/2/objects.html#readonly-properties)
+
+# 2. Readonly 타입
+
+객체의 모든 속성을 readonly로 바꿔준다.
+
+```ts
+interface Todo {
+  title: string
+}
+
+const todo: Readonly<Todo> = {
+  title: 'Delete inactive users',
+}
+
+todo.title = 'Hello' // ERROR: Cannot assign to 'title' because it is a read-only property.
+```
+
+런타임에 실패할 할당 표현식을 표현할때 유용하다. (e.g. [frozen object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)의 프로퍼티를 재할당 하려고 할때)
+
+```ts
+function freeze<Type>(obj: Type): Readonly<Type>
+```
+
+[[Reference]](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype)
+
+# 3. ReadonlyArray 타입
+
+ReadonlyArray 타입의 배열은 `push`, `pop` 등을 사용하여 배열을 수정하거나, 배열 안에 있는 값을 재할당할 수 없다.
+
+`ReadonlyArray<Type>`는 줄여서 `readonly Type[]`로 표현할 수 있다.
+
+```ts
+let a: ReadonlyArray<number> = [1, 2, 3]
+a.push(102) // ERROR: Property 'push' does not exist on type 'readonly number[]'.
+
+let b: readonly number[] = [1, 2, 3]
+b[0] = 101 // ERROR: Index signature in type 'readonly number[]' only permits reading.
+```
+
+배열이 변경되지 않아야 한다는 의도를 명시적으로 나타낼때 유용하다.
+
+<br />
+[[Reference]](https://www.typescriptlang.org/docs/handbook/2/objects.html#the-readonlyarray-type)
+
+# 4. const assertion
+
+const assertion은 컴파일러에게 최대한 좁은 범위의, 구체적인 타입을 추론하라고 지시하는 문법이다. 객체나 배열에 사용해서 변경을 제한할수 있다.
+
+- 객체 리터럴의 모든 프로퍼티가 `readonly`가 된다.
+- 배열 리터럴은 readonly 튜플이 된다.
+
+```ts
+let x = [10, 20] as const // Type 'readonly [10, 20]'
+let y = { text: 'hello' } as const // Type '{ readonly text: "hello" }'
+```
+
+[[Reference]](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions)
