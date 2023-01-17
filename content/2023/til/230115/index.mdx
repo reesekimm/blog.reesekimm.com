@@ -87,7 +87,7 @@ type UnlockedAccount = CreateMutable<LockedAccount> // { id: string; name: strin
 
 # 2. Readonly 타입
 
-객체의 모든 속성을 readonly로 바꿔준다.
+객체의 모든 속성을 `readonly`로 바꿔준다.
 
 ```ts
 interface Todo {
@@ -111,9 +111,7 @@ function freeze<Type>(obj: Type): Readonly<Type>
 
 # 3. ReadonlyArray 타입
 
-ReadonlyArray 타입의 배열은 `push`, `pop` 등을 사용하여 배열을 수정하거나, 배열 안에 있는 값을 재할당할 수 없다.
-
-`ReadonlyArray<Type>`는 줄여서 `readonly Type[]`로 표현할 수 있다.
+ReadonlyArray 타입의 배열은 `push`, `pop` 등을 사용하여 배열을 수정하거나, 배열 안에 있는 값을 재할당할 수 없다. 줄여서 `readonly Type[]`로 표현할 수 있다.
 
 ```ts
 let a: ReadonlyArray<number> = [1, 2, 3]
@@ -133,7 +131,7 @@ b[0] = 101 // ERROR: Index signature in type 'readonly number[]' only permits re
 const assertion은 컴파일러에게 최대한 좁은 범위의, 구체적인 타입을 추론하라고 지시하는 문법이다. 객체나 배열에 사용해서 변경을 제한할수 있다.
 
 - 객체 리터럴의 모든 프로퍼티가 `readonly`가 된다.
-- 배열 리터럴은 readonly 튜플이 된다.
+- 배열 리터럴은 `readonly` 튜플이 된다.
 
 ```ts
 let x = [10, 20] as const // Type 'readonly [10, 20]'
