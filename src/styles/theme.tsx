@@ -109,6 +109,9 @@ const theme = {
           display: 'inline-block',
           marginBottom: '1rem',
           letterSpacing: '.02rem',
+          a: {
+            color: mode('brand.light', 'brand.dark')(props),
+          },
         },
         img: {
           margin: '1rem auto 0',
