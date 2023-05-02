@@ -72,7 +72,10 @@ const theme = {
       },
       'ol, ul': {
         listStylePosition: 'inside',
-        marginBottom: '1rem',
+        margin: '1rem 0',
+      },
+      'aside ol': {
+        margin: '0',
       },
       h1: {
         paddingBotton: '4rem',
@@ -103,7 +106,10 @@ const theme = {
           margin: '2rem 0 .8rem',
         },
         li: {
-          padding: '.5rem 0 .5rem 1rem',
+          padding: '.3rem 0 .3rem 1rem',
+          p: {
+            display: 'inline',
+          },
         },
         p: {
           display: 'inline-block',
@@ -138,7 +144,7 @@ const theme = {
           padding: '0.15rem 0.25rem',
         },
         blockquote: {
-          padding: '.5rem 1rem',
+          padding: '.6rem 1rem',
           color: 'gray.500',
           borderLeft: '4px',
           borderColor: 'gray.400',
@@ -150,6 +156,9 @@ const theme = {
         },
         'blockquote > ul, blockquote > ol': {
           margin: 0,
+        },
+        'blockquote li': {
+          paddingLeft: '0',
         },
         th: {
           borderBottom: '1px',
