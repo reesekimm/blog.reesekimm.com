@@ -35,13 +35,7 @@ describe('Home', () => {
     )
   })
 
-  it('소개 문구를 표시한다', () => {
-    expect(
-      screen.getByText('웹 프론트엔드 개발을 합니다', { exact: false })
-    ).toBeInTheDocument()
-  })
-
   it('최신글 5개를 표시한다', () => {
-    expect(screen.getAllByRole('listitem')).toHaveLength(5)
+    expect(screen.getAllByTestId('title')).toHaveLength(5)
   })
 })

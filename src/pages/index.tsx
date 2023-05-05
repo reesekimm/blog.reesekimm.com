@@ -50,7 +50,11 @@ const Home = ({ data }: HomeProps) => {
                 <div style={{ paddingLeft: '1rem' }}>{`"date": "${date}"`}</div>
                 <div style={{ paddingLeft: '1rem' }}>
                   <span>{`"title": `}</span>"
-                  <span className="title">{`${title}`}</span>"
+                  <span
+                    className="title"
+                    data-testid="title"
+                  >{`${title}`}</span>
+                  "
                 </div>
                 <div>{`}`}</div>
               </Link>
