@@ -1,8 +1,7 @@
 import React from 'react'
 import { graphql, PageProps } from 'gatsby'
-import { Container, Text, Wrap } from '@chakra-ui/react'
+import { Link, Text } from '@chakra-ui/react'
 import Layout from '../components/layout'
-import ListItem from '../components/listItem'
 import { PostListQueryResult } from '../types'
 import SEO from '../components/seo'
 
@@ -15,39 +14,53 @@ const Home = ({ data }: HomeProps) => {
 
   return (
     <Layout>
-      <Container
-        as="section"
-        w="100%"
-        p={['1rem 0', '2rem 0']}
-        m={0}
-        maxW="initial"
-        borderBottom="1px solid lightgray"
-      >
-        <Text>
-          웹 프론트엔드 개발을 합니다. <br /> 사용자 경험을 좌우할 수 있는
-          디테일을 중요하게 생각합니다.
-        </Text>
-      </Container>
-      <Text fontWeight="bold" w="100%" padding="2rem 0 1rem">
-        최신글
+      <Text fontWeight="bold" w="100%" marginTop="2rem">
+        Operations
       </Text>
-      <Wrap as="ol" w="100%" direction="column" shouldWrapChildren>
+      <code className="operation">
+        <div>{`query {`}</div>
+        <div style={{ paddingLeft: '1rem' }}>
+          {`allPosts(sort: { fields: date, order: DESC }, limit: 5) {`}
+        </div>
+        <div style={{ paddingLeft: '2rem' }}>date</div>
+        <div style={{ paddingLeft: '2rem' }}>title</div>
+        <div style={{ paddingLeft: '1rem' }}>{`}`}</div>
+        <div>{`}`}</div>
+      </code>
+      <Text fontWeight="bold" w="100%" marginTop="2rem">
+        Response
+      </Text>
+      <code>
+        <div>{`{`}</div>
+        <div style={{ paddingLeft: '1rem' }}>{`"data": {`}</div>
+        <div style={{ paddingLeft: '2rem' }}>{`[`}</div>
         {recentPosts.map(
           ({
             node: {
-              frontmatter: { title, date, category, slug },
               id,
+              frontmatter: { title, date, category, slug },
             },
           }) => (
-            <ListItem
-              key={id}
-              path={`/${category + slug}`}
-              title={title}
-              date={date}
-            />
+            <div style={{ paddingLeft: '3rem' }} key={id}>
+              <Link
+                href={`/${category + slug}`}
+                _hover={{ textDecoration: 'none' }}
+              >
+                <div>{`{`}</div>
+                <div style={{ paddingLeft: '1rem' }}>{`"date": "${date}"`}</div>
+                <div style={{ paddingLeft: '1rem' }}>
+                  <span>{`"title": `}</span>"
+                  <span className="title">{`${title}`}</span>"
+                </div>
+                <div>{`}`}</div>
+              </Link>
+            </div>
           )
         )}
-      </Wrap>
+        <div style={{ paddingLeft: '2rem' }}>{`]`}</div>
+        <div style={{ paddingLeft: '1rem' }}>{`}`}</div>
+        <div>{`}`}</div>
+      </code>
     </Layout>
   )
 }

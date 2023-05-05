@@ -86,6 +86,44 @@ const theme = {
       'h3, h4': {
         paddingBottom: '1rem',
       },
+      code: {
+        width: '100%',
+        padding: '.7rem 1rem',
+        marginTop: '1rem',
+        borderRadius: '10px',
+        fontSize: '0.85rem',
+        fontWeight: 600,
+        border: `2px solid`,
+        borderColor: mode('gray.100', 'gray.600')(props),
+        color: mode('gray.700', 'white')(props),
+        a: {
+          span: {
+            position: 'relative',
+            zIndex: 0,
+            '::before': {
+              content: '""',
+              backgroundColor: mode('brand.light', 'brand.dark')(props),
+              opacity: 0.7,
+              position: 'absolute',
+              left: 0,
+              bottom: 0,
+              width: 0,
+              height: '100%',
+              zIndex: -1,
+              transition: 'all .25s ease-in-out',
+            },
+          },
+          _hover: {
+            '.title::before': {
+              width: '100%',
+            },
+          },
+        },
+      },
+      'code.operation': {
+        bg: mode('gray.100', 'gray.600')(props),
+        color: mode('brand.light', 'brand.dark')(props),
+      },
       '#post-content': {
         'h1, h2, h3, h4, h5': {
           padding: 0,
@@ -125,8 +163,8 @@ const theme = {
         },
         pre: {
           /* Hide scrollbar */
-          '-ms-overflow-style': 'none' /* IE and Edge */,
-          'scrollbar-width': 'none' /* Firefox */,
+          msOverflowStyle: 'none' /* IE and Edge */,
+          scrollbarWidth: 'none' /* Firefox */,
           '::-webkit-scrollbar': {
             /* Chrome, Safari and Opera */
             display: 'none',
