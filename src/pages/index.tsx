@@ -32,8 +32,7 @@ const Home = ({ data }: HomeProps) => {
       </Text>
       <code>
         <div>{`{`}</div>
-        <div style={{ paddingLeft: '1rem' }}>{`"data": {`}</div>
-        <div style={{ paddingLeft: '2rem' }}>{`[`}</div>
+        <div style={{ paddingLeft: '1rem' }}>{`"data": [`}</div>
         {recentPosts.map(
           ({
             node: {
@@ -41,7 +40,7 @@ const Home = ({ data }: HomeProps) => {
               frontmatter: { title, date, category, slug },
             },
           }) => (
-            <div style={{ paddingLeft: '3rem' }} key={id}>
+            <div style={{ paddingLeft: '2rem' }} key={id}>
               <Link
                 href={`/${category + slug}`}
                 _hover={{ textDecoration: 'none' }}
@@ -61,8 +60,7 @@ const Home = ({ data }: HomeProps) => {
             </div>
           )
         )}
-        <div style={{ paddingLeft: '2rem' }}>{`]`}</div>
-        <div style={{ paddingLeft: '1rem' }}>{`}`}</div>
+        <div style={{ paddingLeft: '1rem' }}>{`]`}</div>
         <div>{`}`}</div>
       </code>
     </Layout>
