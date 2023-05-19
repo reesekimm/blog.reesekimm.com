@@ -74,10 +74,10 @@ package.json을 우선적으로 찾고, 그 이후에는 node_modules에서 `.js
 
 로컬에서는 이 설정 없이도 node_modules가 정상적으로 생성됐는데, 어떻게 가능했던 걸까?
 
-사용중인 yarn의 버전은 v3.3.1 Yarn Berry 였다. **Yarn Berry는 설정 파일을 참조할때 실행 경로의 상위에 있는 부모 디렉토리들에서 .yarnrc.yml 파일을 탐색하여 참조한다**. ([링크](https://yarnpkg.com/configuration/yarnrc))
+사용 중인 yarn의 버전은 v3.3.1 Yarn Berry였다. **Yarn Berry는 설정 파일을 참조할 때 실행 경로의 상위에 있는 부모 디렉토리들에서 .yarnrc.yml 파일을 탐색하여 참조한다**. ([링크](https://yarnpkg.com/configuration/yarnrc))
 
-나의 경우에는 프로젝트 디렉토리 상위에 있는 `/Users/[사용자명]`에 .yarnrc.yml이 있었고 여기에 `nodeLinker: node-modules` 설정이 있었다. (몇 달 전 Yarn v1에서 Yarn Berry로 마이그레이션 하는 과정에서 자동으로 추가된건지, 내가 수동으로 입력한건지는 기억이 나지 않는다..) 어쨌든 부모 디렉토리에 있던 이 설정 때문에 프로젝트 루트에 있는 .yarnrc.yml에는 해당 설정이 없어도 node_modules가 생성된 것이었다.
+나의 경우에는 프로젝트 디렉토리 상위에 있는 `/Users/[사용자명]`에 .yarnrc.yml이 있었고 여기에 `nodeLinker: node-modules` 설정이 있었다. (몇 달 전 Yarn v1에서 Yarn Berry로 마이그레이션 하는 과정에서 자동으로 추가된 건지, 내가 수동으로 입력한 건지는 기억이 나지 않는다..) 어쨌든 부모 디렉토리에 있던 이 설정 때문에 프로젝트 루트에 있는 .yarnrc.yml에는 해당 설정이 없어도 node_modules가 생성된 것이었다.
 
-반면에 GitHub Actions runner 환경에서는 부모 디렉토리들을 아무리 탐색해도 .yarnrc.yml이 없으니, 프로젝트 루트에 있는 .yarnrc.yml만 참조할테고, 여기에는 nodeLinker 옵션을 따로 설정하지 않아서 기본값인 pnp가 적용된채로 의존성이 설치된 것이다. 그리고 타입스크립트 컴파일러는 존재하지 않는 node*modules를 애타게 찾다가 결국엔 실패하고 \_error TS2307: Cannot find module or its corresponding type declarations.* 에러를 뱉을 수밖에 없었다는게 사건의 전말이었다.
+반면에 GitHub Actions runner 환경에서는 부모 디렉토리들을 아무리 탐색해도 .yarnrc.yml이 없으니, 프로젝트 루트에 있는 .yarnrc.yml만 참조할테고, 여기에는 nodeLinker 옵션을 따로 설정하지 않아서 기본값인 pnp가 적용된채로 의존성이 설치된 것이다. 그리고 타입스크립트 컴파일러는 존재하지 않는 node*modules를 애타게 찾다가 결국엔 실패하고 \_error TS2307: Cannot find module or its corresponding type declarations.* 에러를 뱉을 수밖에 없었다는 게 사건의 전말이었다.
 
-이번 문제는 프로젝트 루트에 있는 .yarnrc.yml에 `nodeLinker: node-modules` 설정을 추가하는 것으로 간단하게 해결할 수 있었다. 하지만 한편으로는 이 문제의 근본적인 원인은 Yarn Berry의 설정 파일 참조 방식을 제대로 알고 쓰지 않은 나의 불찰이라는 생각이 들어 잠시동안 반성의 시간을 가졌다. 쓸거면 제대로 알고 쓰자.
+이번 문제는 프로젝트 루트에 있는 .yarnrc.yml에 `nodeLinker: node-modules` 설정을 추가하는 것으로 간단하게 해결할 수 있었다. 하지만 한편으로는 이 문제의 근본적인 원인이 Yarn Berry의 설정 파일 참조 방식을 제대로 알고 쓰지 않은 나의 불찰이라는 생각이 들어 잠깐 반성의 시간을 가졌다. 쓸 거면 제대로 알고 쓰자.
