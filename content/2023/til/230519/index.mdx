@@ -1,0 +1,83 @@
+---
+date: 2023-05-19
+title: Cannot find module or its corresponding type declarations
+subtitle: GitHub Actions runner 환경에서만 타입 선언을 찾지 못하는 문제
+category: til
+tags: ['yarn', '문제해결']
+slug: /230519
+---
+
+# 문제
+
+포트폴리오 웹사이트를 배포하는데 GitHub Actions에서 빌드시 의존성 패키지들의 타입 선언을 찾지 못하는 문제가 생겼다. 로컬에서는 타입 선언을 잘 찾고 정상적으로 빌드가 되는데 GitHub Actions runner 환경에서만 발생하는 것이다.
+
+```md
+src/main.ts(1,22) TS2307: Cannot find module 'gsap' or its corresponding type declarations.
+src/main.ts(2,31) TS2307: Cannot find module 'gsap/ScrollTrigger' or its corresponding type declarations.
+src/main.ts(3,23) TS2307: Cannot find module 'split-type' or its corresponding type declarations.
+src/main.ts(4,24) TS2307: Cannot find module 'three' or its corresponding type declarations.
+src/main.ts(5,31) TS2307: Cannot find module 'three/examples/jsm/controls/OrbitControls.js' or its corresponding type declarations.
+```
+
+# 디버깅
+
+문제를 해결하려면 타입스크립트가 어떤 과정을 거쳐 모듈의 타입 선언을 찾는지 이해할 필요가 있었다.
+
+## 🔍 타입스크립트의 모듈 탐색 (Module Resolution)
+
+타입스크립트 [Module Resolution](https://www.typescriptlang.org/docs/handbook/module-resolution.html)(모듈 해석)은 컴파일러가 각각의 import가 어떤 모듈을 가리키는지 해석하는 과정을 의미한다.
+
+예를 들어 `import { a } from "moduleA";`와 같은 import 구문이 있을때, 컴파일러는 `moduleA`의 타입 선언 파일을 탐색하고 해당 파일에 작성된 타입 선언을 참조해서 `a`를 올바르게 사용하고 있는지 검증한다. 여기서 '타입 선언 파일을 탐색하는 과정'이 바로 Module Resolution이고, 직역하면 '모듈 해석'인 것이다.
+
+이 탐색 과정은 tsconfig.json의 [moduleResolution](https://www.typescriptlang.org/tsconfig#moduleResolution) 옵션으로 설정한 전략([node](https://www.typescriptlang.org/docs/handbook/module-resolution.html#node), [classic](https://www.typescriptlang.org/docs/handbook/module-resolution.html#classic) 등)을 따르며, 그 안에서도 모듈이 상대경로(Relative)로 import 됐는지, 비-상대경로(Non-Relative)로 import 됐는지에 따라 다르게 수행된다. (전략별 자세한 모듈 탐색 과정은 [문서](https://www.typescriptlang.org/docs/handbook/module-resolution.html#module-resolution-strategies)에서 찾아볼 수 있다.)
+
+```ts
+import Entry from '../Entry' // Relative import
+import Entry from 'entry' // Non-relative import
+```
+
+나의 경우 Vite의 vanilla-ts 템플릿으로 프로젝트를 스캐폴딩 하면서 moduleResolution 옵션이 **bundler**로 설정된 상태였다. 타입스크립트 v5에 도입된 전략이라 그런지 해당 전략이 어떤 식으로 모듈을 탐색해 나가는지 명확하게 정리된 문서를 찾을 수 없었다. 문서가 없다면 직접 확인해 보는 수밖에.
+
+[traceResolution](https://www.typescriptlang.org/tsconfig#traceResolution) 옵션을 사용해서 컴파일러가 각 모듈의 타입 선언 파일을 탐색하는 과정을 추적해 보았다.
+
+```md
+======== Resolving module 'three' from '/Users/runner/work/portfolio-2023/portfolio-2023/src/ProfileCard.ts'. ========
+Explicitly specified module resolution kind: 'Bundler'.
+Resolving in CJS mode with conditions 'import', 'types'.
+File '/Users/runner/work/portfolio-2023/portfolio-2023/src/package.json' does not exist.
+Found 'package.json' at '/Users/runner/work/portfolio-2023/portfolio-2023/package.json'.
+Loading module 'three' from 'node_modules' folder, target file types: TypeScript, JavaScript, Declaration, JSON.
+Directory '/Users/runner/work/portfolio-2023/portfolio-2023/src/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/work/portfolio-2023/portfolio-2023/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/work/portfolio-2023/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/work/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/node_modules' does not exist, skipping all lookups in it.
+Directory '/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/work/portfolio-2023/portfolio-2023/src/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/work/portfolio-2023/portfolio-2023/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/work/portfolio-2023/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/work/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/runner/node_modules' does not exist, skipping all lookups in it.
+Directory '/Users/node_modules' does not exist, skipping all lookups in it.
+Directory '/node_modules' does not exist, skipping all lookups in it.
+======== Module name 'three' was not resolved. ========
+```
+
+package.json을 우선적으로 찾고, 그 이후에는 node_modules에서 `.js`, `.ts`, `.d.ts`, `.json` 형식의 파일을 탐색하는 과정이 반복되고 있는걸 알 수 있었는데, **문제는 최상위 경로까지 타고타고 올라가도 node_modules 디렉토리를 찾지 못하는데 있었다**.
+
+빌드 전에 의존성 설치까지 성공한 상태였는데 node_modules 디렉토리가 없다니? 이게 무슨 일인가.
+
+## 🔗 Yarn Berry의 nodeLinker 옵션
+
+**원인은 프로젝트 루트에 있는 .yarnrc.yml에 nodeLinker 옵션을 node-modules로 설정하지 않았기 때문이었다**.
+
+로컬에서는 이 설정 없이도 node_modules가 정상적으로 생성됐는데, 어떻게 가능했던 걸까?
+
+사용중인 yarn의 버전은 v3.3.1 Yarn Berry 였다. **Yarn Berry는 설정 파일을 참조할때 실행 경로의 상위에 있는 부모 디렉토리들에서 .yarnrc.yml 파일을 탐색하여 참조한다**. ([링크](https://yarnpkg.com/configuration/yarnrc))
+
+나의 경우에는 프로젝트 디렉토리 상위에 있는 `/Users/[사용자명]`에 .yarnrc.yml이 있었고 여기에 `nodeLinker: node-modules` 설정이 있었다. (몇 달 전 Yarn v1에서 Yarn Berry로 마이그레이션 하는 과정에서 자동으로 추가된건지, 내가 수동으로 입력한건지는 기억이 나지 않는다..) 어쨌든 부모 디렉토리에 있던 이 설정 때문에 프로젝트 루트에 있는 .yarnrc.yml에는 해당 설정이 없어도 node_modules가 생성된 것이었다.
+
+반면에 GitHub Actions runner 환경에서는 부모 디렉토리들을 아무리 탐색해도 .yarnrc.yml이 없으니, 프로젝트 루트에 있는 .yarnrc.yml만 참조할테고, 여기에는 nodeLinker 옵션을 따로 설정하지 않아서 기본값인 pnp가 적용된채로 의존성이 설치된 것이다. 그리고 타입스크립트 컴파일러는 존재하지 않는 node*modules를 애타게 찾다가 결국엔 실패하고 \_error TS2307: Cannot find module or its corresponding type declarations.* 에러를 뱉을 수밖에 없었다는게 사건의 전말이었다.
+
+이번 문제는 프로젝트 루트에 있는 .yarnrc.yml에 `nodeLinker: node-modules` 설정을 추가하는 것으로 간단하게 해결할 수 있었다. 하지만 한편으로는 이 문제의 근본적인 원인은 Yarn Berry의 설정 파일 참조 방식을 제대로 알고 쓰지 않은 나의 불찰이라는 생각이 들어 잠시동안 반성의 시간을 가졌다. 쓸거면 제대로 알고 쓰자.
